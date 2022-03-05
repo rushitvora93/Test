@@ -37,6 +37,17 @@ namespace InterfaceAdapters
                 RaisePropertyChanged();
             }
         }
+		
+        private ObservableCollection<ToolModelModel> _toolModels = new ObservableCollection<ToolModelModel>();
+        public ObservableCollection<ToolModelModel> ToolModels
+        {
+            get => _toolModels;
+            set
+            {
+                _toolModels = value;
+                RaisePropertyChanged();
+            }
+        }
 
         private ObservableCollection<ExtensionModel> _extensions = new ObservableCollection<ExtensionModel>();
         public ObservableCollection<ExtensionModel> Extensions
@@ -95,7 +106,6 @@ namespace InterfaceAdapters
         public void RestoreLocation(Location location)
         {
             InvokeActionOnGuiInterfaces(gui => gui.RestoreLocation(location));
-
         }
 
         public void ShowRestoreLocationError()
@@ -127,6 +137,7 @@ namespace InterfaceAdapters
                 standardExtension.InventoryNumber = _localization.Strings.GetParticularString("Extension", "No Extension");
             }
         }
+
         public event EventHandler<bool> ShowLoadingControlRequest;
 
         public void LanguageUpdate()
@@ -174,6 +185,33 @@ namespace InterfaceAdapters
                     break;
                 }
                 ShowLoadingControlRequest?.Invoke(this, false);
+			}
+		}
+
+        private void SetInventoryNumberForStandardToolModel(ObservableCollection<ToolModelModel> toolModels)
+        {
+            var standardToolModel = toolModels.SingleOrDefault(x => x.Id == (long)SpecialDbIds.NoEntrySelected);
+            if (standardToolModel != null)
+            {
+                standardToolModel.Description = _localization.Strings.GetParticularString("ToolModel", "No ToolModel");
+            }
+        }
+
+        public event EventHandler<bool> ShowLoadingControlRequest;
+
+        public void LanguageUpdate()
+        {
+            SetInventoryNumberForStandardExtension(Extensions);
+        }
+
+        public void ShowDeletedToolModels(List<Core.Entities.ToolModel> toolModels)
+        {
+            _guiDispatcher.Invoke(() =>
+            {
+                ToolModels = new ObservableCollection<InterfaceAdapters.Models.ToolModelModel>(toolModels.Select(x => InterfaceAdapters.Models.ToolModelModel.GetModelFor(x, _localization)));
+                SetInventoryNumberForStandardToolModel(ToolModels);
+                ShowLoadingControlRequest?.Invoke(this, false);
+                RaisePropertyChanged(nameof(ToolModels));
             });
         }
     }

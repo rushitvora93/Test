@@ -21,6 +21,9 @@ namespace FrameworksAndDrivers.DataAccess.DataAccess
 {
     public class ToolModelDataAccess: DataAccessBase, IToolModelDataAccess
     {
+        private readonly Mapper _mapper = new Mapper();
+        private readonly ITimeDataAccess _time;
+        private readonly IGlobalHistoryDataAccess _globalHistory;
         public ToolModelDataAccess(
             ITransactionDbContext transactionContext,
             SqliteDbContext dbContext, ITimeDataAccess time, IGlobalHistoryDataAccess globalHistoryDataAccess)
@@ -466,7 +469,7 @@ namespace FrameworksAndDrivers.DataAccess.DataAccess
                 if (driveType != null)
                 {
                     model.DriveType = new DriveType()
-                    {
+        {
                         ListId = new HelperTableEntityId(driveType.LISTID),
                         Value = new HelperTableEntityValue(driveType.INFO),
                         NodeId = (NodeId)driveType.NODEID,
@@ -514,7 +517,5 @@ namespace FrameworksAndDrivers.DataAccess.DataAccess
             return toolModels;
         }
 
-        private readonly ITimeDataAccess _time;
-        private readonly IGlobalHistoryDataAccess _globalHistory;
     }
 }

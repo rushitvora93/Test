@@ -22,6 +22,7 @@ namespace Core.UseCases
         void UpdateLocation(Location location);
         void ShowLocation(Location location);
         void ShowDeletedExtensions(List<Extension> extensions);
+        void ShowDeletedToolModels(List<ToolModel> toolModels);
         void ShowDeletedModelsWithAtLeastOneTool(List<ToolModel> models);
         void RestoreTool(Tool tool);
         void RestoreExtension(Extension extension);
@@ -49,6 +50,7 @@ namespace Core.UseCases
         void UpdateLocation(LocationDiff locationDiff);
         void LoadTreePathForLocations(List<Location> locations);
         void RestoreExtension(Extension extension);
+        void RestoreToolModels(ToolModel toolModel);
     }
 
     public class TrashUseCase : ITrashUseCase
@@ -132,6 +134,12 @@ namespace Core.UseCases
             #region Extension Bind
             var extensions = _dataAccess.LoadDeletedExtensions();
             Log.Debug($"LoadExtensions call with List of Extensions with size of {extensions?.Count}");
+            _gui.ShowDeletedExtensions(extensions);
+            #endregion
+
+            #region Tool Model Bind
+            var toolModels = _dataAccess.LoadDeletedToolModels();
+            Log.Debug($"LoadExtensions call with List of Extensions with size of {toolModels?.Count}");
             _gui.ShowDeletedExtensions(extensions);
             #endregion
 
@@ -234,7 +242,7 @@ namespace Core.UseCases
                 {
                     dependencyGui.ShowRemoveExtensionPreventingReferences(references);
                     return;
-                }
+        }
 
                 _dataAccess.RestoreExtension(extension, _userGetter?.GetCurrentUser());
                 _gui.RestoreExtension(extension);
@@ -398,6 +406,22 @@ namespace Core.UseCases
                 _gui.ShowRestoreLocationError();
             }
         }
+        public void RestoreToolModels(ToolModel toolModel)
+        {
+            if (toolModel is null)
+            {
+                throw new ArgumentNullException("extension is null", nameof(toolModel));
+            }
+            try
+            {
+                Log.Info("Restore extension started");
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Exception in RestoreLocation", exception);
+                _gui.ShowRestoreLocationError();
+            }
+        }
     }
 
     public class TrashUseCaseHumbleAsyncRunner : ITrashUseCase
@@ -438,7 +462,10 @@ namespace Core.UseCases
         {
             Task.Run(() => _real.RestoreExtension(extension));
         }
-
+        public void RestoreToolModels(ToolModel toolModel)
+        {
+            Task.Run(() => _real.RestoreToolModels(toolModel));
+        }
         public void UpdateLocation(LocationDiff locationDiff)
         {
             Task.Run(() => _real.UpdateLocation(locationDiff));

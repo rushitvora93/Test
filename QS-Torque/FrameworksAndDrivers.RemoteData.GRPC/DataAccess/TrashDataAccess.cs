@@ -250,14 +250,14 @@ namespace FrameworksAndDrivers.RemoteData.GRPC.DataAccess
                     ExtensionsDiff =
                     {
                         new DtoTypes.ExtensionDiff()
-                        {
+            {
                             UserId = user.UserId.ToLong(),
                             Comment =  "",
                             OldExtension = oldExtension,
                             NewExtension = newExtension
                         }
                     }
-                }
+            }
             };
 
             GetExtensionClient().UpdateExtensions(request);
