@@ -21,6 +21,7 @@ namespace FrameworksAndDrivers.DataAccess.DataAccess
 {
     public class ToolModelDataAccess: DataAccessBase, IToolModelDataAccess
     {
+        private readonly Mapper _mapper = new Mapper();
         public ToolModelDataAccess(
             ITransactionDbContext transactionContext,
             SqliteDbContext dbContext, ITimeDataAccess time, IGlobalHistoryDataAccess globalHistoryDataAccess)
@@ -414,107 +415,18 @@ namespace FrameworksAndDrivers.DataAccess.DataAccess
             _dbContext.ToolModelChanges.Add(toolModelChanges);
         }
 
-        public List<ToolModel> GetAllDeletedToolModels()
-        {
-            var dbToolModels = _dbContext.ToolModels.Where(toolModel => toolModel.ALIVE == true)
-                .Include(x => x.Manufacturer)
-                .Include(X => X.Tools).Where(X => X.Tools.Any(X => X.ALIVE == false))
-                .ToList();
-
-            var qstLists = _dbContext.QstLists
-                .Where(
-                    x => dbToolModels.Select(m => m.VERSIONID).ToList().Contains(x.LISTID) // ToolType
-                        || dbToolModels.Select(m => m.KINDID).ToList().Contains(x.LISTID) // SwitchOff
-                        || dbToolModels.Select(m => m.DRIVEID).ToList().Contains(x.LISTID) // DriveType
-                        || dbToolModels.Select(m => m.SWITCHID).ToList().Contains(x.LISTID) // ShutOff
-                        || dbToolModels.Select(m => m.FORMID).ToList().Contains(x.LISTID) // ConstructionType
-                        || dbToolModels.Select(m => m.MEAID).ToList().Contains(x.LISTID) // DriveSize
-                        )
-                .ToList();
-
-            var mapper = new Mapper();
-            var toolModels = new List<ToolModel>();
-            foreach (var dbModel in dbToolModels)
-            {
-                var model = mapper.DirectPropertyMapping(dbModel);
-
-                var toolType = qstLists.SingleOrDefault(x => x.LISTID == dbModel.VERSIONID);
-                if (toolType != null)
-                {
-                    model.ToolType = new ToolType()
-                    {
-                        ListId = new HelperTableEntityId(toolType.LISTID),
-                        Value = new HelperTableEntityValue(toolType.INFO),
-                        NodeId = (NodeId)toolType.NODEID,
-                        Alive = toolType.ALIVE
-                    };
-                }
-
-                var switchOff = qstLists.SingleOrDefault(x => x.LISTID == dbModel.KINDID);
-                if (switchOff != null)
-                {
-                    model.SwitchOff = new SwitchOff()
-                    {
-                        ListId = new HelperTableEntityId(switchOff.LISTID),
-                        Value = new HelperTableEntityValue(switchOff.INFO),
-                        NodeId = (NodeId)switchOff.NODEID,
-                        Alive = switchOff.ALIVE
-                    };
-                }
-
-                var driveType = qstLists.SingleOrDefault(x => x.LISTID == dbModel.DRIVEID);
-                if (driveType != null)
-                {
-                    model.DriveType = new DriveType()
-                    {
-                        ListId = new HelperTableEntityId(driveType.LISTID),
-                        Value = new HelperTableEntityValue(driveType.INFO),
-                        NodeId = (NodeId)driveType.NODEID,
-                        Alive = driveType.ALIVE
-                    };
-                }
-
-                var shutOff = qstLists.SingleOrDefault(x => x.LISTID == dbModel.SWITCHID);
-                if (shutOff != null)
-                {
-                    model.ShutOff = new ShutOff()
-                    {
-                        ListId = new HelperTableEntityId(shutOff.LISTID),
-                        Value = new HelperTableEntityValue(shutOff.INFO),
-                        NodeId = (NodeId)shutOff.NODEID,
-                        Alive = shutOff.ALIVE
-                    };
-                }
-
-                var constructionType = qstLists.SingleOrDefault(x => x.LISTID == dbModel.FORMID);
-                if (constructionType != null)
-                {
-                    model.ConstructionType = new ConstructionType()
-                    {
-                        ListId = new HelperTableEntityId(constructionType.LISTID),
-                        Value = new HelperTableEntityValue(constructionType.INFO),
-                        NodeId = (NodeId)constructionType.NODEID,
-                        Alive = constructionType.ALIVE
-                    };
-                }
-
-                var driveSize = qstLists.SingleOrDefault(x => x.LISTID == dbModel.MEAID);
-                if (driveSize != null)
-                {
-                    model.DriveSize = new DriveSize()
-                    {
-                        ListId = new HelperTableEntityId(driveSize.LISTID),
-                        Value = new HelperTableEntityValue(driveSize.INFO),
-                        NodeId = (NodeId)driveSize.NODEID,
-                        Alive = driveSize.ALIVE
-                    };
-                }
-                toolModels.Add(model);
-            }
-            return toolModels;
-        }
-
         private readonly ITimeDataAccess _time;
         private readonly IGlobalHistoryDataAccess _globalHistory;
+
+        public List<ToolModel> LoadDeletedToolModels()
+        {
+            var toolModels = new List<ToolModel>();
+
+            var dbExtensions = _dbContext.ToolModels.Where(x => x.ALIVE == false).ToList();
+
+            dbExtensions.ForEach(db => toolModels.Add(_mapper.DirectPropertyMapping(db)));
+
+            return toolModels;
+        }
     }
 }

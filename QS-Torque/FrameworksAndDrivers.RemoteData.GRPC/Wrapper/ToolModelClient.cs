@@ -1,6 +1,7 @@
 ﻿using BasicTypes;
 using DtoTypes;
 using FrameworksAndDrivers.RemoteData.GRPC.DataAccess;
+using Grpc.Core;
 using ToolModelService;
 
 namespace FrameworksAndDrivers.RemoteData.GRPC.Wrapper
@@ -32,11 +33,10 @@ namespace FrameworksAndDrivers.RemoteData.GRPC.Wrapper
             return _toolModelClient.GetReferencedToolLinks(toolModelId);
         }
 
-        public ListOfToolModel GetAllDeletedToolModels()
+        public ListOfToolModel LoadDeletedToolModels()
         {
-            return _toolModelClient.GetAllDeletedToolModels(new NoParams());
+            return _toolModelClient.LoadDeletedToolModels(new NoParams(), new CallOptions());
         }
-
         private readonly ToolModelService.ToolModels.ToolModelsClient _toolModelClient;
     }
 }

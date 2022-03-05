@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\ToolModelDirectoryHumbleModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <AdditionalFiles Include="..\.sonarlint\qstv8\CSharp\SonarLint.xml" Link="SonarLint.xml" />
   </ItemGroup>
 

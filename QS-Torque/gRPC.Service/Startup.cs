@@ -213,10 +213,10 @@ namespace gRPC.Service
                 AddMethodPolicy(opt, nameof(FrameworksAndDrivers.NetworkView.Services.ToolUsageService.InsertToolUsagesWithHistory));
 
                 AddMethodPolicy(opt, nameof(FrameworksAndDrivers.NetworkView.Services.ToolModelService.GetAllToolModels));
-                AddMethodPolicy(opt, nameof(FrameworksAndDrivers.NetworkView.Services.ToolModelService.GetAllDeletedToolModels));
                 AddMethodPolicy(opt, nameof(FrameworksAndDrivers.NetworkView.Services.ToolModelService.InsertToolModel));
                 AddMethodPolicy(opt, nameof(FrameworksAndDrivers.NetworkView.Services.ToolModelService.UpdateToolModel));
                 AddMethodPolicy(opt, nameof(FrameworksAndDrivers.NetworkView.Services.ToolModelService.GetReferencedToolLinks));
+                AddMethodPolicy(opt, nameof(FrameworksAndDrivers.NetworkView.Services.ToolModelService.LoadDeletedToolModels));
 
                 AddMethodPolicy(opt, nameof(FrameworksAndDrivers.NetworkView.Services.LocationService.LoadLocationDirectories));
                 AddMethodPolicy(opt, nameof(FrameworksAndDrivers.NetworkView.Services.LocationService.LoadDeletedLocationDirectories));
@@ -243,7 +243,6 @@ namespace gRPC.Service
                 AddMethodPolicy(opt, nameof(FrameworksAndDrivers.NetworkView.Services.ToolService.LoadPictureForTool));
                 AddMethodPolicy(opt, nameof(FrameworksAndDrivers.NetworkView.Services.ToolService.LoadToolsForModel));
                 AddMethodPolicy(opt, nameof(FrameworksAndDrivers.NetworkView.Services.ToolService.LoadModelsWithAtLeasOneTool));
-                AddMethodPolicy(opt, nameof(FrameworksAndDrivers.NetworkView.Services.ToolService.LoadDeletedModelsWithAtLeasOneTool));
 
                 AddMethodPolicy(opt, nameof(FrameworksAndDrivers.NetworkView.Services.ClassicTestService.GetClassicChkHeaderFromTool));
                 AddMethodPolicy(opt, nameof(FrameworksAndDrivers.NetworkView.Services.ClassicTestService.GetClassicMfuHeaderFromTool));

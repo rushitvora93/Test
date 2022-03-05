@@ -46,10 +46,7 @@ namespace FrameworksAndDrivers.NetworkView.Test.Services
         public List<Tool> LoadToolsForModelReturnValue { get; set; } = new List<Tool>();
         public ToolModelId LoadToolsForModelParameter { get; set; }
         public List<ToolModel> LoadModelsWithAtLeasOneToolReturnValue { get; set; } = new List<ToolModel>();
-        
         public bool LoadModelsWithAtLeasOneToolCalled { get; set; }
-        public bool LoadDeletedModelsWithAtLeasOneToolCalled { get; set; }
-        public List<ToolModel> LoadDeletedModelsWithAtLeasOneToolReturnValue { get; set; } = new List<ToolModel>();
 
         public List<Tool> LoadTools(int index, int size)
         {
@@ -118,12 +115,6 @@ namespace FrameworksAndDrivers.NetworkView.Test.Services
         {
             LoadModelsWithAtLeasOneToolCalled = true;
             return LoadModelsWithAtLeasOneToolReturnValue;
-        }
-
-        public List<ToolModel> LoadDeletedModelsWithAtLeasOneTool()
-        {
-            LoadDeletedModelsWithAtLeasOneToolCalled = true;
-            return LoadDeletedModelsWithAtLeasOneToolReturnValue;
         }
     }
 

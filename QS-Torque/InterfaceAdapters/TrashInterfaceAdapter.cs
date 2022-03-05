@@ -10,7 +10,6 @@ using Core.Entities;
 using Core.UseCases;
 using InterfaceAdapters.Localization;
 using InterfaceAdapters.Models;
-using ToolModel = Core.Entities.ToolModel;
 
 namespace InterfaceAdapters
 {
@@ -37,7 +36,16 @@ namespace InterfaceAdapters
                 RaisePropertyChanged();
             }
         }
-
+        private ObservableCollection<ToolModelModel> _toolModels = new ObservableCollection<ToolModelModel>();
+        public ObservableCollection<ToolModelModel> ToolModels
+        {
+            get => _toolModels;
+            set
+            {
+                _toolModels = value;
+                RaisePropertyChanged();
+            }
+        }
         private ObservableCollection<ExtensionModel> _extensions = new ObservableCollection<ExtensionModel>();
         public ObservableCollection<ExtensionModel> Extensions
         {
@@ -49,15 +57,11 @@ namespace InterfaceAdapters
             }
         }
 
-        public ObservableCollection<ToolModelModel> AllToolModelModels { get; private set; }
-
         public TrashInterfaceAdapter(ILocalizationWrapper localization)
         {
             _localization = localization;
             _localization.Subscribe(this);
         }
-
-        public ObservableCollection<InterfaceAdapters.Models.ToolModel> AllToolModels { get; private set; }
 
         public void SetGuiDispatcher(Dispatcher Dispatcher)
         {
@@ -95,7 +99,6 @@ namespace InterfaceAdapters
         public void RestoreLocation(Location location)
         {
             InvokeActionOnGuiInterfaces(gui => gui.RestoreLocation(location));
-
         }
 
         public void ShowRestoreLocationError()
@@ -127,6 +130,16 @@ namespace InterfaceAdapters
                 standardExtension.InventoryNumber = _localization.Strings.GetParticularString("Extension", "No Extension");
             }
         }
+
+        private void SetInventoryNumberForStandardToolModel(ObservableCollection<ToolModelModel> toolModels)
+        {
+            var standardToolModel = toolModels.SingleOrDefault(x => x.Id == (long)SpecialDbIds.NoEntrySelected);
+            if (standardToolModel != null)
+            {
+                standardToolModel.Description = _localization.Strings.GetParticularString("ToolModel", "No ToolModel");
+            }
+        }
+
         public event EventHandler<bool> ShowLoadingControlRequest;
 
         public void LanguageUpdate()
@@ -134,46 +147,14 @@ namespace InterfaceAdapters
             SetInventoryNumberForStandardExtension(Extensions);
         }
 
-        public void ShowDeletedModelsWithAtLeastOneTool(List<ToolModel> models)
-        {
-            AllToolModelModels = new ObservableCollection<ToolModelModel>();
-            _guiDispatcher.Invoke(() =>
-            {
-                AllToolModelModels.Clear();
-                models.ForEach(x => AllToolModelModels.Add(ToolModelModel.GetModelFor(x, _localization)));
-            });
-            ShowLoadingControlRequest?.Invoke(this, false);
-        }
-
-        public void RestoreTool(Tool tool)
+        public void ShowDeletedToolModels(List<Core.Entities.ToolModel> toolModels)
         {
             _guiDispatcher.Invoke(() =>
             {
-                foreach (var toolModel in AllToolModels)
-                {
-                    if (toolModel.Entity.EqualsById(tool))
-                    {
-                        AllToolModels.Remove(toolModel);
-                        break;
-                    }
-                }
+                ToolModels = new ObservableCollection<InterfaceAdapters.Models.ToolModelModel>(toolModels.Select(x => InterfaceAdapters.Models.ToolModelModel.GetModelFor(x, _localization)));
+                SetInventoryNumberForStandardToolModel(ToolModels);
                 ShowLoadingControlRequest?.Invoke(this, false);
-            });
-        }
-
-        public void RestoreExtension(Extension RestoreExtension)
-        {
-            _guiDispatcher.Invoke(() =>
-            {
-                foreach (var extension in Extensions)
-                {
-                    if (!extension.Entity.EqualsById(RestoreExtension))
-                        continue;
-
-                    Extensions.Remove(extension);
-                    break;
-                }
-                ShowLoadingControlRequest?.Invoke(this, false);
+                RaisePropertyChanged(nameof(ToolModels));
             });
         }
     }

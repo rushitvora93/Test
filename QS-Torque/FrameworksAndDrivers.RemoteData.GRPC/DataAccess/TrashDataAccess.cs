@@ -10,15 +10,6 @@ using Location = Core.Entities.Location;
 using Extension = Core.Entities.Extension;
 using ToolModel = Core.Entities.ToolModel;
 using LocationDirectory = Core.Entities.LocationDirectory;
-using LocationToolAssignmentReferenceLink = Core.Entities.ReferenceLink.LocationToolAssignmentReferenceLink;
-using Tool = Core.Entities.Tool;
-using User = Core.Entities.User;
-using LocationReferenceLink = Core.Entities.ReferenceLink.LocationReferenceLink;
-using System.Linq;
-using BasicTypes;
-using Core;
-using ToolService;
-using ExtensionService;
 
 namespace FrameworksAndDrivers.RemoteData.GRPC.DataAccess
 {
@@ -29,8 +20,6 @@ namespace FrameworksAndDrivers.RemoteData.GRPC.DataAccess
         private readonly Mapper _mapper = new Mapper();
 
         private const int LocationPackageSize = 25000;
-        private readonly ILocationToolAssignmentDisplayFormatter _locationToolAssignmentDisplayFormatter;
-        private readonly ILocationDisplayFormatter _locationDisplayFormatter;
 
         public TrashDataAccess(IClientFactory clientFactory)
         {
@@ -46,17 +35,10 @@ namespace FrameworksAndDrivers.RemoteData.GRPC.DataAccess
         {
             return _clientFactory.AuthenticationChannel.GetExtensionClient();
         }
-
-        private IToolClient GetToolClient()
-        {
-            return _clientFactory.AuthenticationChannel.GetToolClient();
-        }
-
         private IToolModelClient GetToolModelClient()
         {
             return _clientFactory.AuthenticationChannel.GetToolModelClient();
         }
-
         public IEnumerable<Location> LoadDeletedLocations()
         {
             var locations = new List<Location>();
@@ -128,139 +110,19 @@ namespace FrameworksAndDrivers.RemoteData.GRPC.DataAccess
 
             return extensions;
         }
-
-        public List<ToolModel> LoadDeletedModelsWithAtLeastOneTool()
-        {
-            var dtos = GetToolClient().LoadDeletedModelsWithAtLeastOneTool();
-
-            var tools = new List<ToolModel>();
-
-            foreach (var model in dtos.ToolModels)
-            {
-                tools.Add(_mapper.DirectPropertyMapping(model));
-            }
-
-            return tools;
-        }
-
         public List<ToolModel> LoadDeletedToolModels()
         {
+            var toolModels = new List<ToolModel>();
+
+            var dtoList = GetToolModelClient().LoadDeletedToolModels();
             var mapper = new Mapper();
-            var result = GetToolModelClient().GetAllDeletedToolModels();
-            return result.ToolModels.Select(toolModelDto => mapper.DirectPropertyMapping(toolModelDto)).ToList();
-        }
 
-        public List<LocationToolAssignmentReferenceLink> LoadLocationToolAssignmentLinksForToolId(ToolId toolId)
-        {
-            var locationToolLinks = GetToolClient().GetLocationToolAssignmentLinkForTool(new Long()
+            foreach (var dto in dtoList.ToolModels)
             {
-                Value = toolId.ToLong()
-            });
-
-            var modelLinks = new List<LocationToolAssignmentReferenceLink>();
-
-            foreach (var locToolLink in locationToolLinks.Links)
-            {
-                modelLinks.Add(new LocationToolAssignmentReferenceLink(
-                    new QstIdentifier(locToolLink.Id),
-                    new LocationDescription(locToolLink.LocationName),
-                    new LocationNumber(locToolLink.LocationNumber),
-                    locToolLink.ToolSerialNumber,
-                    locToolLink.ToolInventoryNumber,
-                    _locationToolAssignmentDisplayFormatter,
-                    new LocationId(locToolLink.LocationId),
-                    new ToolId(locToolLink.ToolId)));
-            }
-            return modelLinks;
-        }
-
-        public void RestoreTool(Tool tool, User byUser)
-        {
-            if (byUser == null)
-            {
-                throw new ArgumentException("User should not be null");
+                toolModels.Add(mapper.DirectPropertyMapping(dto));
             }
 
-            var oldTool = _mapper.DirectPropertyMapping(tool);
-            var newTool = _mapper.DirectPropertyMapping(tool);
-            oldTool.Alive = false;
-            newTool.Alive = true;
-
-            var request = new UpdateToolsWithHistoryRequest()
-            {
-                ToolDiffs = new ListOfToolDiffs()
-                {
-                    ToolDiffs =
-                    {
-                        new List<DtoTypes.ToolDiff>()
-                        {
-                            new DtoTypes.ToolDiff()
-                            {
-                                UserId = byUser.UserId.ToLong(),
-                                Comment = "",
-                                OldTool = oldTool,
-                                NewTool = newTool
-                            }
-                        }
-                    }
-                }
-            };
-
-            GetToolClient().UpdateToolsWithHistory(request);
-        }
-
-        public List<LocationReferenceLink> LoadReferencedLocations(ExtensionId id)
-        {
-            var locationLinkDtos = GetExtensionClient().GetExtensionLocationLinks(new LongRequest() { Value = id.ToLong() });
-            var locationReferenceLinks = new List<LocationReferenceLink>();
-
-            foreach (var locationLinkDto in locationLinkDtos.LocationLinks)
-            {
-                try
-                {
-                    var locationReferenceLink = new LocationReferenceLink(new QstIdentifier(locationLinkDto.Id), new LocationNumber(locationLinkDto.Number), new LocationDescription(locationLinkDto.Description), _locationDisplayFormatter);
-                    locationReferenceLinks.Add(locationReferenceLink);
-                }
-                catch (Exception exception)
-                {
-                    Log.Error($"Error while mapping Location with Id { locationLinkDto?.Id}", exception);
-                }
-            }
-
-            return locationReferenceLinks;
-        }
-
-        public void RestoreExtension(Extension extension, User user)
-        {
-            if (user == null)
-            {
-                throw new ArgumentException("User should not be null");
-            }
-
-            var mapper = new Mapper();
-            var oldExtension = mapper.DirectPropertyMapping(extension);
-            var newExtension = mapper.DirectPropertyMapping(extension);
-            oldExtension.Alive = false;
-            newExtension.Alive = true;
-
-            var request = new UpdateExtensionsRequest()
-            {
-                ExtensionsDiffs = new ListOfExtensionsDiffs()
-                {
-                    ExtensionsDiff =
-                    {
-                        new DtoTypes.ExtensionDiff()
-                        {
-                            UserId = user.UserId.ToLong(),
-                            Comment =  "",
-                            OldExtension = oldExtension,
-                            NewExtension = newExtension
-                        }
-                    }
-                }
-            };
-
-            GetExtensionClient().UpdateExtensions(request);
+            return toolModels;
         }
     }
 }
