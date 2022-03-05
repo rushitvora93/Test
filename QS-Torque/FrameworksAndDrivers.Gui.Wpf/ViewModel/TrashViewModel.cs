@@ -629,6 +629,11 @@ namespace FrameworksAndDrivers.Gui.Wpf.ViewModel
             throw new NotImplementedException();
         }
 
+        public void ShowDeletedToolModels(List<Core.Entities.ToolModel> toolModels)
+        {
+            throw new NotImplementedException();
+        }
+
         //public bool IsListViewVisible => SelectedExtension != null;
 
         //public ExtensionModel SelectedExtensionWithoutChanges => _extensionInterface.SelectedExtensionWithoutChanges;

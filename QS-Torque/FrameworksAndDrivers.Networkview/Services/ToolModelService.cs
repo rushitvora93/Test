@@ -107,14 +107,14 @@ namespace FrameworksAndDrivers.NetworkView.Services
             return Task.FromResult(result);
         }
 
-        [Authorize(Policy = nameof(LoadDeletedToolModels))]
-        public override Task<ListOfToolModel> LoadDeletedToolModels(NoParams request, ServerCallContext context)
-        {
-            var toolModels = _useCase.LoadDeletedToolModels();
-            var listOfToolModels = new ListOfToolModel();
-            toolModels.ForEach(s => listOfToolModels.ToolModels.Add(_mapper.DirectPropertyMapping(s)));
-            return Task.FromResult(listOfToolModels);
-        }
+        //[Authorize(Policy = nameof(LoadDeletedToolModels))]
+        //public override Task<ListOfToolModel> LoadDeletedToolModels(NoParams request, ServerCallContext context)
+        //{
+        //    var toolModels = _useCase.GetAllDeletedToolModels();
+        //    var listOfToolModels = new ListOfToolModel();
+        //    toolModels.ForEach(s => listOfToolModels.ToolModels.Add(_mapper.DirectPropertyMapping(s)));
+        //    return Task.FromResult(listOfToolModels);
+        //}
         private readonly IToolModelUseCase _useCase;
     }
 }

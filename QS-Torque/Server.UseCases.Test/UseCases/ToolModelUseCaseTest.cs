@@ -99,7 +99,7 @@ namespace Server.UseCases.Test.UseCases
             var environment = new Environment();
             var expected = new List<ToolModel>();
             environment.Mocks.DataAccess.GetAllDeletedToolModelsReturn = expected;
-            Assert.AreSame(expected, environment.UseCase.LoadDeletedToolModels());
+            Assert.AreSame(expected, environment.UseCase.GetAllDeletedToolModels());
         }
 
         public class ToolModelDataAccessMock: IToolModelDataAccess

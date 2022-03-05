@@ -67,7 +67,7 @@ namespace FrameworksAndDrivers.NetworkView.Test.Services
 
             CheckerFunctions.CollectionAssertAreEquivalent(
                 toolModels,
-                networkView.LoadDeletedToolModels(new NoParams(), null).Result.ToolModels,
+                networkView.GetAllDeletedToolModels(new NoParams(), null).Result.ToolModels,
                 comparer);
         }
 

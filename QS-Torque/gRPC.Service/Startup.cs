@@ -217,7 +217,6 @@ namespace gRPC.Service
                 AddMethodPolicy(opt, nameof(FrameworksAndDrivers.NetworkView.Services.ToolModelService.InsertToolModel));
                 AddMethodPolicy(opt, nameof(FrameworksAndDrivers.NetworkView.Services.ToolModelService.UpdateToolModel));
                 AddMethodPolicy(opt, nameof(FrameworksAndDrivers.NetworkView.Services.ToolModelService.GetReferencedToolLinks));
-                AddMethodPolicy(opt, nameof(FrameworksAndDrivers.NetworkView.Services.ToolModelService.LoadDeletedToolModels));
 
                 AddMethodPolicy(opt, nameof(FrameworksAndDrivers.NetworkView.Services.LocationService.LoadLocationDirectories));
                 AddMethodPolicy(opt, nameof(FrameworksAndDrivers.NetworkView.Services.LocationService.LoadDeletedLocationDirectories));

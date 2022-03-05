@@ -40,7 +40,7 @@ namespace FrameworksAndDrivers.RemoteData.GRPC.Wrapper
 
         public ListOfToolModel LoadDeletedToolModels()
         {
-            return _toolModelClient.LoadDeletedToolModels(new NoParams(), new CallOptions());
+            return _toolModelClient.GetAllDeletedToolModels(new NoParams(), new CallOptions());
         }
 
         private readonly ToolModelService.ToolModels.ToolModelsClient _toolModelClient;

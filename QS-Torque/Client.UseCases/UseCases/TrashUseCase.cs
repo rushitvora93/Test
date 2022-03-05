@@ -149,8 +149,8 @@ namespace Core.UseCases
             Log.Debug($"ShowDeletedModelsWithAtLeastOneTool call with List of ToolModels Size of {models?.Count}");
             _gui.ShowDeletedModelsWithAtLeastOneTool(models);
 
-            Log.Info("LoadToolModels started");
-            var toolModels = _dataAccess.LoadDeletedToolModels();
+            //Log.Info("LoadToolModels started");
+            //var toolModels = _dataAccess.LoadDeletedToolModels();
             //FillToolModelDescriptionCache(toolModels);
 
             Log.Debug($"ShowToolModels call with List of ToolModels Size of {toolModels?.Count}");

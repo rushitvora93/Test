@@ -185,7 +185,7 @@ namespace InterfaceAdapters
                     break;
                 }
                 ShowLoadingControlRequest?.Invoke(this, false);
-			}
+            });
 		}
 
         private void SetInventoryNumberForStandardToolModel(ObservableCollection<ToolModelModel> toolModels)
@@ -195,13 +195,6 @@ namespace InterfaceAdapters
             {
                 standardToolModel.Description = _localization.Strings.GetParticularString("ToolModel", "No ToolModel");
             }
-        }
-
-        public event EventHandler<bool> ShowLoadingControlRequest;
-
-        public void LanguageUpdate()
-        {
-            SetInventoryNumberForStandardExtension(Extensions);
         }
 
         public void ShowDeletedToolModels(List<Core.Entities.ToolModel> toolModels)
