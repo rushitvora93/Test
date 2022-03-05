@@ -1,0 +1,11 @@
+﻿(Map DtoTypes.ClassicMfuTestValue Server.Core.Entities.ClassicMfuTestValue
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Id Id)
+		(Position Position)
+		(ValueUnit1 ValueUnit1)
+		(ValueUnit2 ValueUnit2)
+	)
+)

@@ -1,0 +1,14 @@
+﻿(Map Server.Core.Entities.Extension DbEntities.Extension
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Id TOOLID)
+		(Description TOOL)
+		(InventoryNumber INVENTORY_NUMBER)
+		(FactorTorque FAKTOR)
+		(Length TOOLLEN)
+		(Bending BENDING)
+		(Alive ALIVE)
+	)
+)

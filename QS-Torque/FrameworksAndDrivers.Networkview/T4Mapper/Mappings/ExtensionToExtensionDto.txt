@@ -1,0 +1,14 @@
+﻿(Map Server.Core.Entities.Extension DtoTypes.Extension
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Id Id)
+		(Description Description)
+		(Length Length)
+		(FactorTorque FactorTorque)
+		(Bending Bending)
+		(InventoryNumber InventoryNumber)
+		(Alive Alive)
+	)
+)

@@ -1,0 +1,10 @@
+﻿(Map Server.Core.Entities.ReferenceLink.ToolReferenceLink DtoTypes.ToolReferenceLink
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Id Id)
+		(InventoryNumber InventoryNumber)
+		(SerialNumber SerialNumber)
+	)
+)

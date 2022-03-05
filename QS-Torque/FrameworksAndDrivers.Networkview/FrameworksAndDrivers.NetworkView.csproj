@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <CodeAnalysisRuleSet>..\.sonarlint\qstv8csharp.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="..\.sonarlint\qstv8\CSharp\SonarLint.xml" Link="SonarLint.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.33.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Server.UseCases\Server.UseCases.csproj" />
+    <ProjectReference Include="..\T4Mapper\T4Mapper.csproj" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<Protobuf Include="..\Proto\Protos\BasicTypes.proto" GrpcServices="Server" />
+		<Protobuf Include="..\Proto\Protos\DtoTypes.proto" GrpcServices="Server" />
+		<Protobuf Include="..\Proto\Protos\Authentication.proto" GrpcServices="Server" />
+		<Protobuf Include="..\Proto\Protos\Manufacturer.proto" GrpcServices="Server" />
+		<Protobuf Include="..\Proto\Protos\WorkingCalendar.proto" GrpcServices="Server" />
+		<Protobuf Include="..\Proto\Protos\ShiftManagement.proto" GrpcServices="Server" />
+		<Protobuf Include="..\Proto\Protos\Status.proto" GrpcServices="Server" />
+		<Protobuf Include="..\Proto\Protos\ToleranceClass.proto" GrpcServices="Server" />
+		<Protobuf Include="..\Proto\Protos\TestLevelSet.proto" GrpcServices="Server" />
+		<Protobuf Include="..\Proto\Protos\TestLevelSetAssignment.proto" GrpcServices="Server" />
+		<Protobuf Include="..\Proto\Protos\TestDateCalculation.proto" GrpcServices="Server" />
+		<Protobuf Include="..\Proto\Protos\LocationToolAssignment.proto" GrpcServices="Server" />
+		<Protobuf Include="..\Proto\Protos\Setup.proto" GrpcServices="Server" />
+		<Protobuf Include="..\Proto\Protos\HelperTable.proto" GrpcServices="Server" />
+		<Protobuf Include="..\Proto\Protos\ToolUsage.proto" GrpcServices="Server" />
+		<Protobuf Include="..\Proto\Protos\ToolModel.proto" GrpcServices="Server" />
+		<Protobuf Include="..\Proto\Protos\Location.proto" GrpcServices="Server" />
+		<Protobuf Include="..\Proto\Protos\Tool.proto" GrpcServices="Server" />
+		<Protobuf Include="..\Proto\Protos\ClassicTest.proto" GrpcServices="Server" />
+		<Protobuf Include="..\Proto\Protos\TransferToTestEquipment.proto" GrpcServices="Server" />
+		<Protobuf Include="..\Proto\Protos\QstInformation.proto" GrpcServices="Server" />
+		<Protobuf Include="..\Proto\Protos\TestEquipment.proto" GrpcServices="Server" />
+		<Protobuf Include="..\Proto\Protos\ProcessControl.proto" GrpcServices="Server" />
+		<Protobuf Include="..\Proto\Protos\Extension.proto" GrpcServices="Server" />
+		<Protobuf Include="..\Proto\Protos\History.proto" GrpcServices="Server" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="T4Mapper\T4Mapper.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>T4Mapper.tt</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="T4Mapper\T4Mapper.tt">
+			<Generator>TextTemplatingFileGenerator</Generator>
+			<LastGenOutput>T4Mapper.cs</LastGenOutput>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+	</ItemGroup>
+	
+</Project>

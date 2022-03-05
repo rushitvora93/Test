@@ -1,0 +1,11 @@
+﻿(Map TargetStub SourceStub
+	(Comment
+		(Options
+			hasDefaultConstructor
+		)
+	)
+	(Properties
+		(count ITEM)
+		(name UNAME)
+	)
+)

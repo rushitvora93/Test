@@ -1,0 +1,33 @@
+﻿syntax = "proto3";
+import "BasicTypes.proto";
+import "DtoTypes.proto";
+
+option csharp_namespace = "TestEquipmentService";
+
+package TestEquipmentService;
+
+service TestEquipmentService {
+	rpc LoadTestEquipmentModels(NoParams) returns (ListOfTestEquipmentModel);
+	rpc GetTestEquipmentsByIds(ListOfLongs) returns (ListOfTestEquipment);
+	rpc InsertTestEquipmentsWithHistory(InsertTestEquipmentsWithHistoryRequest) returns (ListOfTestEquipment);
+	rpc UpdateTestEquipmentsWithHistory(UpdateTestEquipmentsWithHistoryRequest) returns (NoParams);
+	rpc UpdateTestEquipmentModelsWithHistory(UpdateTestEquipmentModelsWithHistoryRequest) returns (NoParams);
+	rpc IsTestEquipmentInventoryNumberUnique(String) returns (Bool);
+	rpc IsTestEquipmentSerialNumberUnique(String) returns (Bool);
+	rpc IsTestEquipmentModelNameUnique(String) returns (Bool);
+	rpc LoadAvailableTestEquipmentTypes(NoParams) returns (ListOfLongs);
+}
+
+message UpdateTestEquipmentsWithHistoryRequest {
+	ListOfTestEquipmentDiffs testEquipmentDiffs = 1;
+	bool withTestEquipmentModelUpdate = 2;
+}
+
+message UpdateTestEquipmentModelsWithHistoryRequest {
+	ListOfTestEquipmentModelDiffs testEquipmentModelDiffs = 1;
+}
+
+message InsertTestEquipmentsWithHistoryRequest {
+	ListOfTestEquipmentDiffs diffs = 1;
+	bool returnList = 2;
+}

@@ -1,0 +1,10 @@
+﻿(Map Server.Core.Entities.ToolUsage DbEntities.ToolUsage
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Id POSID)
+		(Description POSNAME)
+		(Alive ALIVE)
+	)
+)

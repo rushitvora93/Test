@@ -1,0 +1,17 @@
+﻿(Map DtoTypes.ShiftManagement Core.Entities.ShiftManagement
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(FirstShiftStart FirstShiftStart)
+		(FirstShiftEnd FirstShiftEnd)
+		(SecondShiftStart SecondShiftStart)
+		(SecondShiftEnd SecondShiftEnd)
+		(ThirdShiftStart ThirdShiftStart)
+		(ThirdShiftEnd ThirdShiftEnd)
+		(IsSecondShiftActive IsSecondShiftActive)
+		(IsThirdShiftActive IsThirdShiftActive)
+		(ChangeOfDay ChangeOfDay)
+		(FirstDayOfWeek FirstDayOfWeek)
+	)
+)

@@ -1,0 +1,10 @@
+﻿(Map Server.Core.Entities.ClassicTestLocation DtoTypes.ClassicTestLocation
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(LocationId LocationId)
+		(LocationDirectoryId LocationDirectoryId)		
+		(LocationTreePath TreePath)
+	)
+)

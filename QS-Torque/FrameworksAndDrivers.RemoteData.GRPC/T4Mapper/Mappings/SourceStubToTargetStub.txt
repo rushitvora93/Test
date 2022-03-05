@@ -1,0 +1,15 @@
+﻿(Map SourceStub TargetStub
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(ITEM count)
+		(UNAME name)
+	)
+	(Constructor
+		(Value 0)
+		(Property UNAME)
+		(Property ITEM)
+		(Value null)
+	)
+)

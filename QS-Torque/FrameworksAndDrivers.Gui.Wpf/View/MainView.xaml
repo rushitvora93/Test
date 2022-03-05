@@ -1,0 +1,55 @@
+﻿<Window x:Class="FrameworksAndDrivers.Gui.Wpf.View.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:c="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View.Controls"
+        mc:Ignorable="d"
+        WindowState="Maximized"
+        x:Name="Window"
+        Closing="MainView_OnClosing"
+        Background="{DynamicResource WindowBackgroundBrush}"
+        Title="QS-Torque" Height="900" Width="1600"
+        MinWidth="1024" MinHeight="600"
+        AutomationProperties.AutomationId="AI_MainWindow">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/ExpanderStyles.xaml"/>
+                <ResourceDictionary Source="Styles/TabStyles.xaml"/>
+                <ResourceDictionary Source="Styles/ButtonStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <DockPanel>
+        <c:GlobalToolBar x:Name="globalToolBar"
+                         DockPanel.Dock="Top" 
+                         LogoutClick="GlobalToolBar_LogoutClick"
+                         PreviewMouseDown="NotMegaMainSubModuleSelector_MouseDown"/>
+        
+        <!--Main working area-->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <c:GlobalTree x:Name="MegaMainSubmoduleSelector"
+                          Grid.Column="0"
+                          Margin="0,10"
+                          TreeWindowSelectionChanged="GlobalTree_OnTreeWindowSelectionChanged"
+                          AutomationProperties.AutomationId="AI_MainView_MegaMainSubmoduleSelector"/>
+
+            <Rectangle Grid.Column="1"
+                       Fill="{DynamicResource SeperatedAreaBrush}"/>
+
+            <ContentPresenter Margin="10" 
+                              Grid.Column="2"
+                              Content="{Binding MainContent, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                              PreviewMouseDown="NotMegaMainSubModuleSelector_MouseDown"
+                              AutomationProperties.AutomationId="AI_MainView_ContentPresenter"/>
+        </Grid>
+        
+    </DockPanel>
+</Window>

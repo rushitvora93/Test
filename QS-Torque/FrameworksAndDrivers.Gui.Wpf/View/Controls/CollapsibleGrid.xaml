@@ -1,0 +1,113 @@
+﻿<Grid x:Class="FrameworksAndDrivers.Gui.Wpf.View.Controls.CollapsibleGrid"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                xmlns:local="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View.Controls"
+                xmlns:c="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View.Controls"
+                mc:Ignorable="d" 
+                d:DesignHeight="900" d:DesignWidth="1600">
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <local:FoldableColumnDefinition x:Name="FoldableColumn" 
+                                            IsFolded="{Binding Path=IsChecked, ElementName=ButtonFoldTree}"
+                                            FoldedWidth="{Binding Path=Width, ElementName=ButtonFoldTree}"
+                                            Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="150"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <DockPanel Grid.Column="0" MinWidth="0">
+            <ToggleButton x:Name="ButtonFoldTree"
+                          DockPanel.Dock="Right"
+                          IsChecked="False"
+                          Width="15"
+                          Background="{DynamicResource ControlBackground2Brush}"
+                          BorderThickness="1,1,2,2"
+                          Foreground="{DynamicResource ForegroundBrush}" MinWidth="0">
+
+                <!--Let the ToggleButton look like a normal Button and triggers the containing arrows < > -->
+                <ToggleButton.Template>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsDefaulted" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#FFBEE6FD"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF3C7FB1"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#FFC4E5F6"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+                            </Trigger>
+                            <Trigger Property="ToggleButton.IsChecked" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="{DynamicResource ControlBackground2Brush}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF245A83"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                                <Setter Property="Foreground" Value="#FF838383"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </ToggleButton.Template>
+
+                <ToggleButton.Style>
+                    <Style TargetType="ToggleButton">
+                        <Style.Triggers>
+                            <!--Arrow to the left, if ToggleButton is checked (Tree is opened)-->
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <c:ThemeImage Source="pack://application:,,,/Resources;component/Icons/right-arrow.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+
+                            <!--Arrow to the right, if ToggleButton is not checked (Tree is closed)-->
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <c:ThemeImage Source="pack://application:,,,/Resources;component/Icons/left-arrow.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ToggleButton.Style>
+            </ToggleButton>
+
+            <ContentPresenter Content="{Binding CollapsiblePanel}"/>
+        </DockPanel>
+
+        <GridSplitter Grid.Column="1" 
+                      Width="2"
+                      HorizontalAlignment="Stretch"
+                      Background="{DynamicResource GridSplitterBackground}">
+            <GridSplitter.Style>
+                <Style TargetType="GridSplitter">
+                    <Style.Triggers>
+                        <!--Enabled if BtnFoldTree is not checked-->
+                        <DataTrigger Binding="{Binding Path=IsChecked, ElementName=ButtonFoldTree}" Value="False">
+                            <Setter Property="IsEnabled" Value="True"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=IsChecked, ElementName=ButtonFoldTree}" Value="True">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </GridSplitter.Style>
+        </GridSplitter>
+
+        <!--Real Content of the ContentControl-->
+        <ContentPresenter Grid.Column="2"
+                          Content="{Binding ContentPanel}"/>
+    </Grid>
+</Grid>

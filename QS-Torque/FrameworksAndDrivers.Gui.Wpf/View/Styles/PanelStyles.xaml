@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View.Styles"
+                    xmlns:behaviors="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View.Behaviors">
+
+    <Style x:Key="{x:Type WrapPanel}" TargetType="WrapPanel">
+        <Setter Property="behaviors:BehaviorSetter.Behavior">
+            <Setter.Value>
+                <behaviors:FluidMoveBehaviorNoLeak AppliesTo="Children" Duration="0:0:0.1" FloatAbove="True"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

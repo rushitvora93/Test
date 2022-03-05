@@ -1,0 +1,13 @@
+﻿(Map DtoTypes.LocationDiff Core.Diffs.LocationDiff
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(OldLocation OldLocation)
+		(NewLocation NewLocation)
+		(User User)
+		(Comment Comment)
+		(Type Type)
+		(TimeStamp TimeStamp)
+	)
+)

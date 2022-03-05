@@ -1,0 +1,11 @@
+﻿(Map Server.Core.Entities.HelperTableEntity DtoTypes.HelperTableEntity
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(ListId ListId)
+		(Value Value)
+		(Alive Alive)
+		(NodeId NodeId)
+	)
+)

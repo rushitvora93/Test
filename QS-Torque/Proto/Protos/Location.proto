@@ -1,0 +1,58 @@
+﻿syntax = "proto3";
+import "BasicTypes.proto";
+import "DtoTypes.proto";
+
+option csharp_namespace = "LocationService";
+
+package LocationService;
+
+service LocationService {
+	rpc LoadLocationDirectories(NoParams) returns (ListOfLocationDirectory);
+	rpc LoadDeletedLocationDirectories(NoParams) returns (ListOfLocationDirectory);
+	rpc InsertLocationDirectoriesWithHistory(InsertLocationDirectoriesWithHistoryRequest) returns (ListOfLocationDirectory);
+	rpc UpdateLocationDirectoriesWithHistory(UpdateLocationDirectoriesWithHistoryRequest) returns (ListOfLocationDirectory);
+
+	rpc LoadLocations(LoadLocationsRequest) returns (ListOfLocation);
+	rpc LoadDeletedLocations(LoadLocationsRequest) returns (ListOfLocation);
+	rpc LoadLocationsByIds(ListOfLongs) returns (ListOfLocation);
+	rpc InsertLocationsWithHistory(InsertLocationsWithHistoryRequest) returns (ListOfLocation);
+	rpc UpdateLocationsWithHistory(UpdateLocationsWithHistoryRequest) returns (ListOfLocation);
+	rpc IsUserIdUnique(String) returns (Bool);
+	rpc GetReferencedLocPowIdsForLocationId(Long) returns (ListOfLongs);
+	rpc GetLocationComment(Long) returns (String);
+
+	rpc LoadPictureForLocation(LoadPictureForLocationRequest) returns (LoadPictureForLocationResponse);
+}
+
+message LoadLocationsRequest {
+	int32 index = 1;
+	int32 size = 2;
+}
+
+message InsertLocationsWithHistoryRequest {
+	ListOfLocationDiff locationDiffs = 1;
+	bool returnList = 2;
+}
+
+message UpdateLocationsWithHistoryRequest {
+	ListOfLocationDiff locationDiffs = 1;
+}
+
+message InsertLocationDirectoriesWithHistoryRequest {
+	ListOfLocationDirectoryDiff locationDirectoryDiffs = 1;
+	bool returnList = 2;
+}
+
+message UpdateLocationDirectoriesWithHistoryRequest {
+	ListOfLocationDirectoryDiff locationDirectoryDiffs = 1;
+}
+
+message LoadPictureForLocationRequest {
+	int64 locationId = 1;
+	int32 fileType = 2;
+}
+
+message LoadPictureForLocationResponse {
+	Picture picture = 1;
+}
+

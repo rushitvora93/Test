@@ -1,0 +1,26 @@
+﻿(Map DbEntities.ToolModel Server.Core.Entities.ToolModel
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(MODELID Id)
+		(MODEL Description)
+		(Manufacturer Manufacturer)
+		(TYPEID ModelType)
+		(CLASSID Class)
+		(LIMITLO MinPower)
+		(LIMITHI MaxPower)
+		(PRESSURE AirPressure)
+		(VERSIONID ToolType)
+		(WEIGHT Weight)
+		(VOLT BatteryVoltage)
+		(TURN MaxRotationSpeed)
+		(AIR AirConsumption)
+		(KINDID SwitchOff)
+		(MEAID DriveSize)
+		(DRIVEID DriveType)
+		(SWITCHID ShutOff)
+		(FORMID ConstructionType)
+		(ALIVE Alive)
+	)
+)

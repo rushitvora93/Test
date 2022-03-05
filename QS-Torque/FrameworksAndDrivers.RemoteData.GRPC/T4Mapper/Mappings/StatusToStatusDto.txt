@@ -1,0 +1,9 @@
+﻿(Map Status DtoTypes.Status
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Value Description)
+		(ListId Id)
+	)
+)
