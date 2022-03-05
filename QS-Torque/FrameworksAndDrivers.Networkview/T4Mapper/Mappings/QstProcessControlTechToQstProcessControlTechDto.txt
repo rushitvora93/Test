@@ -1,0 +1,26 @@
+﻿(Map Server.Core.Entities.QstProcessControlTech DtoTypes.QstProcessControlTech
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Id Id)
+		(ProcessControlConditionId ProcessControlConditionId)
+		(ManufacturerId ManufacturerId)
+		(TestMethod TestMethod)
+		(Extension Extension)
+		(Alive Alive)
+		(AngleLimitMt QstAngleLimitMt)
+		(StartMeasurementPeak QstStartMeasurementPeak)
+		(StartAngleCountingPa QstStartAngleCountingPa)
+		(AngleForFurtherTurningPa QstAngleForFurtherTurningPa)
+		(TargetAnglePa QstTargetAnglePa)
+		(StartMeasurementPa QstStartMeasurementPa)
+		(AlarmTorquePa QstAlarmTorquePa)
+		(AlarmAnglePa QstAlarmAnglePa)
+		(MinimumTorqueMt QstMinimumTorqueMt)
+		(StartAngleMt QstStartAngleMt)
+		(StartMeasurementMt QstStartMeasurementMt)
+		(AlarmTorqueMt QstAlarmTorqueMt)
+		(AlarmAngleMt QstAlarmAngleMt)	
+	)
+)

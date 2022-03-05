@@ -1,0 +1,9 @@
+﻿(Map DbEntities.QstUser Server.Core.Entities.User
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(USERID UserId)
+		(UNAME UserName)
+	)
+)

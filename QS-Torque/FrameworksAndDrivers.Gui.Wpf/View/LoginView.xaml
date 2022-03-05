@@ -1,0 +1,214 @@
+﻿<Window x:Class="FrameworksAndDrivers.Gui.Wpf.View.LoginView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:FrameworksAndDrivers.Gui.Wpf.ViewModel"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:c="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View.Controls"
+        xmlns:wpf="clr-namespace:NGettext.Wpf;assembly=NGettext.Wpf"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance local:LoginViewModel, IsDesignTimeCreatable=False}"
+        ResizeMode="CanMinimize"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource WindowBackgroundBrush}"
+        Loaded="LoginView_OnLoaded"
+        Title="QS-Torque" Height="450" Width="800"
+        MinHeight="450" MinWidth="800"
+        AutomationProperties.AutomationId="AI_LoginWindow">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/ButtonStyles.xaml"/>
+                <ResourceDictionary Source="Styles/ComboBoxStyles.xaml"/>
+                <ResourceDictionary Source="Styles/TextBoxStyles.xaml"/>
+                <ResourceDictionary Source="Styles/TextBlockStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="KeyDown">
+            <i:InvokeCommandAction Command="{Binding CheckForCapsLockCommand}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="GotKeyboardFocus">
+            <i:InvokeCommandAction Command="{Binding CheckForCapsLockCommand}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+
+    <DockPanel>
+        <!--QST-Logo-->
+        <c:ThemeImage DockPanel.Dock="Left"
+                      Width="200"
+                      Height="200"
+                      Margin="70"
+                      Source="pack://application:,,,/Resources;component/Images/QST_Logo.png"/>
+
+        <!--Login Button-->
+        <Button DockPanel.Dock="Bottom"
+                Content="{wpf:Gettext Log in}"
+                Width="120"
+                Height="30"
+                Margin="30"
+                FontSize="15"
+                IsEnabled="{Binding LoginEnabled}"
+                HorizontalAlignment="Right"
+                Style="{DynamicResource ButtonStyle}"
+                Command="{Binding LoginCommand}"
+                AutomationProperties.AutomationId="AI_LoginView_LogIn"/>
+
+        <!--Login-Data-->
+        <StackPanel Orientation="Vertical"
+                    Margin="0,60,30,0">
+            <ComboBox x:Name="_languageSelector"  
+                      Width="150"
+                      Height="50"
+                      BorderBrush="White"
+                      BorderThickness="1"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Center"
+                      SelectedIndex="0"
+                      SelectedItem="{Binding Language}"
+                      AutomationProperties.AutomationId="AI_LoginView_Language">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" 
+                                   RenderOptions.BitmapScalingMode="HighQuality" 
+                                   Width="50" 
+                                   Margin="3" 
+                                   AutomationProperties.AutomationId="AI_LoginView_Language">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding}" Value="de-DE">
+                                                <Setter Property="Source" Value="pack://application:,,,/Resources;component/Icons/germany.png"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding}" Value="en-US">
+                                                <Setter Property="Source" Value="pack://application:,,,/Resources;component/Icons/usa.png"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <TextBlock Grid.Column="1" 
+                                       HorizontalAlignment="Left" 
+                                       VerticalAlignment="Center"
+                                       Margin="5">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding}" Value="de-DE">
+                                                <Setter Property="Text" Value="Deutsch"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding}" Value="en-US">
+                                                <Setter Property="Text" Value="English"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+                <system:String>de-DE</system:String>
+                <system:String>en-US</system:String>
+            </ComboBox>
+            
+            <TextBlock Text="{wpf:Gettext Server Connection}"
+                       FontSize="15"
+                       AutomationProperties.AutomationId="AI_LoginView_TxtServer"/>
+            <ComboBox x:Name="ComboBoxServerName"
+                      Margin="0,5,0,0"
+                      Height="25"
+                      FontSize="15"
+                      IsEnabled="{Binding ServerConnectionEnabled}"
+                      DropDownClosed="SelectedServerConnection_DropDownClosed"
+                      SelectedItem="{Binding SelectedServerConnection, BindsDirectlyToSource=True}"
+                      DisplayMemberPath="ServerName"
+                      ItemsSource="{Binding ServerNameCollectionView}"
+                      AutomationProperties.AutomationId="AI_LoginView_Server">
+            </ComboBox>
+            <TextBlock Text="{wpf:Gettext Username}"
+                       FontSize="15"
+                       Margin="0,20,0,0"/>
+            <ComboBox x:Name="SuggestedComboBox"
+                      Margin="0 5 0 0"
+                      FontSize="15"
+                      ItemsSource="{Binding SuggestedUserNameCollectionView}"
+                      IsEditable="True"
+                      IsEnabled="{Binding ControlsEnabled}"
+                      Text="{Binding EnteredUserName, Delay=250, Mode=OneWayToSource}"
+                      AutomationProperties.AutomationId="AI_LoginView_Username">
+                <ComboBox.Resources>
+                    <Style TargetType="ComboBox">
+                        <Style.Triggers>
+                            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                                <Setter Property="IsDropDownOpen" Value="true" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ComboBox.Resources>
+            </ComboBox>
+
+            <UniformGrid Columns="2">
+                <TextBlock Text="{wpf:Gettext Password}"
+                           FontSize="15"
+                           Margin="0,20,0,0"/>
+
+                <!--Set Visibility with ContentControl, because otherwise the DynamicResource style could not be used-->
+                <ContentControl>
+                    <ContentControl.Style>
+                        <Style TargetType="ContentControl">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsCapsLockToggled}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsCapsLockToggled}" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+
+                    <TextBlock Text="{wpf:Gettext Caps Lock is enabled!}"
+                               FontSize="15"
+                               Margin="0,20,0,0"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Right"/>
+                </ContentControl>
+            </UniformGrid>
+            <PasswordBox Margin="0,5,0,0"
+                         Height="25"
+                         FontSize="15"
+                         IsEnabled="{Binding ControlsEnabled}"
+                         PasswordChanged="PasswordBox_PasswordChanged"
+                         AutomationProperties.AutomationId="AI_LoginView_Password">
+                <PasswordBox.InputBindings>
+                    <KeyBinding Key="Return" Command="{Binding LoginCommand}"/>
+                </PasswordBox.InputBindings>
+            </PasswordBox>
+            <TextBlock Text="{wpf:Gettext Group}"
+                       Visibility="{Binding GroupVisibility}"
+                       FontSize="15"
+                       Margin="0,20,0,0"/>
+            <ComboBox Margin="0,5,0,0"
+                      Height="25"
+                      FontSize="15"
+                      Visibility="{Binding GroupVisibility}"
+                      IsEnabled="{Binding ControlsEnabled}"
+                      SelectedItem="{Binding SelectedGroup, Mode=OneWayToSource}"
+                      ItemsSource="{Binding GroupCollectionView, Mode=OneWay}"
+                      DisplayMemberPath="GroupName"/>
+        </StackPanel>
+    </DockPanel>
+</Window>

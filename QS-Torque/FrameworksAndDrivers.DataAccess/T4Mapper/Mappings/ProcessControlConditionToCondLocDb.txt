@@ -1,0 +1,22 @@
+﻿(Map Server.Core.Entities.ProcessControlCondition DbEntities.CondLoc
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Id SEQID)
+		(Location.Id LOCID)
+		(UpperMeasuringLimit MDMAX)
+		(LowerMeasuringLimit MDMIN)
+		(UpperInterventionLimit OEGN)
+		(LowerInterventionLimit UEGN)
+		(TestLevelNumber TESTLEVELNUMBER)
+		(TestLevelSet TESTLEVELSETID)
+		(TestOperationActive PLANOK)
+		(StartDate TESTSTART)
+		(Alive ALIVE)
+		(EndOfLastTestPeriod ENDOFLASTTESTPERIOD)
+		(EndOfLastTestPeriodShift ENDOFLASTTESTPERIODSHIFT)
+		(NextTestDate NEXT_CTL)
+		(NextTestShift NEXTSHIFT)
+	)
+)

@@ -1,0 +1,17 @@
+﻿(Map DbEntities.Manufacturer Server.Core.Entities.Manufacturer
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(MANUID Id)
+		(NAME Name)
+		(STREET Street)
+		(CITY City)
+		(TEL PhoneNumber)
+		(FAX Fax)
+		(PERSON Person)
+		(COUNTRY Country)
+		(ZIPCODESTR Plz)
+		(HOUSENUMBERSTR HouseNumber)
+	)
+)

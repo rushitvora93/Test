@@ -1,0 +1,10 @@
+﻿(Map  Server.Core.Entities.Status DbEntities.Status
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Id STATEID)
+		(Value STATE)
+		(Alive ALIVE)
+	)
+)

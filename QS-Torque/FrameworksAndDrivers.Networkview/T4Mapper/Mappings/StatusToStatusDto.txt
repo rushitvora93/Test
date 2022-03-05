@@ -1,0 +1,10 @@
+﻿(Map Server.Core.Entities.Status DtoTypes.Status
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Id Id)
+		(Value Description)
+		(Alive Alive)
+	)
+)

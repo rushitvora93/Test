@@ -1,0 +1,534 @@
+﻿<UserControl x:Class="FrameworksAndDrivers.Gui.Wpf.View.ToleranceClassView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+             xmlns:behaviors="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View.Behaviors"
+             xmlns:controls="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View.Controls"
+             xmlns:converter="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View.Converter"
+             xmlns:styles="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View.Styles"
+             xmlns:local="clr-namespace:FrameworksAndDrivers.Gui.Wpf.ViewModel"
+             xmlns:wpf="clr-namespace:NGettext.Wpf;assembly=NGettext.Wpf"
+             xmlns:view="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance local:ToleranceClassViewModel, IsDesignTimeCreatable=False}"
+             d:DesignHeight="800"
+             d:DesignWidth="1000"
+             AutomationProperties.AutomationId="AI_ToleranceClassView">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}"></i:InvokeCommandAction>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/TabStyles.xaml" />
+                <ResourceDictionary Source="Styles/ButtonStyles.xaml" />
+                <ResourceDictionary Source="Styles/ExpanderStyles.xaml" />
+                <ResourceDictionary Source="Styles/TextBlockStyles.xaml" />
+                <ResourceDictionary Source="Styles/TextBoxStyles.xaml" />
+                <ResourceDictionary Source="Styles/SfDataGridStyles.xaml" />
+                <ResourceDictionary Source="Styles/ListStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+            <converter:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter"/>
+            <converter:InvertBoolConverter x:Key="InvertBoolConverter" />
+            <converter:IsNotEqualConverter x:Key="IsNotEqualConverter" />
+        </ResourceDictionary>
+
+    </UserControl.Resources>
+    <d:designerProperties.DesignStyle>
+        <Style TargetType="UserControl">
+            <Setter Property="Background"
+                    Value="White" />
+        </Style>
+    </d:designerProperties.DesignStyle>
+    
+    <DockPanel>
+        <TabControl DockPanel.Dock="Top"
+                    Background="{DynamicResource ControlBackgroundBrush}"
+                    Height="120">
+            <TabItem Header="{wpf:Gettext Start}"
+                     Height="30"
+                     Padding="10,0">
+                <StackPanel Orientation="Horizontal">
+                    <Button Width="70"
+                            Height="60"
+                            Margin="10,5"
+                            VerticalContentAlignment="Top"
+                            Style="{DynamicResource TransparentButtonStyle}"
+                            Command="{Binding AddToleranceClassCommand}"
+                            AutomationProperties.AutomationId="AI_ToleranceClassView_AddToleranceClass">
+                        <StackPanel>
+                            <controls:ThemeImage Source="pack://application:,,,/Resources;component/Icons/add.png"
+                                                 Height="30" 
+                                                 Margin="0,0,0,2"/>
+                            <TextBlock Text="{wpf:Gettext Add}"
+                                       FontSize="10"
+                                       TextAlignment="Center" 
+                                       TextWrapping="WrapWithOverflow"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Width="70"
+                            Height="60"
+                            Margin="10,5"
+                            VerticalContentAlignment="Top"
+                            Style="{DynamicResource TransparentButtonStyle}"
+                            Command="{Binding RemoveToleranceClassCommand}"
+                            AutomationProperties.AutomationId="AI_ToleranceClassView_DeleteToleranceClass">
+                        <StackPanel>
+                            <controls:ThemeImage Source="pack://application:,,,/Resources;component/Icons/delete.png"
+                                                 Height="30" 
+                                                 Margin="0,0,0,2"/>
+                            <TextBlock Text="{wpf:Gettext Remove}"
+                                       FontSize="10"
+                                       TextAlignment="Center" 
+                                       TextWrapping="WrapWithOverflow"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Width="70"
+                            Height="60"
+                            Margin="10,5"
+                            VerticalContentAlignment="Top"
+                            Style="{DynamicResource TransparentButtonStyle}"
+                            Command="{Binding SaveToleranceClassCommand}"
+                            AutomationProperties.AutomationId="AI_ToleranceClassView_SaveToleranceClass">
+                        <StackPanel>
+                            <controls:ThemeImage Source="pack://application:,,,/Resources;component/Icons/save.png"
+                                                 Height="30" 
+                                                 Margin="0,0,0,2"/>
+                            <TextBlock Text="{wpf:Gettext Save}"
+                                       FontSize="10"
+                                       TextAlignment="Center" 
+                                       TextWrapping="WrapWithOverflow"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Rectangle Width="1"
+                               Fill="{DynamicResource SeperatedAreaBrush}"
+                               Margin="0,5"
+                               Visibility="{Binding Source={x:Static view:HideUnusedPartsUtil.UnusedFunctionVisibility}}"/>
+
+                    <Button Width="70"
+                            Height="60"
+                            Margin="10,5"
+                            VerticalContentAlignment="Top"
+                            Style="{DynamicResource TransparentButtonStyle}"
+                            Command="{Binding SaveToleranceClassCommand}"
+                            Visibility="{Binding Source={x:Static view:HideUnusedPartsUtil.UnusedFunctionVisibility}}">
+                        <StackPanel>
+                            <controls:ThemeImage Source="pack://application:,,,/Resources;component/Icons/down-arrow.png"
+                                                 Height="30" 
+                                                 Margin="0,0,0,2"/>
+                            <TextBlock Text="{wpf:Gettext ToleranceClassView Ribbon|Down}"
+                                       FontSize="10"
+                                       TextAlignment="Center" 
+                                       TextWrapping="WrapWithOverflow"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Width="70"
+                            Height="60"
+                            Margin="10,5"
+                            VerticalContentAlignment="Top"
+                            Style="{DynamicResource TransparentButtonStyle}"
+                            Command="{Binding SaveToleranceClassCommand}"
+                            Visibility="{Binding Source={x:Static view:HideUnusedPartsUtil.UnusedFunctionVisibility}}">
+                        <StackPanel>
+                            <controls:ThemeImage Source="pack://application:,,,/Resources;component/Icons/up-arrow.png"
+                                                 Height="30" 
+                                                 Margin="0,0,0,2"/>
+                            <TextBlock Text="{wpf:Gettext ToleranceClassView Ribbon|Up}"
+                                       FontSize="10"
+                                       TextAlignment="Center" 
+                                       TextWrapping="WrapWithOverflow"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </TabItem>
+
+            <TabItem Header="{wpf:Gettext Print}"
+                     Height="30"
+                     Padding="10,0"
+                     Visibility="{Binding Source={x:Static view:HideUnusedPartsUtil.UnusedFunctionVisibility}}">
+                <StackPanel Orientation="Horizontal">
+                    <Button Width="70"
+                            Height="60"
+                            Margin="10,5"
+                            VerticalContentAlignment="Top"
+                            Style="{DynamicResource TransparentButtonStyle}"
+                            Command="{Binding PrintListCommand}">
+                        <StackPanel>
+                            <controls:ThemeImage Source="pack://application:,,,/Resources;component/Icons/printer.png"
+                                                 Height="30" 
+                                                 Margin="0,0,0,2"/>
+                            <TextBlock Text="{wpf:Gettext Print List}"
+                                       FontSize="10"
+                                       TextAlignment="Center" 
+                                       TextWrapping="WrapWithOverflow"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Width="70"
+                            Height="60"
+                            Margin="10,5"
+                            VerticalContentAlignment="Top"
+                            Style="{DynamicResource TransparentButtonStyle}"
+                            Command="{Binding PrintListCommand}">
+                        <StackPanel>
+                            <controls:ThemeImage Source="pack://application:,,,/Resources;component/Icons/print-tree.png"
+                                                 Height="30" 
+                                                 Margin="0,0,0,2"/>
+                            <TextBlock Text="{wpf:Gettext Print References}"
+                                       FontSize="10"
+                                       TextAlignment="Center" 
+                                       TextWrapping="WrapWithOverflow"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+        
+        <DockPanel DockPanel.Dock="Left"
+                   Width="250"
+                   Margin="0,10,10,0">
+            <ListBox DockPanel.Dock="Left"
+                     SelectionMode="Extended"
+                     SelectionChanged="Selector_OnSelectionChanged"
+                     ItemsSource="{Binding ToleranceClasses}"
+                     SelectedItem="{Binding SelectedToleranceClassModel, Delay=250}"
+                     AutomationProperties.AutomationId="AI_ToleranceClassView_ToleranceClassListBox">
+                <i:Interaction.Behaviors>
+                    <behaviors:EventToCommandBehavior Command="{Binding SelectionChanged}"
+                                                      Event="SelectionChanged"
+                                                      PassArguments="True" />
+                    <behaviors:ScrollIntoViewBehaviour/>
+                </i:Interaction.Behaviors>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"
+                                   Margin="0,2" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DockPanel>
+
+        <Grid Margin="0 10 0 0" AutomationProperties.AutomationId="AI_ToleranceClassView_SingleToleranceClass_Grid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ScrollViewer Grid.Column="0"
+                          VerticalScrollBarVisibility="Auto"
+                          Visibility="{Binding IsListViewVisible, Converter={StaticResource ReverseBooleanToVisibilityConverter}}"
+                          AutomationProperties.AutomationId="AI_ToleranceClassView_SingleToleranceClass_Grid_ScrollViewer">
+                <DockPanel>
+                    <Grid DockPanel.Dock="Top" IsEnabled="{Binding Path=SelectedToleranceClassModel, Converter={StaticResource IsNotEqualConverter}, ConverterParameter={x:Null}}">
+                        <Grid.Resources>
+                            <Style x:Key="ExtendedTextBlockStyle"
+                                   TargetType="TextBlock">
+                                <Setter Property="TextAlignment"
+                                        Value="Right" />
+                                <Setter Property="Margin"
+                                        Value="5" />
+                                <Setter Property="VerticalAlignment"
+                                        Value="Center" />
+                            </Style>
+                            <Style x:Key="ExtendedCheckBoxStyle"
+                                   TargetType="CheckBox">
+                                <Setter Property="Margin"
+                                        Value="7" />
+                            </Style>
+                        </Grid.Resources>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   Grid.Row="0"
+                                   Text="{wpf:Gettext Tolerance class|Name}"
+                                   styles:DynamicContainerStyle.BaseStyle="{DynamicResource {x:Type TextBlock}}"
+                                   styles:DynamicContainerStyle.DerivedStyle="{DynamicResource ExtendedTextBlockStyle}" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="0"
+                                 Margin="7"
+                                 HorizontalAlignment="Left"
+                                 MaxLength="50"
+                                 Text="{Binding Path=SelectedToleranceClassModel.Name, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="400"
+                                 AutomationProperties.AutomationId="AI_ToleranceClassView_SingleToleranceClass_Name">
+                            <i:Interaction.Behaviors>
+                                <behaviors:ShowChangedTextBoxBehavior ClearShownChangesParent="{Binding}"/>
+                                <behaviors:ShowRequiredTextBoxBehavior/>
+                                <behaviors:ShowNormalTextBoxBehavior ClearShownChangesParent="{Binding}"/>
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBlock Grid.Column="0"
+                                   Grid.Row="1"
+                                   Text="{wpf:Gettext Tolerance class|Tolerance}"
+                                   Margin="0,10,0,0"
+                                   VerticalAlignment="Top"
+                                   styles:DynamicContainerStyle.BaseStyle="{DynamicResource {x:Type TextBlock}}"
+                                   styles:DynamicContainerStyle.DerivedStyle="{DynamicResource ExtendedTextBlockStyle}" />
+                        <StackPanel Grid.Column="1"
+                                    Grid.Row="1">
+                            <RadioButton Content="{wpf:Gettext Tolerance class|Relative}"
+                                         x:Name="RelativeRadioButton"
+                                         Margin="5,10,2,0"
+                                         IsChecked="{Binding SelectedToleranceClassModel.Relative}"
+                                         Checked="RelativeRadioButton_OnChecked"
+                                         AutomationProperties.AutomationId="AI_ToleranceClassView_SingleToleranceClass_RdBtnToleranceRelative"/>
+                            <RadioButton Content="{wpf:Gettext Tolerance class|Absolute}"
+                                         IsChecked="{Binding ElementName=RelativeRadioButton, Path=IsChecked, Converter={StaticResource InvertBoolConverter}}"
+                                         Margin="5,2,0,10"
+                                         AutomationProperties.AutomationId="AI_ToleranceClassView_SingleToleranceClass_RdBtnToleranceAbsolute"/>
+                        </StackPanel>
+                        <TextBlock Grid.Column="0"
+                                   Grid.Row="2"
+                                   Text="{wpf:Gettext Tolerance class|Symmetrical limits}"
+                                   styles:DynamicContainerStyle.BaseStyle="{DynamicResource {x:Type TextBlock}}"
+                                   styles:DynamicContainerStyle.DerivedStyle="{DynamicResource ExtendedTextBlockStyle}" />
+                        <CheckBox Grid.Column="1"
+                                  Grid.Row="2"
+                                  x:Name="SymmetricCheckBox"
+                                  HorizontalAlignment="Left"
+                                  IsChecked="{Binding SelectedToleranceClassModel.SymmetricalLimits}"
+                                  Style="{DynamicResource ExtendedCheckBoxStyle}"
+                                  AutomationProperties.AutomationId="AI_ToleranceClassView_SingleToleranceClass_SymmetricalLimits"/>
+                        <TextBlock Grid.Column="0"
+                                   Grid.Row="3"
+                                   Text="{wpf:Gettext Tolerance class|lower/upper}"
+                                   Visibility="{Binding ElementName=SymmetricCheckBox, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                   styles:DynamicContainerStyle.BaseStyle="{DynamicResource {x:Type TextBlock}}"
+                                   styles:DynamicContainerStyle.DerivedStyle="{DynamicResource ExtendedTextBlockStyle}" />
+                        <StackPanel Grid.Column="1"
+                                    Grid.Row="3"
+                                    Orientation="Horizontal"
+                                    Visibility="{Binding ElementName=SymmetricCheckBox, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <syncfusion:UpDown x:Name="SymmetricUpDown"
+                                               NumberDecimalDigits="3"
+                                               HorizontalAlignment="Left"
+                                               MaxWidth="150"
+                                               MinWidth="150"
+                                               MinValue="0"
+                                               ValueChanging="UpDownOnValueChanging"
+                                               Value="{Binding SelectedToleranceClassModel.SymmetricLimitsValue}"
+                                               ApplyZeroColor="False"
+                                               Margin="7"
+                                               styles:DynamicContainerStyle.BaseStyle="{DynamicResource {x:Type syncfusion:UpDown}}"
+                                               AutomationProperties.AutomationId="AI_ToleranceClassView_SingleToleranceClass_SymmetricLowerUpperLimit"/>
+                            <TextBlock Text="%"
+                                       VerticalAlignment="Center"
+                                       Visibility="{Binding SelectedToleranceClassModel.Relative, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <TextBlock x:Name="ErrorTextSymmetricLimits" Visibility="Hidden"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Foreground="Red"
+                                       Text="{wpf:Gettext Tolerance class|symmetric limit to big for relative tolerance}" />
+                        </StackPanel>
+                        <TextBlock Grid.Column="0"
+                                   Grid.Row="3"
+                                   Text="{wpf:Gettext Tolerance class|Lower}"
+                                   Visibility="{Binding ElementName=SymmetricCheckBox, Path=IsChecked, Converter={StaticResource ReverseBooleanToVisibilityConverter}}"
+                                   styles:DynamicContainerStyle.BaseStyle="{DynamicResource {x:Type TextBlock}}"
+                                   styles:DynamicContainerStyle.DerivedStyle="{DynamicResource ExtendedTextBlockStyle}" />
+                        <StackPanel Grid.Column="1"
+                                    Grid.Row="3"
+                                    Orientation="Horizontal"
+                                    Visibility="{Binding ElementName=SymmetricCheckBox, Path=IsChecked, Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
+                            <syncfusion:UpDown x:Name="LowerUpDown"
+                                               NumberDecimalDigits="3"
+                                               HorizontalAlignment="Left"
+                                               MaxWidth="150"
+                                               MinWidth="150"
+                                               MinValue="0"
+                                               ValueChanging="UpDownOnValueChanging"
+                                               Value="{Binding SelectedToleranceClassModel.LowerLimit, PresentationTraceSources.TraceLevel=High}"
+                                               ApplyZeroColor="False"
+                                               Margin="7"
+                                               styles:DynamicContainerStyle.BaseStyle="{DynamicResource {x:Type syncfusion:UpDown}}"
+                                               AutomationProperties.AutomationId="AI_ToleranceClassView_SingleToleranceClass_LowerLimit"/>
+                            <TextBlock Text="%"
+                                       VerticalAlignment="Center"
+                                       Visibility="{Binding SelectedToleranceClassModel.Relative, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <TextBlock x:Name="ErrorTextLowerLimit"
+                                       Visibility="Hidden"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Foreground="Red"
+                                       Text="{wpf:Gettext Tolerance class|lower limit to big for relative tolerance}" />
+                        </StackPanel>
+                        <TextBlock Grid.Column="0"
+                                   Grid.Row="4"
+                                   Text="{wpf:Gettext Tolerance class|Upper}"
+                                   Visibility="{Binding ElementName=SymmetricCheckBox, Path=IsChecked, Converter={StaticResource ReverseBooleanToVisibilityConverter}}"
+                                   styles:DynamicContainerStyle.BaseStyle="{DynamicResource {x:Type TextBlock}}"
+                                   styles:DynamicContainerStyle.DerivedStyle="{DynamicResource ExtendedTextBlockStyle}" />
+                        <StackPanel Grid.Column="1"
+                                    Grid.Row="4"
+                                    Orientation="Horizontal"
+                                    Visibility="{Binding ElementName=SymmetricCheckBox, Path=IsChecked, Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
+                            <syncfusion:UpDown x:Name="UpperUpDown"
+                                               NumberDecimalDigits="3"
+                                               HorizontalAlignment="Left"
+                                               MaxWidth="150"
+                                               MinWidth="150"
+                                               MinValue="0"
+                                               ValueChanging="UpDownOnValueChanging"
+                                               Value="{Binding SelectedToleranceClassModel.UpperLimit}"
+                                               ApplyZeroColor="False"
+                                               Margin="7"
+                                               styles:DynamicContainerStyle.BaseStyle="{DynamicResource {x:Type syncfusion:UpDown}}"
+                                               AutomationProperties.AutomationId="AI_ToleranceClassView_SingleToleranceClass_UpperLimit"/>
+                            <TextBlock Text="%"
+                                       VerticalAlignment="Center"
+                                       Visibility="{Binding SelectedToleranceClassModel.Relative, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <TextBlock x:Name="ErrorTextUpperLimit"
+                                       Visibility="Hidden"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Foreground="Red"
+                                       Text="{wpf:Gettext Tolerance class|upper limit to big for relative tolerance}" />
+                        </StackPanel>
+                    </Grid>
+                    <Expander DockPanel.Dock="Top"
+                              VerticalAlignment="Top"
+                              Margin="10 20 0 20"
+                              Width="400"
+                              MaxHeight="300"
+                              HorizontalAlignment="Left"
+                              IsExpanded="{Binding AreLocationReferencesShown}"
+                              AutomationProperties.AutomationId="AI_ToleranceClassView_SingleToleranceClass_ReferencedMpsExpander">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Expanded">
+                                <i:InvokeCommandAction Command="{Binding LoadReferencedLocationsCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                        <Expander.Header>
+                            <Grid Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <controls:ThemeImage Grid.Column="0"
+                                                     Source="pack://application:,,,/Resources;component/Icons/link.png"
+                                                     Width="20"
+                                                     Height="20" />
+                                <TextBlock Grid.Column="1"
+                                           Text="{wpf:Gettext ToleranceClassView|Referenced locations}"
+                                           VerticalAlignment="Center"
+                                           Margin="20,0"/>
+                            </Grid>
+                        </Expander.Header>
+
+                        <ListBox ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                 ItemsSource="{Binding ReferencedLocations}"
+                                 styles:DynamicContainerStyle.BaseStyle="{DynamicResource {x:Type ListBox}}"
+                                 AutomationProperties.AutomationId="AI_ToleranceClassView_SingleToleranceClass_ReferencedMpsList">
+                            <styles:DynamicContainerStyle.DerivedStyle>
+                                <Style TargetType="ListBox">
+                                    <Setter Property="Visibility" Value="Visible"/>
+
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ReferencedLocations.Count}" Value="0">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </styles:DynamicContainerStyle.DerivedStyle>
+                            
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <Run Text="{Binding DisplayName}"/>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Expander>
+
+                    <Expander DockPanel.Dock="Top"
+                              VerticalAlignment="Top"
+                              Margin="10 0 0 20"
+                              Width="400"
+                              MaxHeight="300"
+                              HorizontalAlignment="Left"
+                              IsExpanded="{Binding AreLocationToolAssignmentReferencesShown}"
+                              AutomationProperties.AutomationId="AI_ToleranceClassView_SingleToleranceClass_ReferencedMpToolAssignementsExpander">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Expanded">
+                                <i:InvokeCommandAction Command="{Binding LoadReferencedLocationToolAssignmentsCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                        <Expander.Header>
+                            <Grid Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <controls:ThemeImage Grid.Column="0"
+                                                     Source="pack://application:,,,/Resources;component/Icons/link.png"
+                                                     Width="20"
+                                                     Height="20" />
+                                <TextBlock Grid.Column="1"
+                                           Text="{wpf:Gettext ToleranceClassView|Referenced location tool assignments}"
+                                           VerticalAlignment="Center"
+                                           Margin="20,0"/>
+                            </Grid>
+                        </Expander.Header>
+
+                        <controls:ExtendedSfDataGrid ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                     ItemsSource="{Binding ReferencedLocationToolAssignments}"
+                                                     AutoGenerateColumns="False"
+                                                     AllowFiltering="True"
+                                                     AllowResizingColumns="True"
+                                                     ColumnSizer="Auto"
+                                                     FilterPopupStyle="{StaticResource GridFilterStyle}"
+                                                     styles:DynamicContainerStyle.BaseStyle="{DynamicResource {x:Type controls:ExtendedSfDataGrid}}"
+                                                     AutomationProperties.AutomationId="AI_ToleranceClassView_SingleToleranceClass_ReferencedMpToolAssignementsDG">
+                            <styles:DynamicContainerStyle.DerivedStyle>
+                                <Style TargetType="controls:ExtendedSfDataGrid">
+                                    <Setter Property="Visibility" Value="Visible"/>
+
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ReferencedLocationToolAssignments.Count}" Value="0">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </styles:DynamicContainerStyle.DerivedStyle>
+                            
+                            <controls:ExtendedSfDataGrid.Columns>
+                                <syncfusion:GridTextColumn HeaderText="{wpf:Gettext ToleranceClassView|Location number}" MappingName="AssignedLocation.Number" />
+                                <syncfusion:GridTextColumn HeaderText="{wpf:Gettext ToleranceClassView|Location description}" MappingName="AssignedLocation.Description" />
+                                <syncfusion:GridTextColumn HeaderText="{wpf:Gettext ToleranceClassView|Tool serial number}" MappingName="AssignedTool.InventoryNumber" />
+                                <syncfusion:GridTextColumn HeaderText="{wpf:Gettext ToleranceClassView|Tool inventory number}" MappingName="AssignedTool.SerialNumber" />
+                            </controls:ExtendedSfDataGrid.Columns>
+                        </controls:ExtendedSfDataGrid>
+                    </Expander>
+                </DockPanel>
+            </ScrollViewer>
+            <controls:ExtendedSfDataGrid Grid.Column="0" x:Name="DataGrid"
+                                         ItemsSource="{Binding SelectedToleranceClassListCollectionView}"
+                                         AutoGenerateColumns="False"
+                                         AllowFiltering="True"
+                                         AllowResizingColumns="True"
+                                         Columns="{Binding ListViewColumns}"
+                                         ColumnSizer="Auto"
+                                         Visibility="{Binding IsListViewVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                         FilterPopupStyle="{StaticResource GridFilterStyle}"/>
+        </Grid>
+    </DockPanel>
+</UserControl>

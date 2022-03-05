@@ -1,0 +1,151 @@
+﻿<Window
+        x:Class="FrameworksAndDrivers.Gui.Wpf.View.ChangeToolStateView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:c="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View.Controls"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wpf="clr-namespace:NGettext.Wpf;assembly=NGettext.Wpf"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+        xmlns:converter="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View.Converter"
+        xmlns:styles="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View.Styles"
+        xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        xmlns:viewModel="clr-namespace:FrameworksAndDrivers.Gui.Wpf.ViewModel"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=viewModel:ChangeToolStateViewModel, IsDesignTimeCreatable=False}"
+        WindowStartupLocation="CenterScreen"
+        Title="QS-Torque" Height="450" Width="800"
+        MinHeight="400" MinWidth="700"
+        AutomationProperties.AutomationId="AI_ChangeToolStateView">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles\ButtonStyles.xaml"/>
+                <ResourceDictionary Source="Styles\TextBoxStyles.xaml"/>
+                <ResourceDictionary Source="Styles\TextBlockStyles.xaml"/>
+                <ResourceDictionary Source="Styles\ListStyles.xaml"/>
+                <ResourceDictionary Source="Styles/ComboBoxStyles.xaml"/>
+                <ResourceDictionary Source="Styles/ExpanderStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
+            <Style x:Key="ComboBoxGridStyle" TargetType="syncfusion:GridCell">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="syncfusion:GridCell">
+                            <Grid SnapsToDevicePixels="True">
+                                <Border Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        SnapsToDevicePixels="True">
+
+                                    <Grid>
+                                        <ContentPresenter Margin="{TemplateBinding Padding}" />
+                                        <Path Width="5.3"
+                                              Height="4.2"
+                                              Margin="0,0,7,0"
+                                              HorizontalAlignment="Right"
+                                              VerticalAlignment="Center"
+                                              Data="F1M0,0L2.667,2.66665 5.3334,0 5.3334,-1.78168 2.6667,0.88501 0,-1.78168 0,0z"
+                                              Fill="Gray"
+                                              Stretch="Uniform" />
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <DataTemplate x:Key="AssignedLocTemplate">
+                <StackPanel>
+                    <TextBlock Text="{wpf:Gettext Other assigned locations}"
+                               FontSize="14"/>
+                    <TextBox Text="{Binding Data.OtherConnectedLocations}" 
+                             Margin="10, 10, 0, 0"
+                             IsReadOnly="True"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             TextWrapping="Wrap"
+                             AutomationProperties.AutomationId="AI_ChangeToolStateView_OtherAssignedLocations"/>
+                </StackPanel>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Window.InputBindings>
+        <KeyBinding Key="Return" Command="{Binding NextCommand}"/>
+    </Window.InputBindings>
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Top"
+                   Margin="10"
+                   FontSize="15"
+                   Text="{Binding Description}"/>
+        <StackPanel DockPanel.Dock="Bottom"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="10">
+            <Button Content="{wpf:Gettext Cancel}"
+                    Style="{DynamicResource ButtonStyle}"
+                    Width="100"
+                    Height="23"
+                    Margin="10,0"
+                    Click="ButtonCancel_Click"
+                    AutomationProperties.AutomationId="AI_ChangeToolStateView_Cancel"/>
+            <Button Content="{wpf:Gettext Assistent|Apply}"
+                    Style="{DynamicResource ButtonStyle}"
+                    Width="100"
+                    Height="23"
+                    Command="{Binding NextCommand}"
+                    styles:DynamicContainerStyle.BaseStyle="{DynamicResource ButtonStyle}"
+                    AutomationProperties.AutomationId="AI_ChangeToolStateView_Apply"/>
+        </StackPanel>
+
+        <StackPanel DockPanel.Dock="Bottom"
+                    Orientation="Horizontal">
+            <Button Content="{wpf:Gettext Add status}"
+                    Style="{DynamicResource ButtonStyle}"
+                    Width="100"
+                    Height="23"
+                    Margin="10,0"
+                    Command="{Binding OpenHelperTableCommand}"
+                    AutomationProperties.AutomationId="AI_ChangeToolStateView_JumpStatus"/>
+        </StackPanel>
+        
+        <c:ExtendedSfDataGrid Margin="10"
+                              x:Name="DataGrid"
+                              AutoGenerateColumns="False"
+                              AllowResizingColumns="True"
+                              ColumnSizer="AutoLastColumnFill"
+                              EditTrigger="OnTap"
+                              ItemsSource="{Binding AssignedToolsCollectionView}"
+                              AutoExpandGroups="True"
+                              AutomationProperties.AutomationId="AI_ChangeToolStateView_MpToolReferenceDG">
+            <c:ExtendedSfDataGrid.Resources>
+                <CollectionViewSource x:Key="ToolStatusCollectionViewSource"
+                                                                  Source="{Binding ToolStatusCollectionView}">
+                    <CollectionViewSource.SortDescriptions>
+                        <componentModel:SortDescription PropertyName="Value"
+                                                        Direction="Ascending"/>
+                    </CollectionViewSource.SortDescriptions>
+                </CollectionViewSource>
+            </c:ExtendedSfDataGrid.Resources>
+            <c:ExtendedSfDataGrid.Columns>
+                <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Change Tool State| Location}" MappingName="Location" GroupMode="Display"/>
+                <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Change Tool State| Tool}" MappingName="PowTool"/>
+                <syncfusion:GridComboBoxColumn HeaderText="{wpf:Gettext Change Tool State| State}" MappingName="Status"
+                                               ItemsSource="{Binding Source={StaticResource ToolStatusCollectionViewSource}}" 
+                                               DisplayMemberPath="Value"
+                                               AllowEditing="True" 
+                                               AllowSorting="False"
+                                               CellStyle="{StaticResource ComboBoxGridStyle}"/>
+            </c:ExtendedSfDataGrid.Columns>
+            <c:ExtendedSfDataGrid.GroupColumnDescriptions>
+                <syncfusion:GroupColumnDescription ColumnName="Location"/>
+            </c:ExtendedSfDataGrid.GroupColumnDescriptions>
+            <c:ExtendedSfDataGrid.DetailsViewDefinition>
+                <syncfusion:TemplateViewDefinition RowTemplate="{StaticResource AssignedLocTemplate}"/>
+            </c:ExtendedSfDataGrid.DetailsViewDefinition>
+        </c:ExtendedSfDataGrid>
+    </DockPanel>
+</Window>

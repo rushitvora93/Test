@@ -1,0 +1,11 @@
+﻿(Map DtoTypes.WorkingCalendarEntry Server.Core.Entities.WorkingCalendarEntry
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Date Date)
+		(Description Description)
+		(Repeated Repetition)
+		(IsFree Type)
+	)
+)

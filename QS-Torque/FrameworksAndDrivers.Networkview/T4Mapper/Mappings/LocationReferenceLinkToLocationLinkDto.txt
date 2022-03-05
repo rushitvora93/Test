@@ -1,0 +1,10 @@
+﻿(Map Server.Core.Entities.ReferenceLink.LocationReferenceLink DtoTypes.LocationLink
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Id Id)
+		(Number Number)
+		(Description Description)
+	)
+)

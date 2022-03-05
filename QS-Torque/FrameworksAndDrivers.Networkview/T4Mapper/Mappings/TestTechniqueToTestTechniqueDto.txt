@@ -1,0 +1,20 @@
+﻿(Map Server.Core.Entities.TestTechnique DtoTypes.TestTechnique
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(EndCycleTime EndCycleTime)
+        (FilterFrequency FilterFrequency)
+        (CycleComplete CycleComplete)
+        (MeasureDelayTime MeasureDelayTime)
+        (ResetTime ResetTime)
+        (MustTorqueAndAngleBeInLimits MustTorqueAndAngleBeInLimits)
+        (CycleStart CycleStart)
+        (StartFinalAngle StartFinalAngle)
+        (SlipTorque SlipTorque)
+        (TorqueCoefficient TorqueCoefficient)
+        (MinimumPulse MinimumPulse)
+        (MaximumPulse MaximumPulse)
+        (Threshold Threshold)
+	)
+)

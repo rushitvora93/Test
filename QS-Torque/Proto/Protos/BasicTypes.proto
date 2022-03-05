@@ -1,0 +1,67 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "BasicTypes";
+
+message DateTime {
+	int64 ticks = 1;
+}
+
+message NullableDateTime {
+	DateTime value = 1;
+	bool isNull = 2;
+}
+
+message TimeSpan {
+	int64 ValueInTicks = 1;
+}
+
+message NoParams {}
+
+message LongRequest {
+	int64 value = 1;
+} 
+
+message Long {
+	int64 value = 1;
+}
+
+message NullableInt {
+	int32 value = 1;
+	bool isNull = 2;
+} 
+
+message NullableLong {
+	int64 value = 1;
+	bool isNull = 2;
+} 
+
+message NullableDouble {
+	double value = 1;
+	bool isNull = 2;
+} 
+
+message NullableString {
+	string value = 1;
+	bool isNull = 2;
+} 
+
+message ListOfLongs {
+	repeated Long values = 1;
+} 
+
+message StringResponse {
+	string value = 1;
+} 
+
+message String {
+	string value = 1;
+} 
+
+message Bool {
+	bool value = 1;
+} 
+
+message Interval {
+	int64 intervalValue = 1;
+	int64 intervalType = 2;
+} 

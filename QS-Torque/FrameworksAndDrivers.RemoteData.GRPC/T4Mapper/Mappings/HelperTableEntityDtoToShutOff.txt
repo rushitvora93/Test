@@ -1,0 +1,6 @@
+﻿(Map DtoTypes.HelperTableEntity ShutOff 
+	(Properties
+		(Value Value)
+		(ListId ListId)
+	)
+)

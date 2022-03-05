@@ -1,0 +1,9 @@
+﻿(Map ConfigurableField DtoTypes.HelperTableEntity 
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Value Value)
+		(ListId ListId)
+	)
+)

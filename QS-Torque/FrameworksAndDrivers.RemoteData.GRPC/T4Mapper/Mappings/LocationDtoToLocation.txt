@@ -1,0 +1,25 @@
+﻿(Map DtoTypes.Location Location
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Id Id)
+		(Number Number)
+		(Description Description)
+		(ParentDirectoryId ParentDirectoryId)
+		(ControlledBy ControlledBy)
+		(SetPoint1 SetPointTorque)
+		(Minimum1 MinimumTorque)
+		(Maximum1 MaximumTorque)
+		(Threshold1 ThresholdTorque)
+		(SetPoint2 SetPointAngle)
+		(Minimum2 MinimumAngle)
+		(Maximum2 MaximumAngle)
+		(ConfigurableField1 ConfigurableField1)
+		(ConfigurableField2 ConfigurableField2)
+		(ConfigurableField3 ConfigurableField3)
+		(Comment Comment)
+		(ToleranceClass1 ToleranceClassTorque)
+		(ToleranceClass2 ToleranceClassAngle)
+	)
+)

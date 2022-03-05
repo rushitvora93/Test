@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>
+    <Platforms>AnyCPU</Platforms>
+    <CodeAnalysisRuleSet>..\.sonarlint\qstv8csharp.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants></DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants></DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="..\.sonarlint\qstv8\CSharp\SonarLint.xml" Link="SonarLint.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Gettext.Tools" Version="0.21.0.1" />
+    <PackageReference Include="log4net" Version="2.0.12" />
+    <PackageReference Include="NGettext" Version="0.6.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Client.Core\Client.Core.csproj" />
+    <ProjectReference Include="..\FrameworksAndDrivers.Localization\FrameworksAndDrivers.Localization.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ToastIcons\Done.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ToastIcons\Error.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

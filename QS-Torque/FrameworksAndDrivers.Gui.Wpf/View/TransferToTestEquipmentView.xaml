@@ -1,0 +1,395 @@
+﻿<UserControl x:Class="FrameworksAndDrivers.Gui.Wpf.View.TransferToTestEquipmentView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:c="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View.Controls"
+             xmlns:view="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View"
+             xmlns:wpf="clr-namespace:NGettext.Wpf;assembly=NGettext.Wpf"
+             xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:globalization="clr-namespace:System.Globalization;assembly=mscorlib"
+             xmlns:converter="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View.Converter"
+             xmlns:behaviors="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View.Behaviors"
+             xmlns:styles="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View.Styles"
+             xmlns:enums="clr-namespace:Core.Enums;assembly=Client.Core"
+             xmlns:commonentities="clr-namespace:Core.Entities;assembly=Common.Types"
+             xmlns:controls="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/ButtonStyles.xaml"/>
+                <ResourceDictionary Source="Styles/TextBoxStyles.xaml"/>
+                <ResourceDictionary Source="Styles/TextBlockStyles.xaml"/>
+                <ResourceDictionary Source="Styles/ListStyles.xaml"/>
+                <ResourceDictionary Source="Styles/TabStyles.xaml"/>
+                <ResourceDictionary Source="Styles/SfDataGridStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+            <converter:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter"/>
+            <converter:TransferToTestEquipmentCellStyleConverter x:Key="TransferToTestEquipmentCellStyleConverter"/>
+            <converter:TestEquipmentFirstCellStyleConverter x:Key="TestEquipmentFirstCellStyleConverter"/>
+            <converter:InvertBoolConverter x:Key="InvertBoolConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding Load}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <DockPanel>
+        <TabControl DockPanel.Dock="Top" Height="120">
+            <TabItem Header="Start">
+                <StackPanel Orientation="Horizontal">
+                    <Button Margin="10,5" Style="{DynamicResource TransparentButtonStyle}" Command="{Binding SubmitDataToSelectedTestEquipment}">
+                        <StackPanel>
+                            <c:ThemeImage Source="pack://application:,,,/Resources;component/Icons/startup.png"
+                                          Height="30"
+                                          Margin="0,0,0,2"/>
+                            <TextBlock Text="{wpf:Gettext Transfer To Test Equipment|Submit Data}"></TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button Margin="10,5" Style="{DynamicResource TransparentButtonStyle}" Command="{Binding ReadDataToSelectedTestEquipment}">
+                        <StackPanel>
+                            <c:ThemeImage Source="pack://application:,,,/Resources;component/Icons/importieren.png"
+                                          Height="30"
+                                          Margin="0,0,0,2"/>
+                            <TextBlock Text="{wpf:Gettext Transfer To Test Equipment|Read data}"></TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button Margin="10,5" Style="{DynamicResource TransparentButtonStyle}" Command="{Binding SelectCommand}">
+                        <StackPanel>
+                            <c:ThemeImage Source="pack://application:,,,/Resources;component/Icons/Done.png"
+                                          Height="30"
+                                          Margin="0,0,0,2"/>
+                            <TextBlock Text="{wpf:Gettext Transfer To Test Equipment|Select Filtered}"></TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button Margin="10,5" Style="{DynamicResource TransparentButtonStyle}" Command="{Binding DeselectCommand}">
+                        <StackPanel>
+                            <c:ThemeImage Source="pack://application:,,,/Resources;component/Icons/Checkbox.png"
+                                          Height="30"
+                                          Margin="0,0,0,2"/>
+                            <TextBlock Text="{wpf:Gettext Transfer To Test Equipment|Deselect Filtered}"></TextBlock>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MinWidth="200"></ColumnDefinition>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="2*" MinWidth="400"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition ></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Column="0" Margin="0,5,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+
+                <controls:SwitchButton Grid.Row="0"
+                                       x:Name="SwitchButtonTop"
+                                       Margin="4"
+                                       LeftText="{wpf:Gettext Transfer To Test Equipment|Tool testing}"
+                                       RightText="{wpf:Gettext Transfer To Test Equipment|Process testing}"
+                                       IsLeftChecked="{Binding ToolTestingChecked, Mode=TwoWay}"
+                                       IsRightChecked="{Binding ProcessTestingChecked, Mode=TwoWay}"
+                                       LeftClick="ButtonBase_OnClick"
+                                       RightClick="ButtonBase_OnClick"
+                                       LeftButtonCommand="{Binding ShowRotatingTestCommand}"
+                                       RightButtonCommand="{Binding ShowProcessControlCommand}"/>
+                <controls:SwitchButton Grid.Row="1"
+                                       x:Name="SwitchButtonBottom"
+                                       Margin="4"
+                                       LeftText="{wpf:Gettext Transfer To Test Equipment|Tool monitoring}"
+                                       RightText="{wpf:Gettext Transfer To Test Equipment|MCA}"
+                                       IsLeftChecked="{Binding IsChkTestTypeChecked, Mode=TwoWay}"
+                                       IsRightChecked="{Binding IsMcaTestTypeChecked, Mode=TwoWay}"
+                                       Visibility="{Binding ToolTestingChecked, Converter={StaticResource BoolToVisibilityConverter}}"
+                                       LeftButtonCommand="{Binding ChkTestType4Transfer}"
+                                       RightButtonCommand="{Binding MfuTestType4Transfer}"/>
+            </Grid>
+            <syncfusion:TreeViewAdv Grid.Row="1" Grid.Column="0" x:Name="TestEquipmentTree"
+                                        Background="{DynamicResource ControlBackgroundBrush}"
+                                        AnimationType="None"
+                                        Margin="0,10,10,0"
+                                        Sorting="Ascending"
+                                        AllowDragDrop="False"
+                                        AllowMultiSelect="False"
+                                        SelectedTreeItem="{Binding Path=SelectedTreeItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=view:TransferToTestEquipmentView}, Delay=250, Mode=OneWayToSource, FallbackValue={x:Null}}">
+                    <syncfusion:TreeViewAdv.ItemContainerStyle>
+                        <Style TargetType="syncfusion:TreeViewItemAdv">
+                            <Setter Property="IsEditable" Value="False"/>
+                        </Style>
+                    </syncfusion:TreeViewAdv.ItemContainerStyle>
+                </syncfusion:TreeViewAdv>
+
+            <GridSplitter Grid.Column="1"
+                          Grid.RowSpan="2"
+                          Width="2"
+                          HorizontalAlignment="Stretch"
+                          Margin="0,10,0,0"
+                          Background="{DynamicResource GridSplitterBackground}" />
+
+            <c:ExtendedSfDataGrid Margin="8"
+                                  Grid.Column="2"
+                                  Grid.RowSpan="2"
+                                  x:Name="DataGrid"
+                                  AutoGenerateColumns="False"
+                                  AllowFiltering="True"
+                                  AllowResizingColumns="True"
+                                  AllowDraggingColumns="True"
+                                  FrozenColumnCount="1"
+                                  ColumnSizer="Auto"
+                                  FilterPopupStyle="{StaticResource GridFilterStyle}"
+                                  ItemsSource="{Binding LocationToolAssignments}"
+                                  Visibility="{Binding LocationToolAssignmentWithTestLevelSetVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+                <c:ExtendedSfDataGrid.Columns>
+                    <syncfusion:GridCheckBoxColumn HeaderText="{wpf:Gettext Transfer To Test Equipment|Transfer this}" MappingName="Selected"  AllowEditing="True" />
+                    <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Transfer To Test Equipment|Tool usage}" MappingName="ToolUsageDescription" />
+                    <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Transfer To Test Equipment|Location number}" MappingName="LocationNumber"></syncfusion:GridTextColumn>
+                    <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Transfer To Test Equipment|Location description}" MappingName="LocationDescription"></syncfusion:GridTextColumn>
+                    <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Transfer To Test Equipment|Location free field category}" MappingName="LocationFreeFieldCategory"></syncfusion:GridTextColumn>
+                    <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Transfer To Test Equipment|Location free field documentation}" MappingName="LocationFreeFieldDocumentation">
+                        <syncfusion:GridTextColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Text" Value="&#10007;"></Setter>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding LocationFreeFieldDocumentation}" Value="True">
+                                                    <Setter Property="Text" Value="&#10003;"></Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </DataTemplate>
+                        </syncfusion:GridTextColumn.CellTemplate>
+                    </syncfusion:GridTextColumn>
+                    <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Transfer To Test Equipment|Tool serial number}" MappingName="ToolSerialNumber" />
+                    <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Transfer To Test Equipment|Tool inventory number}" MappingName="ToolInventoryNumber" />
+                    <syncfusion:GridDateTimeColumn Pattern="FullDateTime" HeaderText="{wpf:Gettext Transfer To Test Equipment|Last test date}" MappingName="LastTestDate"
+                                                   DateTimeFormat="{Binding Path=DateTimeFormatInfo, Source={x:Static view:LocalizationUtil.Localization}}"/>
+                    <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Transfer To Test Equipment|Sample number}" MappingName="SampleNumber" />
+                    <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Transfer To Test Equipment|Interval}" MappingName="TestInterval.IntervalValue" />
+                    <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Transfer To Test Equipment|Interval type}" MappingName="TestInterval.Type">
+                        <syncfusion:GridTextColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock styles:DynamicContainerStyle.BaseStyle="{DynamicResource {x:Type TextBlock}}">
+                                            <styles:DynamicContainerStyle.DerivedStyle>
+                                                <Style TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding TestInterval.Type}" Value="{x:Static commonentities:IntervalType.EveryXShifts}">
+                                                            <Setter Property="Text" Value="{wpf:Gettext IntervalType|Every x shifts}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding TestInterval.Type}" Value="{x:Static commonentities:IntervalType.EveryXDays}">
+                                                            <Setter Property="Text" Value="{wpf:Gettext IntervalType|Every x days}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding TestInterval.Type}" Value="{x:Static commonentities:IntervalType.XTimesAShift}">
+                                                            <Setter Property="Text" Value="{wpf:Gettext IntervalType|X times a shift}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding TestInterval.Type}" Value="{x:Static commonentities:IntervalType.XTimesADay}">
+                                                            <Setter Property="Text" Value="{wpf:Gettext IntervalType|X times a day}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding TestInterval.Type}" Value="{x:Static commonentities:IntervalType.XTimesAWeek}">
+                                                            <Setter Property="Text" Value="{wpf:Gettext IntervalType|X times a week}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding TestInterval.Type}" Value="{x:Static commonentities:IntervalType.XTimesAMonth}">
+                                                            <Setter Property="Text" Value="{wpf:Gettext IntervalType|X times a month}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding TestInterval.Type}" Value="{x:Static commonentities:IntervalType.XTimesAYear}">
+                                                            <Setter Property="Text" Value="{wpf:Gettext IntervalType|X times a year}"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </styles:DynamicContainerStyle.DerivedStyle>
+                                </TextBlock>
+                            </DataTemplate>
+                        </syncfusion:GridTextColumn.CellTemplate>
+                    </syncfusion:GridTextColumn>
+                    <syncfusion:GridDateTimeColumn Pattern="FullDateTime" HeaderText="{wpf:Gettext Transfer To Test Equipment|Next test date}" MappingName="NextTestDate"
+                                                   DateTimeFormat="{Binding Path=DateTimeFormatInfo, Source={x:Static view:LocalizationUtil.Localization}}"/>
+                    <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Transfer To Test Equipment|Next test shift}" MappingName="NextTestDateShift">
+                        <syncfusion:GridTextColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock styles:DynamicContainerStyle.BaseStyle="{DynamicResource {x:Type TextBlock}}">
+                                            <styles:DynamicContainerStyle.DerivedStyle>
+                                                <Style TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding NextTestDateShift}" Value="{x:Null}">
+                                                            <Setter Property="Text" Value=""/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding NextTestDateShift}" Value="{x:Static enums:Shift.FirstShiftOfDay}">
+                                                            <Setter Property="Text" Value="{wpf:Gettext Shift|First shift of day}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding NextTestDateShift}" Value="{x:Static enums:Shift.FirstShiftOfDay}">
+                                                            <Setter Property="Text" Value="{wpf:Gettext Shift|First shift of day}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding NextTestDateShift}" Value="{x:Static enums:Shift.SecondShiftOfDay}">
+                                                            <Setter Property="Text" Value="{wpf:Gettext Shift|Second shift of day}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding NextTestDateShift}" Value="{x:Static enums:Shift.ThirdShiftOfDay}">
+                                                            <Setter Property="Text" Value="{wpf:Gettext Shift|Third shift of day}"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </styles:DynamicContainerStyle.DerivedStyle>
+                                </TextBlock>
+                            </DataTemplate>
+                        </syncfusion:GridTextColumn.CellTemplate>
+                    </syncfusion:GridTextColumn>
+                </c:ExtendedSfDataGrid.Columns>
+            </c:ExtendedSfDataGrid>
+
+            <Grid 
+                Visibility="{Binding ProcessTestingChecked, Converter={StaticResource BoolToVisibilityConverter}}"
+                Grid.Column="2"
+                Grid.Row="0"
+                Grid.RowSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <c:ExtendedSfDataGrid Margin="8"
+                                  Grid.Row="0"
+                                  x:Name="DataGridProcess"
+                                  AutoGenerateColumns="False"
+                                  AllowFiltering="True"
+                                  AllowResizingColumns="True"
+                                  AllowDraggingColumns="True"
+                                  FrozenColumnCount="1"
+                                  ColumnSizer="Auto"
+                                  FilterPopupStyle="{StaticResource GridFilterStyle}"
+                                  ItemsSource="{Binding ProcessControlForTransferData}">
+
+                <c:ExtendedSfDataGrid.CellStyle>
+                    <Style TargetType="syncfusion:GridCell">
+                        <Style.Resources>
+                            <ResourceDictionary>
+                                <Style TargetType="TextBlock" />
+                            </ResourceDictionary>
+                        </Style.Resources>
+                        <Setter Property="Foreground" Value="{Binding HasCapacityError, Converter={StaticResource TransferToTestEquipmentCellStyleConverter}}"/>
+                    </Style>
+                </c:ExtendedSfDataGrid.CellStyle>
+
+                <c:ExtendedSfDataGrid.Columns>
+                    <syncfusion:GridCheckBoxColumn HeaderText="{wpf:Gettext Transfer To Test Equipment|Transfer this}" MappingName="Selected"  AllowEditing="True" />
+                        <syncfusion:GridTextColumn HeaderText="" Width="30" TextAlignment="Center" MappingName="CapacityErrorSign" IsHidden="{Binding HasCapacityErrorLegendVisible, Converter={StaticResource InvertBoolConverter}}">
+                        <syncfusion:GridTextColumn.CellStyle>
+                            <Style TargetType="syncfusion:GridCell">
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="Background" Value="{Binding HasNoCapacityError, Converter={StaticResource TestEquipmentFirstCellStyleConverter}}" />
+                            </Style>
+                        </syncfusion:GridTextColumn.CellStyle>
+                    </syncfusion:GridTextColumn>
+                    <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Transfer To Test Equipment|Location number}" MappingName="LocationNumber"></syncfusion:GridTextColumn>
+                    <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Transfer To Test Equipment|Location description}" MappingName="LocationDescription"></syncfusion:GridTextColumn>
+                    <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Transfer To Test Equipment|Setpoint torque}" MappingName="SetPointTorque" TextAlignment="Right"/>
+                    <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Transfer To Test Equipment|Minimum torque}" MappingName="MinimumTorque" TextAlignment="Right"/>
+                    <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Transfer To Test Equipment|Maximum torque}" MappingName="MaximumTorque" TextAlignment="Right"/>
+                    <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Transfer To Test Equipment|Test method}" MappingName="TestMethod"/>
+                        <syncfusion:GridDateTimeColumn Pattern="FullDateTime" HeaderText="{wpf:Gettext Transfer To Test Equipment|Last test date}" MappingName="LastTestDate"
+                                                       DateTimeFormat="{Binding Path=DateTimeFormatInfo, Source={x:Static view:LocalizationUtil.Localization}}"/>
+                        <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Transfer To Test Equipment|Sample number}" MappingName="SampleNumber" />
+                        <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Transfer To Test Equipment|Interval}" MappingName="TestInterval.IntervalValue" />
+                        <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Transfer To Test Equipment|Interval type}" MappingName="TestInterval.Type">
+                        <syncfusion:GridTextColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock styles:DynamicContainerStyle.BaseStyle="{DynamicResource {x:Type TextBlock}}">
+                                            <styles:DynamicContainerStyle.DerivedStyle>
+                                                <Style TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding TestInterval.Type}" Value="{x:Static commonentities:IntervalType.EveryXShifts}">
+                                                            <Setter Property="Text" Value="{wpf:Gettext IntervalType|Every x shifts}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding TestInterval.Type}" Value="{x:Static commonentities:IntervalType.EveryXDays}">
+                                                            <Setter Property="Text" Value="{wpf:Gettext IntervalType|Every x days}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding TestInterval.Type}" Value="{x:Static commonentities:IntervalType.XTimesAShift}">
+                                                            <Setter Property="Text" Value="{wpf:Gettext IntervalType|X times a shift}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding TestInterval.Type}" Value="{x:Static commonentities:IntervalType.XTimesADay}">
+                                                            <Setter Property="Text" Value="{wpf:Gettext IntervalType|X times a day}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding TestInterval.Type}" Value="{x:Static commonentities:IntervalType.XTimesAWeek}">
+                                                            <Setter Property="Text" Value="{wpf:Gettext IntervalType|X times a week}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding TestInterval.Type}" Value="{x:Static commonentities:IntervalType.XTimesAMonth}">
+                                                            <Setter Property="Text" Value="{wpf:Gettext IntervalType|X times a month}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding TestInterval.Type}" Value="{x:Static commonentities:IntervalType.XTimesAYear}">
+                                                            <Setter Property="Text" Value="{wpf:Gettext IntervalType|X times a year}"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </styles:DynamicContainerStyle.DerivedStyle>
+                                </TextBlock>
+                            </DataTemplate>
+                        </syncfusion:GridTextColumn.CellTemplate>
+                    </syncfusion:GridTextColumn>
+                        <syncfusion:GridDateTimeColumn Pattern="FullDateTime" HeaderText="{wpf:Gettext Transfer To Test Equipment|Next test date}" MappingName="NextTestDate"
+                                                       DateTimeFormat="{Binding Path=DateTimeFormatInfo, Source={x:Static view:LocalizationUtil.Localization}}"/>
+                        <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Transfer To Test Equipment|Next test shift}" MappingName="NextTestDateShift">
+                        <syncfusion:GridTextColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock styles:DynamicContainerStyle.BaseStyle="{DynamicResource {x:Type TextBlock}}">
+                                            <styles:DynamicContainerStyle.DerivedStyle>
+                                                <Style TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding NextTestDateShift}" Value="{x:Null}">
+                                                            <Setter Property="Text" Value=""/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding NextTestDateShift}" Value="{x:Static enums:Shift.FirstShiftOfDay}">
+                                                            <Setter Property="Text" Value="{wpf:Gettext Shift|First shift of day}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding NextTestDateShift}" Value="{x:Static enums:Shift.SecondShiftOfDay}">
+                                                            <Setter Property="Text" Value="{wpf:Gettext Shift|Second shift of day}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding NextTestDateShift}" Value="{x:Static enums:Shift.ThirdShiftOfDay}">
+                                                            <Setter Property="Text" Value="{wpf:Gettext Shift|Third shift of day}"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </styles:DynamicContainerStyle.DerivedStyle>
+                                </TextBlock>
+                            </DataTemplate>
+                        </syncfusion:GridTextColumn.CellTemplate>
+                    </syncfusion:GridTextColumn>
+                </c:ExtendedSfDataGrid.Columns>
+            </c:ExtendedSfDataGrid>
+
+                <DockPanel Grid.Row="1" Visibility="{Binding HasCapacityErrorLegendVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <TextBlock 
+                        Height="20" 
+                        Width="20" 
+                        Margin="16,0,0,0" 
+                        FontSize="12"
+                        FontWeight="Bold"
+                        VerticalAlignment="Top"
+                        Text="!"
+                        Foreground="Red"/>
+                    <TextBlock 
+                        Text="{wpf:Gettext Transfer To Test Equipment|Measurement point parameter cannot be measured with the selected test equipment }"
+                        VerticalAlignment="Top"
+                        Foreground="Red"
+                        HorizontalAlignment="Left"
+                        FontSize="12"
+                        Margin="4,0,0,0"/>
+                </DockPanel>
+            </Grid>
+        </Grid>
+    </DockPanel>
+</UserControl>
+
+    

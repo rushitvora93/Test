@@ -1,0 +1,14 @@
+﻿(Map Server.Core.Entities.ReferenceLink.LocationToolAssignmentReferenceLink  DtoTypes.LocationToolAssignmentReferenceLink
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Id Id)
+		(LocationId LocationId)
+		(LocationName LocationName)
+		(LocationNumber LocationNumber)
+		(ToolId ToolId)
+		(ToolInventoryNumber ToolInventoryNumber)
+		(ToolSerialNumber ToolSerialNumber)
+	)
+)

@@ -1,0 +1,16 @@
+﻿(Map DtoTypes.TestParameters Server.Core.Entities.TestParameters
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(SetPoint1 SetPoint1)
+        (Minimum1 Minimum1)
+        (Maximum1 Maximum1)
+        (Threshold1 Threshold1)
+        (SetPoint2 SetPoint2)
+        (Minimum2 Minimum2)
+        (Maximum2 Maximum2)
+        (ControlledBy ControlledBy)
+        (Alive Alive)
+	)
+)

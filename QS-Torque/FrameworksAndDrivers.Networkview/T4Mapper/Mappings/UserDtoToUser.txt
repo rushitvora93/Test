@@ -1,0 +1,9 @@
+﻿(Map DtoTypes.User Server.Core.Entities.User
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(UserId UserId)
+		(UserName UserName)
+	)
+)

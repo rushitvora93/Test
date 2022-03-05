@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Platforms>AnyCPU</Platforms>
+    <CodeAnalysisRuleSet>..\.sonarlint\qstv8csharp.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="..\.sonarlint\qstv8\CSharp\SonarLint.xml" Link="SonarLint.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Client.UseCases\Client.UseCases.csproj" />
+    <ProjectReference Include="..\Client.Core\Client.Core.csproj" />
+    <ProjectReference Include="..\FrameworksAndDrivers.Process\FrameworksAndDrivers.Process.csproj" />
+  </ItemGroup>
+
+</Project>

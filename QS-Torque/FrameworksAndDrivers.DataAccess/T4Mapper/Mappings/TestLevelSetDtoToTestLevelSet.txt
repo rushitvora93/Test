@@ -1,0 +1,9 @@
+﻿(Map DbEntities.TestLevelSet Server.Core.Entities.TestLevelSet
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Id Id)
+		(Name Name)
+	)
+)

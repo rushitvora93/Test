@@ -1,0 +1,38 @@
+﻿syntax = "proto3";
+import "BasicTypes.proto";
+import "DtoTypes.proto";
+
+option csharp_namespace = "HelperTableService";
+
+package HelperTableService;
+
+service HelperTableService {
+	rpc GetHelperTableByNodeId(Long) returns (ListOfHelperTableEntity);
+	rpc GetAllHelperTableEntities(NoParams) returns (ListOfHelperTableEntity);
+	rpc InsertHelperTableEntityWithHistory(InsertHelperTableEntityWithHistoryRequest) returns (ListOfHelperTableEntity);
+	rpc UpdateHelperTableEntityWithHistory(UpdateHelperTableEntityWithHistoryRequest) returns (ListOfHelperTableEntity);
+	rpc GetHelperTableEntityModelLinks(HelperTableEntityLinkRequest) returns (ListOfModelLink);
+	rpc GetHelperTableEntityToolLinks(HelperTableEntityLinkRequest) returns (ListOfToolReferenceLink);
+}
+
+message HelperTableEntityLinkRequest {
+	int64 Id = 1;
+	int64 nodeId = 2;
+}
+
+message ListOfHelperTableEntityDiff {
+	repeated HelperTableEntityDiff helperTableEntityDiff = 1;
+} 
+
+message InsertHelperTableEntityWithHistoryRequest {
+	ListOfHelperTableEntityDiff helperTableEntityDiffs = 1;
+	bool returnList = 2;
+}
+
+message UpdateHelperTableEntityWithHistoryRequest {
+	ListOfHelperTableEntityDiff helperTableEntityDiffs = 1;
+}
+
+message ListOfHelperTableEntity {
+	repeated HelperTableEntity helperTableEntities = 1;
+} 

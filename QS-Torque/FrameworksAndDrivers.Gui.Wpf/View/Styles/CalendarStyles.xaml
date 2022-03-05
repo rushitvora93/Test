@@ -1,0 +1,22 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:c="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View.Controls"
+                    xmlns:syncfusion="http://schemas.syncfusion.com/wpf">
+
+    <Style TargetType="syncfusion:CalendarEdit">
+        <Setter Property="ShowWeekNumbers" Value="True"/>
+        <Setter Property="ShowNextMonthDays" Value="False"/>
+        <Setter Property="ShowPreviousMonthDays" Value="False"/>
+        <Setter Property="TodayCellBackground" Value="{DynamicResource QstBlueBrush}"/>
+        <Setter Property="TodayCellSelectedBackground" Value="{DynamicResource QstBlueBrush}"/>
+        <Setter Property="TodayCellSelectedBorderBrush" Value="DimGray"/>
+        <Setter Property="SelectedDayCellBorderBrush" Value="DimGray"/>
+        <Setter Property="SelectedDayCellBackground" Value="Transparent"/>
+        <Setter Property="SelectedDayCellHoverBackground" Value="Transparent"/>
+        <Setter Property="SelectionBorderBrush" Value="DimGray"/>
+        <Setter Property="MouseOverBackground" Value="Transparent"/>
+        <Setter Property="MouseOverBorderBrush" Value="DimGray"/>
+        <Setter Property="AllowMultiplySelection" Value="False"/>
+        <Setter Property="AllowYearEditing" Value="False"/>
+    </Style>
+</ResourceDictionary>

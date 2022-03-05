@@ -1,0 +1,23 @@
+﻿(Map Server.Core.Entities.LocationToolAssignmentForTransfer TransferToTestEquipmentService.LocationToolAssignmentForTransfer
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+        (LocationToolAssignmentId LocationToolAssignmentId)
+        (LocationNumber LocationNumber)
+        (LocationId LocationId)
+        (LocationDescription LocationDescription)
+        (LocationFreeFieldCategory LocationFreeFieldCategory)
+        (LocationFreeFieldDocumentation LocationFreeFieldDocumentation)
+        (ToolUsageId ToolUsageId)
+        (ToolUsageDescription ToolUsageDescription)
+        (ToolId ToolId)
+        (ToolSerialNumber ToolSerialNumber)
+        (ToolInventoryNumber ToolInventoryNumber)
+        (SampleNumber SampleNumber)
+        (TestInterval TestInterval)
+        (NextTestDate NextTestDate)
+        (LastTestDate LastTestDate)
+        (NextTestDateShift NextTestDateShift)
+	)
+)

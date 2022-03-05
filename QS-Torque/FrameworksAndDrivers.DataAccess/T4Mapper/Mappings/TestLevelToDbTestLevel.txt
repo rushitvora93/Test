@@ -1,0 +1,13 @@
+﻿(Map Server.Core.Entities.TestLevel DbEntities.TestLevel
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Id Id)
+		(SampleNumber SampleNumber)
+		(ConsiderWorkingCalendar ConsiderWorkingCalendar)
+		(TestInterval.IntervalValue IntervalValue)
+		(TestInterval.Type IntervalType)
+		(IsActive IsActive)
+	)
+)

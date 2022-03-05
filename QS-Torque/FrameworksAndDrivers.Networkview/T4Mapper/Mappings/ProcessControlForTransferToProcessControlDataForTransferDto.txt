@@ -1,0 +1,21 @@
+﻿(Map Server.Core.Entities.ProcessControlForTransfer TransferToTestEquipmentService.ProcessControlDataForTransfer
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(LocationId LocationId)
+		(LocationNumber LocationNumber)
+		(LocationDescription LocationDescription)
+		(ProcessControlConditionId ProcessControlConditionId)
+		(ProcessControlTechId ProcessControlTechId)
+		(SetPointTorque SetPointTorque)
+		(MinimumTorque MinimumTorque)
+		(MaximumTorque MaximumTorque)
+		(TestMethod TestMethod)
+		(LastTestDate LastTestDate)
+		(NextTestDate NextTestDate)
+		(TestInterval TestInterval)
+		(SampleNumber SampleNumber)
+		(NextTestDateShift NextTestDateShift)		
+	)
+)

@@ -1,0 +1,53 @@
+﻿syntax = "proto3";
+import "BasicTypes.proto";
+import "DtoTypes.proto";
+
+option csharp_namespace = "ExtensionService";
+
+package Extensions;
+
+service Extensions {
+	rpc LoadExtensions(NoParams) returns (ListOfExtensions);
+	rpc LoadDeletedExtensions(NoParams) returns (ListOfExtensions);
+	rpc InsertExtensions(InsertExtensionsRequest) returns (ListOfExtensions);
+	rpc UpdateExtensions(UpdateExtensionsRequest) returns (NoParams);
+	rpc GetExtensionLocationLinks(LongRequest) returns (ListOfLocationLink);	
+	rpc GetExtensionsFromHistoryForIds(ListOfExtensionFromHistoryParameter) returns (GetExtensionsFromHistoryForIdsResponse);
+	rpc IsExtensionInventoryNumberUnique(String) returns (Bool);
+}
+
+message ListOfExtensions {
+	repeated Extension extensions = 1;
+} 
+
+message ListOfExtensionsDiffs {
+	repeated ExtensionDiff ExtensionsDiff = 1;
+} 
+
+message InsertExtensionsRequest {
+	ListOfExtensionsDiffs extensionsDiffs = 1;
+	bool returnList = 2;
+}
+
+message UpdateExtensionsRequest {
+	ListOfExtensionsDiffs extensionsDiffs = 1;
+}
+
+message ExtensionFromHistoryParameter {
+	int64 globalHistoryId = 1;
+	int64 extensionId = 2;
+	DateTime timestamp = 3;
+}
+
+message ListOfExtensionFromHistoryParameter {
+	repeated ExtensionFromHistoryParameter parameters = 1;
+} 
+
+message GetExtensionsFromHistoryForIdsResponse {
+	repeated GlobalHistoryIdExtensionPair datas = 1;
+}
+
+message GlobalHistoryIdExtensionPair {
+	int64 globalHistoryId = 1;
+	Extension extension = 2;
+}
