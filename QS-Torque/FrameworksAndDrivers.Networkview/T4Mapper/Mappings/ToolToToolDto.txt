@@ -1,0 +1,20 @@
+﻿(Map Server.Core.Entities.Tool DtoTypes.Tool
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Id Id)
+		(SerialNumber SerialNumber)
+		(InventoryNumber InventoryNumber)
+		(Alive Alive)
+		(ToolModel ToolModel)
+        (Status Status)
+        (CostCenter CostCenter)
+        (ConfigurableField ConfigurableField)
+        (Accessory Accessory)
+        (Comment Comment)
+        (AdditionalConfigurableField1 AdditionalConfigurableField1)
+        (AdditionalConfigurableField2 AdditionalConfigurableField2)
+        (AdditionalConfigurableField3 AdditionalConfigurableField3)
+	)
+)

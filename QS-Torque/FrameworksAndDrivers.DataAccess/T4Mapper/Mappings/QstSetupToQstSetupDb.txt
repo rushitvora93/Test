@@ -1,0 +1,11 @@
+﻿(Map Server.Core.Entities.QstSetup DbEntities.QstSetup
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Id LID)
+		(Name SName)
+		(Value SText)
+		(UserId LUserId)
+	)
+)

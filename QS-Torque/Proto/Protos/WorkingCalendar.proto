@@ -1,0 +1,24 @@
+﻿syntax = "proto3";
+import "BasicTypes.proto";
+import "DtoTypes.proto";
+
+option csharp_namespace = "WorkingCalendarService";
+
+package WorkingCalendars;
+
+service WorkingCalendars {
+	rpc GetWorkingCalendar(NoParams) returns (WorkingCalendar);
+	rpc GetWorkingCalendarEntriesForWorkingCalendarId(LongRequest) returns (ListOfWorkingCalendarEntries);
+	rpc InsertWorkingCalendarEntry(InsertWorkingCalendarEntryParameter) returns (NoParams);
+	rpc DeleteWorkingCalendarEntry(WorkingCalendarEntry) returns (NoParams);
+	rpc SaveWorkingCalendar(WorkingCalendarDiff) returns (NoParams);
+}
+
+message ListOfWorkingCalendarEntries {
+	repeated WorkingCalendarEntry workingCalendarEntries = 1;
+}
+
+message InsertWorkingCalendarEntryParameter {
+	WorkingCalendarEntry entry = 1;
+	int64 calendarId = 2;
+}

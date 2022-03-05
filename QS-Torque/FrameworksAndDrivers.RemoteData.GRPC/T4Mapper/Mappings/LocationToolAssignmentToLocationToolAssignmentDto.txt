@@ -1,0 +1,25 @@
+﻿(Map LocationToolAssignment DtoTypes.LocationToolAssignment
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Id Id)
+		(AssignedLocation AssignedLocation)
+		(AssignedTool AssignedTool)
+		(ToolUsage ToolUsage)
+		(TestParameters TestParameters)
+		(TestTechnique TestTechnique)
+		(TestLevelSetMfu TestLevelSetMfu)
+		(TestLevelNumberMfu TestLevelNumberMfu)
+		(TestLevelSetChk TestLevelSetChk)
+		(TestLevelNumberChk TestLevelNumberChk)
+		(NextTestDateMfu NextTestDateMfu)
+		(NextTestShiftMfu NextTestShiftMfu)
+		(NextTestDateChk NextTestDateChk)
+		(NextTestShiftChk NextTestShiftChk)
+		(StartDateMfu StartDateMfu)
+		(StartDateChk StartDateChk)
+		(TestOperationActiveMfu TestOperationActiveMfu)
+		(TestOperationActiveChk TestOperationActiveChk)
+	)
+)

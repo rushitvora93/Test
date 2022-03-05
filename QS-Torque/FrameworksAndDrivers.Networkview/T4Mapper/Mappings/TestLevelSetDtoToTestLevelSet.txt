@@ -1,0 +1,12 @@
+﻿(Map DtoTypes.TestLevelSet Server.Core.Entities.TestLevelSet
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Id Id)
+		(Name Name)
+		(TestLevel1 TestLevel1)
+		(TestLevel2 TestLevel2)
+		(TestLevel3 TestLevel3)
+	)
+)

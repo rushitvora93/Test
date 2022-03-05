@@ -1,0 +1,18 @@
+﻿(Map Server.Core.Entities.Manufacturer DtoTypes.Manufacturer
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Id ManufacturerId)
+		(Name ManufactuerName)
+		(Street Street)
+		(City City)
+		(PhoneNumber PhoneNumber)
+		(Fax Fax)
+		(Person Person)
+		(Country Country)
+		(Plz ZipCode)
+		(HouseNumber HouseNumber)
+		(Comment Comment)
+	)
+)

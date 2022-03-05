@@ -1,0 +1,11 @@
+﻿(Map Server.UseCases.UseCases.QstComment DbEntities.QstComment
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(NodeId NODEID)
+		(Comment INFO)
+		(UserId USERID)
+		(NodeSeqid NODESEQID)
+	)
+)

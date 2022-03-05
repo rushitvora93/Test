@@ -1,0 +1,26 @@
+﻿(Map Server.Core.Entities.QstProcessControlTech DbEntities.CondLocTech
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Id SEQID)
+		(ProcessControlConditionId CONDLOCID)
+		(ManufacturerId HERSTELLERID)
+		(TestMethod METHODE)
+		(Extension EXTENSIONID)
+		(Alive ALIVE)
+		(AngleLimitMt I0)
+		(StartMeasurementPeak F0)
+		(StartAngleCountingPa F1)
+		(AngleForFurtherTurningPa F2)
+		(TargetAnglePa F3)
+		(StartMeasurementPa F4)
+		(AlarmTorquePa F5)
+		(AlarmAnglePa F6)
+		(MinimumTorqueMt F7)
+		(StartAngleMt F8)
+		(StartMeasurementMt F9)
+		(AlarmTorqueMt F10)
+		(AlarmAngleMt F11)		
+	)
+)

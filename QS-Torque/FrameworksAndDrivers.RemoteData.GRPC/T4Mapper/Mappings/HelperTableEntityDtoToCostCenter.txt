@@ -1,0 +1,6 @@
+﻿(Map DtoTypes.HelperTableEntity CostCenter 
+	(Properties
+		(Value Value)
+		(ListId ListId)
+	)
+)

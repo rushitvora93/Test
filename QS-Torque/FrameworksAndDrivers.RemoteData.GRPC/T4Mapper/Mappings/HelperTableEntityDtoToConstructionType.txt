@@ -1,0 +1,6 @@
+﻿(Map DtoTypes.HelperTableEntity ConstructionType 
+	(Properties
+		(Value Value)
+		(ListId ListId)
+	)
+)

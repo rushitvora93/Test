@@ -1,0 +1,11 @@
+﻿(Map DbEntities.ClassicMfuTestValue Server.Core.Entities.ClassicMfuTestValue
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(GLOBALHISTORYID Id)
+		(POSITION Position)
+		(VALUE_UNIT1 ValueUnit1)
+		(VALUE_UNIT2 ValueUnit2)
+	)
+)

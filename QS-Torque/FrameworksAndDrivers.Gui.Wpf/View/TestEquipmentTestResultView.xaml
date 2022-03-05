@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="FrameworksAndDrivers.Gui.Wpf.View.TestEquipmentTestResultView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:c="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View.Controls"
+             xmlns:local="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View"
+             xmlns:wpf="clr-namespace:NGettext.Wpf;assembly=NGettext.Wpf"
+             xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+             xmlns:globalization="clr-namespace:System.Globalization;assembly=mscorlib"
+             xmlns:converter="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View.Converter"
+             xmlns:viewModel="clr-namespace:FrameworksAndDrivers.Gui.Wpf.ViewModel"
+             d:DataContext="{d:DesignInstance Type=viewModel:TestEquipmentTestResultViewModel, IsDesignTimeCreatable=False}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/ButtonStyles.xaml"/>
+                <ResourceDictionary Source="Styles/TextBoxStyles.xaml"/>
+                <ResourceDictionary Source="Styles/TextBlockStyles.xaml"/>
+                <ResourceDictionary Source="Styles/ListStyles.xaml"/>
+                <ResourceDictionary Source="Styles/TabStyles.xaml"/>
+                <ResourceDictionary Source="Styles/SfDataGridStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converter:TestEquipmentCellStyleConverter x:Key="TestEquipmentCellStyleConverter" />
+            <converter:TestEquipmentFirstCellStyleConverter x:Key="TestEquipmentFirstCellStyleConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <c:ExtendedSfDataGrid
+        x:Name="ResultDataGrid"
+        Margin="8"
+        AutoGenerateColumns="False"
+        AllowFiltering="True"
+        AllowResizingColumns="True"
+        AllowDraggingColumns="True"
+        ColumnSizer="Auto"
+        FilterPopupStyle="{StaticResource GridFilterStyle}"
+        ItemsSource="{Binding TestEquipmentTestResultModels}">
+
+        <c:ExtendedSfDataGrid.CellStyle>
+            <Style TargetType="syncfusion:GridCell">
+                <Style.Resources>
+                    <ResourceDictionary>
+                        <Style TargetType="TextBlock" />
+                    </ResourceDictionary>
+                </Style.Resources>
+                <Setter Property="Foreground" Value="{Binding IsIo, Converter={StaticResource TestEquipmentCellStyleConverter}}"/>
+            </Style>
+        </c:ExtendedSfDataGrid.CellStyle>
+
+        <c:ExtendedSfDataGrid.Columns>
+            <syncfusion:GridTextColumn HeaderText="" Width="30" TextAlignment="Center" MappingName="NioSign">
+                <syncfusion:GridTextColumn.CellStyle>
+                    <Style TargetType="syncfusion:GridCell">
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="Background" Value="{Binding IsIo, Converter={StaticResource TestEquipmentFirstCellStyleConverter}}" />
+                    </Style>
+                </syncfusion:GridTextColumn.CellStyle>
+            </syncfusion:GridTextColumn>
+
+            <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Test Equipment Test Result|Location number}" MappingName="LocationNumber" />
+            <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Test Equipment Test Result|Location description}" MappingName="LocationDescription" />
+            <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Test Equipment Test Result|Tool serial number}" MappingName="SerialNumber" />
+            <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Test Equipment Test Result|Tool inventory number}" MappingName="InventoryNumber" />
+            <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Test Equipment Test Result|Nominal value}" MappingName="NominalValue"  TextAlignment="Right"/>
+            <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Test Equipment Test Result|Upper tolerance limit}" MappingName="UpperToleranceLimit"  TextAlignment="Right"/>
+            <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Test Equipment Test Result|Lower tolerance limit}" MappingName="LowerToleranceLimit"  TextAlignment="Right"/>
+            <syncfusion:GridNumericColumn HeaderText="{wpf:Gettext Test Equipment Test Result|Sample count}" NumberDecimalDigits="0" MappingName="SampleCount" />
+
+            <syncfusion:GridDateTimeColumn Pattern="FullDateTime" HeaderText="{wpf:Gettext Test Equipment Test Result|Test Timestamp}" MappingName="TestTimestamp"
+                                           DateTimeFormat="{Binding Path=DateTimeFormatInfo, Source={x:Static local:LocalizationUtil.Localization}}"/>
+
+            <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Test Equipment Test Result|Average}" MappingName="Average" TextAlignment="Right"/>
+            <syncfusion:GridTextColumn HeaderText="{wpf:Gettext Test Equipment Test Result|Standard deviation}" MappingName="StandardDeviation" TextAlignment="Right"/>
+
+        </c:ExtendedSfDataGrid.Columns>
+    </c:ExtendedSfDataGrid>
+</UserControl>

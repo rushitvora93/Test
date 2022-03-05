@@ -1,0 +1,11 @@
+﻿(Map DtoTypes.WorkingCalendar Core.Entities.WorkingCalendar
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Id Id)
+		(Name Name)
+		(AreSaturdaysFree AreSaturdaysFree)
+		(AreSundaysFree AreSundaysFree)
+	)
+)

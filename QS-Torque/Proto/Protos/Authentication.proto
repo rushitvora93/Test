@@ -1,0 +1,40 @@
+﻿syntax = "proto3";
+import "BasicTypes.proto";
+import "DtoTypes.proto";
+
+option csharp_namespace = "AuthenticationService";
+
+package Authentication;
+
+service Authentication {
+	rpc Login (AuthenticationRequest) returns (AuthenticationResponse);
+	rpc Ping(NoParams) returns (PingResponse);
+	rpc GetQstGroupByUserName(QstGroupByUserNameRequest) returns (ListOfGroups);
+}
+
+message AuthenticationRequest {
+	string username = 1;
+	string password = 2;
+	int64 groupId = 3;
+	string pcfqdn = 4;
+}
+
+message AuthenticationResponse {
+	Token token = 1;
+}
+
+message Token {
+	string base64 = 1;
+}
+
+message PingResponse{
+	bool value = 1;
+} 
+
+message QstGroupByUserNameRequest{
+	string username = 1;
+} 
+
+message ListOfGroups{
+	repeated Group groups = 1;
+} 

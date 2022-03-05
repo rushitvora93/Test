@@ -1,0 +1,24 @@
+﻿syntax = "proto3";
+import "BasicTypes.proto";
+import "DtoTypes.proto";
+
+option csharp_namespace = "ToolUsageService";
+
+package ToolUsageService;
+
+service ToolUsageService {
+	rpc GetAllToolUsages(NoParams) returns (ListOfToolUsage);
+	rpc InsertToolUsagesWithHistory(InsertToolUsagesWithHistoryRequest) returns (ListOfToolUsage);
+	rpc UpdateToolUsagesWithHistory(UpdateToolUsagesWithHistoryRequest) returns (ListOfToolUsage);
+	rpc GetToolUsageLocationToolAssignmentReferences(Long) returns (ListOfLongs);
+}
+
+message InsertToolUsagesWithHistoryRequest {
+	ListOfToolUsageDiffs toolUsageDiffs = 1;
+	bool returnList = 2;
+}
+
+message UpdateToolUsagesWithHistoryRequest {
+	ListOfToolUsageDiffs toolUsageDiffs = 1;
+}
+

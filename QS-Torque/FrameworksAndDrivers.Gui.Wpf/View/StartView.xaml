@@ -1,0 +1,97 @@
+﻿<UserControl x:Class="FrameworksAndDrivers.Gui.Wpf.View.StartView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View"
+             xmlns:controls="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View.Controls"
+             xmlns:wpf="clr-namespace:NGettext.Wpf;assembly=NGettext.Wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/ExpanderStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <StackPanel Grid.Column="1"
+                ScrollViewer.VerticalScrollBarVisibility="Auto">
+        <Expander Margin="0,0,0,10"
+                  Background="{DynamicResource ControlBackground2Brush}"
+                  Padding="5">
+            <Expander.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="1"
+                               Text="{wpf:Gettext Test type}"
+                               FontSize="17"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left"
+                               Margin="20,0"
+                               Foreground="{StaticResource QstBlueBrush}"/>
+                    <Image Grid.Column="0"
+                           Source="pack://application:,,,/Resources;component/Images/QST_Logo_BlueOnWhite.png"
+                           Width="30"
+                           Height="30"/>
+
+                </Grid>
+            </Expander.Header>
+
+
+        </Expander>
+
+        <Expander Margin="0,0,0,10"
+                  Background="{DynamicResource ControlBackground2Brush}"
+                  Padding="5">
+            <Expander.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <controls:ThemeImage Grid.Column="0"
+                                         Source="pack://application:,,,/Resources;component/Icons/favorites.png"
+                                         Width="30"
+                                         Height="30"/>
+                    <TextBlock Grid.Column="1"
+                               Text="{wpf:Gettext Favorites}"
+                               FontSize="17"
+                               VerticalAlignment="Center"
+                               Margin="20,0"
+                               Foreground="{StaticResource QstBlueBrush}"/>
+                </Grid>
+            </Expander.Header>
+
+        </Expander>
+
+        <Expander Margin="0,0,0,10"
+                  Background="{DynamicResource ControlBackground2Brush}"
+                  Padding="5">
+            <Expander.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <controls:ThemeImage Grid.Column="0"
+                                         Source="pack://application:,,,/Resources;component/Icons/traffic-light.png"
+                                         Width="30"
+                                         Height="30"/>
+                    <TextBlock Grid.Column="1"
+                               Text="{wpf:Gettext Open Tests}"
+                               FontSize="17"
+                               VerticalAlignment="Center"
+                               Margin="20,0"
+                               Foreground="{StaticResource QstBlueBrush}"/>
+                </Grid>
+            </Expander.Header>
+        </Expander>
+    </StackPanel>
+</UserControl>

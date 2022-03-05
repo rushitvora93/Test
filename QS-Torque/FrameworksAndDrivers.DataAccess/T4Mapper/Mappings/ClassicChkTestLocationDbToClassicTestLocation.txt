@@ -1,0 +1,10 @@
+﻿(Map DbEntities.ClassicChkTestLocation Server.Core.Entities.ClassicTestLocation
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(LOCATION_ID LocationId)
+		(LOCTREE_ID LocationDirectoryId)
+		(LOCATION_TREE_PATH LocationTreePath)
+	)
+)

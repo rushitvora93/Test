@@ -1,0 +1,747 @@
+﻿syntax = "proto3";
+import "BasicTypes.proto";
+
+option csharp_namespace = "DtoTypes";
+
+message User {
+	int64 userId = 1;
+	string userName = 2;
+}
+
+message Group {
+	int64 groupId = 1;
+	string groupName = 2;
+} 
+
+message Status {
+	int64 id = 1;
+	string description = 2;
+	bool alive = 3;
+} 
+
+message StatusDiff {
+	int64 userId = 1;
+	string comment = 2;
+	Status oldStatus = 3;
+	Status newStatus = 4;
+}
+
+message Manufacturer {
+	int64 manufacturerId = 1;
+	NullableString manufactuerName = 2;
+	NullableString person = 3;
+	NullableString phoneNumber = 4;
+	NullableString fax = 5;
+	NullableString street = 6;
+	NullableString houseNumber = 7;
+	NullableString zipCode = 8;
+	NullableString city = 9;
+	NullableString country = 10;
+	NullableString comment = 11;
+	bool alive = 12;
+}  
+
+message ManufacturerDiff {
+	int64 userId = 1;
+	string comment = 2;
+	Manufacturer oldManufacturer = 3;
+	Manufacturer newManufacturer = 4;
+}
+
+message ToleranceClass {
+	int64 Id = 1;
+	string name = 2;
+	bool relative = 3;
+	double lowerLimit = 4;
+	double upperLimit = 5;
+	bool alive = 6;
+}  
+
+message ToleranceClassDiff {
+	int64 userId = 1;
+	string comment = 2;
+	ToleranceClass oldToleranceClass = 3;
+	ToleranceClass newToleranceClass = 4;
+}
+
+message QstSetup {
+	int64 id = 1;
+	string name = 2;
+	string value = 3;
+	int64 userId = 4;
+}
+
+message ToolUsage {
+	int64 id = 1;
+	string description = 2;
+	bool alive = 3;
+}
+
+message ListOfToolUsage{
+	repeated ToolUsage toolUsageList = 1;
+} 
+
+message ToolUsageDiff {
+	int64 userId = 1;
+	string comment = 2;
+	ToolUsage oldToolUsage = 3;
+	ToolUsage newToolUsage = 4;
+}
+
+message ListOfToolUsageDiffs {
+	repeated ToolUsageDiff toolUsageDiffs = 1;
+} 
+
+message HelperTableEntity {
+	int64 listId = 1;
+	string value = 2;
+	int64 nodeId = 3;
+	bool alive = 4;
+}
+
+message HelperTableEntityDiff {
+	int64 userId = 1;
+	string comment = 2;
+	HelperTableEntity oldHelperTableEntity = 3;
+	HelperTableEntity newHelperTableEntity = 4;
+}
+
+message ModelLink
+{
+	int64 id = 1;
+	string model = 2;
+}
+
+message ListOfModelLink {
+	repeated ModelLink modelLinks = 1;
+} 
+
+message ToolReferenceLink
+{
+	int64 id = 1;
+	string inventoryNumber = 2;
+	string serialNumber = 3;
+}
+
+message ListOfToolReferenceLink {
+	repeated ToolReferenceLink toolReferenceLinks = 1;
+} 
+
+message LocationLink {
+	int64 id = 1;
+	string number = 2;
+	string description = 3;
+}
+
+message ListOfLocationLink {
+	repeated LocationLink locationLinks = 1;
+} 
+
+message LocationToolAssignmentReferenceLink {
+	int64 id = 1;
+	int64 locationId = 2;
+	string locationNumber = 3;
+	string locationName = 4;
+	int64 toolId = 5;
+	string toolSerialNumber = 6;
+	string toolInventoryNumber = 7;
+}
+
+message ListOfLocationToolAssignmentReferenceLink {
+	repeated LocationToolAssignmentReferenceLink links = 1;
+}
+
+message WorkingCalendarEntry {
+	DateTime date = 1;
+	string description = 2;
+	int64 repeated = 3;
+	int64 isFree = 4;
+}
+
+message WorkingCalendar {
+	int64 id = 1;
+	string name = 2;
+	bool areSaturdaysFree = 3;
+	bool areSundaysFree = 4;
+}
+
+message WorkingCalendarDiff{
+	int64 userId = 1;
+	string comment = 2;
+	WorkingCalendar old = 3;
+	WorkingCalendar new = 4;
+}
+
+message ShiftManagement {
+	TimeSpan firstShiftStart = 1;
+	TimeSpan firstShiftEnd = 2;
+	TimeSpan secondShiftStart = 3;
+	TimeSpan secondShiftEnd = 4;
+	TimeSpan thirdShiftStart = 5;
+	TimeSpan thirdShiftEnd = 6;
+	bool isSecondShiftActive = 7;
+	bool isThirdShiftActive = 8;
+	TimeSpan changeOfDay = 9;
+	int64 firstDayOfWeek = 10;
+}
+
+message ShiftManagementDiff{
+	int64 userId = 1;
+	string comment = 2;
+	ShiftManagement old = 3;
+	ShiftManagement new = 4;
+}
+
+message TestLevel {
+	int64 id = 1;
+	Interval testInterval= 2;
+	int32 sampleNumber = 3;
+	bool considerWorkingCalendar = 4;
+	bool isActive = 5;
+}
+
+message TestLevelSet {
+	int64 id = 1;
+	string name = 2;
+	TestLevel testLevel1 = 3;
+	TestLevel testLevel2 = 4;
+	TestLevel testLevel3 = 5;
+}
+
+message TestLevelSetDiff {
+	TestLevelSet old = 1;
+	TestLevelSet new = 2;
+	string comment = 3;
+	int64 userId = 4;
+}
+
+message Location {
+	int64 id = 1;
+	string number = 2;
+	string description = 3;
+	int64 parentDirectoryId = 4;
+	int64 ControlledBy = 5;
+	double SetPoint1 = 6;
+	ToleranceClass ToleranceClass1 = 7;
+	double Minimum1 = 8;
+	double Maximum1 = 9;
+	double Threshold1 = 10;
+	double SetPoint2 = 11;
+	ToleranceClass ToleranceClass2 = 12;
+	double Minimum2 = 13;
+	double Maximum2 = 14;
+	NullableString ConfigurableField1 = 15;
+	NullableString ConfigurableField2 = 16;
+	bool ConfigurableField3 = 17;
+	bool alive = 18;
+	NullableString comment = 19;
+}
+
+message LocationDiff {
+	User user = 1;
+	string comment = 2;
+	Location oldLocation = 3;
+	Location newLocation = 4;
+	int32 type = 5;
+	DateTime timeStamp = 6;
+}
+
+message ListOfLocation {
+	repeated Location locations = 1;
+}
+
+message ListOfLocationDiff {
+	repeated LocationDiff locationDiffs = 1;
+} 
+
+
+message LocationDirectory {
+	int64 id = 1;
+	string name = 2;
+	int64 parentId = 3;
+	bool alive = 4;
+}
+
+message LocationDirectoryDiff {
+	int64 userId = 1;
+	string comment = 2;
+	LocationDirectory oldLocationDirectory = 3;
+	LocationDirectory newLocationDirectory = 4;
+}
+
+message ListOfLocationDirectory {
+	repeated LocationDirectory locationDirectories = 1;
+} 
+
+message ListOfLocationDirectoryDiff {
+	repeated LocationDirectoryDiff locationDirectoyDiffs = 1;
+} 
+
+message Tool {
+	int64 id = 1;
+	string serialNumber = 2;
+	string inventoryNumber = 3;	
+	ToolModel toolModel = 4;
+	Status status = 5;
+	HelperTableEntity costCenter = 6;
+	HelperTableEntity configurableField = 7;
+	NullableString accessory = 8;	
+	NullableString additionalConfigurableField1 = 9;
+	NullableString additionalConfigurableField2 = 10;
+	NullableString additionalConfigurableField3 = 11;
+	bool alive = 12;
+	NullableString comment = 13;
+}
+
+message ListOfTools {
+	repeated Tool tools = 1;
+} 
+
+message ToolDiff {
+	int64 userId = 1;
+	string comment = 2;
+	Tool oldTool = 3;
+	Tool newTool = 4;
+}
+
+message ListOfToolDiffs {
+	repeated ToolDiff toolDiffs = 1;
+} 
+
+message LocationToolAssignment {
+	int64 id = 1;
+	Location assignedLocation = 2;
+	Tool assignedTool = 3;
+	ToolUsage toolUsage = 4;
+	TestParameters testParameters = 5;
+	TestTechnique testTechnique = 6;
+	TestLevelSet testLevelSetMfu = 9;
+	int32 testLevelNumberMfu = 10;
+	TestLevelSet testLevelSetChk = 11;
+	int32 testLevelNumberChk = 12;
+	NullableDateTime nextTestDateMfu = 13;
+	NullableInt nextTestShiftMfu = 14;
+	NullableDateTime nextTestDateChk = 15;
+	NullableInt nextTestShiftChk = 16;
+	bool alive = 17;
+	DateTime startDateMfu = 18;
+	DateTime startDateChk = 19;
+	bool testOperationActiveMfu = 20;
+	bool testOperationActiveChk = 21;
+}
+
+message ListOfLocationToolAssignments {
+	repeated LocationToolAssignment values = 1;
+}
+
+message LocationToolAssignmentDiff {
+	int64 userId = 1;
+	LocationToolAssignment oldLocationToolAssignment = 2;
+	LocationToolAssignment newLocationToolAssignment = 3;
+	NullableString comment = 4;
+}
+
+message ListOfLocationToolAssignmentDiffs {
+	repeated LocationToolAssignmentDiff diffs = 1;
+}
+
+message TestParameters {
+	double setPoint1 = 1;
+	ToleranceClass toleranceClass1 = 2;
+	double minimum1 = 3;
+	double maximum1 = 4;
+	double threshold1 = 5;
+	double setPoint2 = 6;
+	ToleranceClass toleranceClass2 = 7;
+	double minimum2 = 8;
+	double maximum2 = 9;
+	int64 ControlledBy = 10;
+	bool alive = 11;
+}
+
+message TestTechnique {
+	double endCycleTime = 1;
+	double filterFrequency = 2;
+	double cycleComplete = 3;
+	double measureDelayTime = 4;
+	double resetTime = 5;
+	bool mustTorqueAndAngleBeInLimits = 6;
+	double cycleStart = 7;
+	double startFinalAngle = 8;
+	double slipTorque = 9;
+	double torqueCoefficient = 10;
+	int32 minimumPulse = 11;
+	int32 maximumPulse = 12;
+	int32 threshold = 13;
+}
+
+message Picture {
+	int64 id = 1;
+	int32 nodeid = 2;
+	int64 nodeseqid = 3;
+	bytes image = 4;
+	NullableString fileName = 5;
+	int64 fileType = 6;
+}
+
+message ClassicMfuTest{
+	int64 id = 1;
+	DateTime timestamp = 2;
+	int32 numberOfTests = 3;
+	double lowerLimitUnit1 = 4;
+	double nominalValueUnit1 = 5;
+	double upperLimitUnit1 = 6;
+	int64 unit1Id = 7;
+	double lowerLimitUnit2 = 8;
+	double nominalValueUnit2 = 9;
+	double upperLimitUnit2 = 10;
+	int64 unit2Id = 11;
+	double testValueMinimum = 12;
+	double testValueMaximum = 13;
+	double average = 14;
+	NullableDouble standardDeviation = 15;
+	int64 controlledByUnitId = 16;
+	double thresholdTorque = 17;
+	NullableString sensorSerialNumber = 18;
+	int64 result = 19;
+	int64 toleranceClassUnit1 = 20;
+	int64 toleranceClassUnit2 = 21;
+	double cmk = 22;
+	double cm = 23;
+	double limitCmk = 24;
+	double limitCm = 25;
+	ClassicTestLocation testLocation = 26;
+	TestEquipment testEquipment = 27;
+	int64 toolId = 28;
+	User user = 29;
+	ListOfClassicMfuTestValue testValues = 30;
+	int64 LocationToolAssignmentId = 31;
+}
+
+message ClassicMfuTestWithLocalTimestamp{
+	ClassicMfuTest classicMfuTest = 1;
+	DateTime localTimestamp = 2;
+}
+
+message ListOfClassicMfuTest {
+	repeated ClassicMfuTest classicMfuTests = 1;
+}
+
+message ListOfClassicMfuTestWithLocalTimestamp {
+	repeated ClassicMfuTestWithLocalTimestamp classicMfuTests = 1;
+}
+
+message ClassicChkTest{
+	int64 id = 1;
+	DateTime timestamp = 2;
+	int32 numberOfTests = 3;
+	double lowerLimitUnit1 = 4;
+	double nominalValueUnit1 = 5;
+	double upperLimitUnit1 = 6;
+	int64 unit1Id = 7;
+	double lowerLimitUnit2 = 8;
+	double nominalValueUnit2 = 9;
+	double upperLimitUnit2 = 10;
+	int64 unit2Id = 11;
+	double testValueMinimum = 12;
+	double testValueMaximum = 13;
+	double average = 14;
+	NullableDouble standardDeviation = 15;
+	int64 controlledByUnitId = 16;
+	double thresholdTorque = 17;
+	NullableString sensorSerialNumber = 18;
+	int64 result = 19;
+	int64 toleranceClassUnit1 = 20;
+	int64 toleranceClassUnit2 = 21;
+	ClassicTestLocation testLocation = 22;
+	TestEquipment testEquipment = 23;
+	int64 toolId = 24;
+	User user = 25;
+	ListOfClassicChkTestValue testValues = 26;
+	int64 LocationToolAssignmentId = 27;
+}
+
+message ClassicChkTestWithLocalTimestamp{
+	ClassicChkTest classicChkTest = 1;
+	DateTime localTimestamp = 2;
+}
+
+message ListOfClassicChkTest {
+	repeated ClassicChkTest classicChkTests = 1;
+}
+
+message ListOfClassicChkTestWithLocalTimestamp {
+	repeated ClassicChkTestWithLocalTimestamp classicChkTests = 1;
+}
+
+message TestEquipment {
+	int64 id = 1;
+	NullableString serialNumber = 2;
+	NullableString inventoryNumber = 3;
+	TestEquipmentModel testEquipmentModel = 4;
+	bool Alive = 5;
+	bool transferUser = 6;
+	bool transferAdapter = 7;
+	bool transferTransducer = 8;
+	int64 askForIdent = 9;
+	int64 transferCurves = 10;
+	bool useErrorCodes = 11;
+	bool askForSign = 12;
+	bool doLoseCheck = 13;
+	bool canDeleteMeasurements = 14;
+	int64 confirmMeasurements = 15;
+	bool transferLocationPictures = 16;
+	bool transferNewLimits = 17;
+	bool transferAttributes = 18;
+	bool useForRot = 19;
+	bool useForCtl = 20;
+	Status status = 21;
+	NullableString version = 22;
+	NullableDateTime lastCalibration = 23;
+	Interval calibrationInterval = 24;
+	double capacityMin = 25;
+	double capacityMax = 26;
+	NullableString calibrationNorm = 27;
+	bool canUseQstStandard = 28;
+}
+
+message TestEquipmentDiff {
+	int64 userId = 1;
+	NullableString comment = 2;
+	TestEquipment oldTestEquipment = 3;
+	TestEquipment newTestEquipment = 4;
+}
+
+message TestEquipmentModelDiff {
+	int64 userId = 1;
+	NullableString comment = 2;
+	TestEquipmentModel oldTestEquipmentModel = 3;
+	TestEquipmentModel newTestEquipmentModel = 4;
+}
+
+message ListOfTestEquipmentDiffs {
+	repeated TestEquipmentDiff diffs = 1;
+}
+
+message ListOfTestEquipmentModelDiffs {
+	repeated TestEquipmentModelDiff diffs = 1;
+}
+
+message ListOfTestEquipment {
+	repeated TestEquipment testEquipments = 1;
+}
+
+message TestEquipmentModel {
+	int64 id = 1;
+	string testEquipmentModelName = 2;
+	NullableString DriverProgramPath = 3;
+	NullableString CommunicationFilePath = 4;
+	NullableString ResultFilePath = 5;
+	NullableString StatusFilePath = 6;
+	Manufacturer Manufacturer = 7;
+	int64 Type = 8;
+	bool transferUser = 9;
+	bool transferAdapter = 10;
+	bool transferTransducer = 11;
+	bool askForIdent = 12;
+	bool transferCurves = 13;
+	bool useErrorCodes = 14;
+	bool askForSign = 15;
+	bool doLoseCheck = 16;
+	bool canDeleteMeasurements = 17;
+	bool confirmMeasurements = 18;
+	bool transferLocationPictures = 19;
+	bool transferNewLimits = 20;
+	bool transferAttributes = 21;
+	bool Alive = 22;
+	int32 dataGateVersion = 23;
+	ListOfTestEquipment testEquipments = 24;
+	bool useForRot = 25;
+	bool useForCtl = 26;
+	bool canUseQstStandard = 27;
+}
+
+message ListOfTestEquipmentModel {
+	repeated TestEquipmentModel testEquipmentModels = 1;
+}
+
+message ClassicTestLocation {
+	int64 locationId = 1;
+	int64 locationDirectoryId = 2;
+	NullableString treePath = 3;
+}
+
+message ClassicChkTestValue {
+	int64 id = 1;
+	int64 position = 2;
+	double valueUnit1 = 3;
+	double valueUnit2 = 4;
+}
+
+message ListOfClassicChkTestValue{
+	repeated ClassicChkTestValue classicChkTestValues = 1;
+}
+
+message ClassicMfuTestValue {
+	int64 id = 1;
+	int64 position = 2;
+	double valueUnit1 = 3;
+	double valueUnit2 = 4;
+}
+
+message ListOfClassicMfuTestValue{
+	repeated ClassicMfuTestValue classicMfuTestValues = 1;
+}
+
+message ToolModel{
+	int64 id = 1;
+	string description = 2;
+	int64 modelType = 3;
+	int64 class = 4;
+	Manufacturer manufacturer = 5;
+	NullableDouble minPower = 6;
+	NullableDouble maxPower = 7;
+	NullableDouble airPressure = 8;
+	HelperTableEntity toolType = 9;
+	double weight = 10;
+	NullableDouble batteryVoltage = 11;
+	NullableLong maxRotationSpeed = 12;
+	NullableDouble airConsumption = 13;
+	HelperTableEntity switchOff = 14;
+	HelperTableEntity driveSize = 15;
+	HelperTableEntity shutOff = 16;
+	HelperTableEntity driveType = 17;
+	HelperTableEntity constructionType = 18;
+	// picture
+	double cmLimit = 19;
+	double cmkLimit = 20;
+	bool alive = 21;
+}
+
+message ListOfToolModel{
+	repeated ToolModel toolModels = 1;
+}
+
+message ToolModelDiff {
+	int64 userId = 1;
+	string comment = 2;
+	ToolModel oldToolModel = 3;
+	ToolModel newToolModel = 4;
+}
+
+message ProcessControlCondition {
+	int64 id = 1;
+	Location location = 2;
+	double UpperMeasuringLimit = 3;
+	double LowerMeasuringLimit = 4;
+	double UpperInterventionLimit = 5;
+	double LowerInterventionLimit = 6;
+	TestLevelSet testLevelSet = 7;
+	int32 testLevelNumber = 8;
+	bool TestOperationActive = 9;
+	NullableDateTime StartDate = 10;
+	bool alive = 11;
+	ProcessControlTech processControlTech = 12;
+	NullableDateTime nextTestDate = 13;
+	NullableInt nextTestShift = 14;
+}
+
+message ListOfProcessControlCondition{
+	repeated ProcessControlCondition processControlConditions = 1;
+}
+
+message ProcessControlConditionDiff {
+	int64 userId = 1;
+	NullableString comment = 2;
+	ProcessControlCondition newCondition = 3;
+	ProcessControlCondition oldCondition = 4;
+}
+
+message ProcessControlTech {
+	oneof ProcessControlTechOneOf {
+		QstProcessControlTech qstProcessControlTech = 1;
+		// Todo: implement other Types;
+	}
+}
+
+message QstProcessControlTech {
+	int64 id = 1;
+	int64 processControlConditionId = 2;
+	int64 manufacturerId = 3;
+	int64 testMethod = 4;
+	Extension extension = 5;
+	bool alive = 6;
+	NullableLong qstAngleLimitMt = 7;
+	NullableDouble qstStartMeasurementPeak = 8;
+	NullableDouble qstStartAngleCountingPa = 9;
+	NullableDouble qstAngleForFurtherTurningPa = 10;
+	NullableDouble qstTargetAnglePa = 11;
+	NullableDouble qstStartMeasurementPa = 12;
+	NullableDouble qstAlarmTorquePa = 13;
+	NullableDouble qstAlarmAnglePa = 14;
+	NullableDouble qstMinimumTorqueMt = 15;
+	NullableDouble qstStartAngleMt = 16;
+	NullableDouble qstStartMeasurementMt = 17;
+	NullableDouble qstAlarmTorqueMt = 18;
+	NullableDouble qstAlarmAngleMt = 19;
+}
+
+message Extension {
+	int64 Id = 1;
+	NullableString Description = 2;
+	string InventoryNumber = 3;
+	double Length = 4;
+	double Bending = 5;
+	double FactorTorque = 6;
+	bool alive = 7;
+} 
+
+message ExtensionDiff {
+	int64 userId = 1;
+	string comment = 2;
+	Extension oldExtension = 3;
+	Extension newExtension = 4;
+}
+
+message ClassicProcessTest {
+	int64 id = 1;
+	DateTime timestamp = 2;
+	int32 numberOfTests = 3;
+	int64 controlledByUnitId = 4;
+	int64 unit1Id = 5;
+	double lowerLimitUnit1 = 6;
+	double nominalValueUnit1 = 7;
+	double upperLimitUnit1 = 8;
+	double lowerLimitUnit2 = 9;
+	double nominalValueUnit2 = 10;
+	double upperLimitUnit2 = 11;
+	double lowerInterventionLimitUnit1 = 12;
+	double upperInterventionLimitUnit1 = 13;
+	double lowerInterventionLimitUnit2 = 14;
+	double upperInterventionLimitUnit2 = 15;
+	int64 unit2Id = 16;
+	double testValueMinimum  = 17;
+	double testValueMaximum  = 18;
+	double average  = 19;
+	NullableDouble standardDeviation  = 20;
+	ClassicTestLocation testLocation = 21;
+	TestEquipment testEquipment = 22;
+	int64 result = 23;
+	int64 toleranceClassUnit1 = 24;
+	int64 toleranceClassUnit2 = 25;
+}
+
+message ListOfClassicProcessTest {
+	repeated ClassicProcessTest classicProcessTests = 1;
+}
+
+message ClassicProcessTestValue {
+	int64 id = 1;
+	int64 position = 2;
+	double valueUnit1 = 3;
+	double valueUnit2 = 4;
+}
+
+message ListOfClassicProcessTestValue{
+	repeated ClassicProcessTestValue classicProcessTestValues = 1;
+}
