@@ -11,7 +11,7 @@ service ToolModels {
 	rpc InsertToolModel(ListOfToolModelDiff) returns (ListOfToolModel);
 	rpc UpdateToolModel(ListOfToolModelDiff) returns (ListOfToolModel);
 	rpc GetReferencedToolLinks(Long) returns (ListOfToolReferenceLink);
-	rpc GetAllDeletedToolModels(NoParams) returns (ListOfToolModel);
+	rpc LoadDeletedToolModels(NoParams) returns (ListOfToolModel);
 }
 
 message ListOfToolModelDiff{

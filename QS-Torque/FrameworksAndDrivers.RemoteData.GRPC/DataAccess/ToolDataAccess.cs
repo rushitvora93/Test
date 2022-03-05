@@ -31,7 +31,6 @@ namespace FrameworksAndDrivers.RemoteData.GRPC.DataAccess
         LoadPictureForToolResponse LoadPictureForTool(LoadPictureForToolRequest request);
         ListOfTools LoadToolsForModel(Long modelId);
         ListOfToolModel LoadModelsWithAtLeasOneTool();
-        ListOfToolModel LoadDeletedModelsWithAtLeastOneTool();
     }
 
     public class ToolDataAccess: IToolData

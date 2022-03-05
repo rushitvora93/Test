@@ -121,15 +121,6 @@ namespace FrameworksAndDrivers.NetworkView.Services
             return Task.FromResult(listOfEntities);
         }
 
-        [Authorize(Policy = nameof(LoadDeletedModelsWithAtLeasOneTool))]
-        public override Task<ListOfToolModel> LoadDeletedModelsWithAtLeasOneTool(NoParams request, ServerCallContext context)
-        {
-            var entities = _toolUseCase.LoadDeletedModelsWithAtLeasOneTool();
-            var listOfEntities = new ListOfToolModel();
-            entities.ForEach(s => listOfEntities.ToolModels.Add(_mapper.DirectPropertyMapping(s)));
-            return Task.FromResult(listOfEntities);
-        }
-
         private ListOfTools GetListOfToolsFromTools(List<Server.Core.Entities.Tool> entities)
         {
             var listOfEntities = new ListOfTools();

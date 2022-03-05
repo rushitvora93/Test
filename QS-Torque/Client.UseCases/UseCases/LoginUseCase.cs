@@ -150,7 +150,7 @@ namespace Core.UseCases
             {
                 _guiInterface.ShowLicenseErrorMessage(e.Message);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 //TODO: Logging
                 _guiInterface.ShowGenericErrorMessage();

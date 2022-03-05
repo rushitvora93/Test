@@ -53,6 +53,24 @@ namespace FrameworksAndDrivers.NetworkView.Test.Services
                 comparer);
         }
 
+        [TestCaseSource(nameof(_gettingAllToolModelsTestData))]
+        public void GettingAllDeletedToolModelsReturnsDataFromUseCase(List<ToolModel> toolModels)
+        {
+            var useCase = new ToolModelUseCaseMock();
+            var networkView = new NetworkView.Services.ToolModelService(useCase);
+            useCase.GetAllDeletedToolModelsReturn= toolModels;
+
+            var comparer =
+                new Func<ToolModel, DtoTypes.ToolModel, bool>(
+                    (toolModel, dtoToolModel) =>
+                        EqualityChecker.CompareToolModelDtoWithToolModel(dtoToolModel, toolModel));
+
+            CheckerFunctions.CollectionAssertAreEquivalent(
+                toolModels,
+                networkView.LoadDeletedToolModels(new NoParams(), null).Result.ToolModels,
+                comparer);
+        }
+
         private static List<ListOfToolModelDiff> _insertingToolModelsTestData = new List<ListOfToolModelDiff>
         {
             new ListOfToolModelDiff
@@ -433,7 +451,7 @@ namespace FrameworksAndDrivers.NetworkView.Test.Services
                 return NextGetReferencedToolLinksReturn;
             }
 
-            public List<ToolModel> GetAllDeletedToolModels()
+            public List<ToolModel> LoadDeletedToolModels()
             {
                 return GetAllDeletedToolModelsReturn;
             }

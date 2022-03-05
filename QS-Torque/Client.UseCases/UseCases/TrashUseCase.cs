@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Client.UseCases.UseCases;
 using Core.Diffs;
 using Core.Entities;
-using Core.Entities.ReferenceLink;
 using log4net;
 
 namespace Core.UseCases
@@ -22,9 +21,7 @@ namespace Core.UseCases
         void UpdateLocation(Location location);
         void ShowLocation(Location location);
         void ShowDeletedExtensions(List<Extension> extensions);
-        void ShowDeletedModelsWithAtLeastOneTool(List<ToolModel> models);
-        void RestoreTool(Tool tool);
-        void RestoreExtension(Extension extension);
+        void ShowDeletedToolModels(List<ToolModel> toolModels);
     }
 
     public interface ITrashData
@@ -32,12 +29,7 @@ namespace Core.UseCases
         IEnumerable<Location> LoadDeletedLocations();
         List<LocationDirectory> LoadAllDirectories();
         List<Extension> LoadDeletedExtensions();
-        List<ToolModel> LoadDeletedModelsWithAtLeastOneTool();
         List<ToolModel> LoadDeletedToolModels();
-        List<LocationToolAssignmentReferenceLink> LoadLocationToolAssignmentLinksForToolId(ToolId id);
-        void RestoreTool(Tool tool, User user);
-        List<LocationReferenceLink> LoadReferencedLocations(ExtensionId id);
-        void RestoreExtension(Extension extension, User user);
     }
 
     public interface ITrashUseCase
@@ -49,6 +41,7 @@ namespace Core.UseCases
         void UpdateLocation(LocationDiff locationDiff);
         void LoadTreePathForLocations(List<Location> locations);
         void RestoreExtension(Extension extension);
+        void RestoreToolModels(ToolModel toolModel);
     }
 
     public class TrashUseCase : ITrashUseCase
@@ -135,19 +128,10 @@ namespace Core.UseCases
             _gui.ShowDeletedExtensions(extensions);
             #endregion
 
-            #region Tool Bind
-            Log.Info("LoadToolModels started");
-            var models = _dataAccess.LoadDeletedModelsWithAtLeastOneTool();
-            Log.Debug($"ShowDeletedModelsWithAtLeastOneTool call with List of ToolModels Size of {models?.Count}");
-            _gui.ShowDeletedModelsWithAtLeastOneTool(models);
-
-            Log.Info("LoadToolModels started");
+            #region Tool Model Bind
             var toolModels = _dataAccess.LoadDeletedToolModels();
-            //FillToolModelDescriptionCache(toolModels);
-
-            Log.Debug($"ShowToolModels call with List of ToolModels Size of {toolModels?.Count}");
-            //_gui.ShowToolModels(toolModels);
-
+            Log.Debug($"LoadExtensions call with List of Extensions with size of {toolModels?.Count}");
+            _gui.ShowDeletedExtensions(extensions);
             #endregion
         }
 
@@ -220,52 +204,6 @@ namespace Core.UseCases
             {
                 Log.Error("Exception in RestoreLocation", exception);
                 _gui.ShowRestoreLocationError();
-            }
-        }
-
-        public void RestoreExtension(Extension extension, IExtensionErrorGui errorHandler, IExtensionDependencyGui dependencyGui)
-        {
-            try
-            {
-                Log.Info("RestoreExtension started");
-
-                var references = _dataAccess.LoadReferencedLocations(extension.Id);
-                if (references != null && references.Count > 0)
-                {
-                    dependencyGui.ShowRemoveExtensionPreventingReferences(references);
-                    return;
-                }
-
-                _dataAccess.RestoreExtension(extension, _userGetter?.GetCurrentUser());
-                _gui.RestoreExtension(extension);
-                _notificationManager.SendSuccessNotification();
-            }
-            catch (Exception e)
-            {
-                errorHandler.ShowProblemRemoveExtension();
-                Log.Error("Error in RemoveExtension", e);
-            }
-        }
-
-        public virtual void RestoreTool(Tool tool, IToolGui active)
-        {
-            try
-            {
-                Log.Info($"Remove Tool started");
-                var references = _dataAccess.LoadLocationToolAssignmentLinksForToolId(tool.Id);
-                if (references != null && references.Count > 0)
-                {
-                    active.ShowRemoveToolPreventingReferences(references);
-                    return;
-                }
-                Log.Debug($"RemoveTool called with tool id{tool?.Id?.ToLong()}");
-                _dataAccess.RestoreTool(tool, _userGetter.GetCurrentUser());
-                _gui.RestoreTool(tool);
-                _notificationManager.SendSuccessNotification();
-            }
-            catch (Exception exception)
-            {
-                Log.Error("RemoveTool error", exception);
             }
         }
 
@@ -398,6 +336,22 @@ namespace Core.UseCases
                 _gui.ShowRestoreLocationError();
             }
         }
+        public void RestoreToolModels(ToolModel toolModel)
+        {
+            if (toolModel is null)
+            {
+                throw new ArgumentNullException("extension is null", nameof(toolModel));
+            }
+            try
+            {
+                Log.Info("Restore extension started");
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Exception in RestoreLocation", exception);
+                _gui.ShowRestoreLocationError();
+            }
+        }
     }
 
     public class TrashUseCaseHumbleAsyncRunner : ITrashUseCase
@@ -438,7 +392,10 @@ namespace Core.UseCases
         {
             Task.Run(() => _real.RestoreExtension(extension));
         }
-
+        public void RestoreToolModels(ToolModel toolModel)
+        {
+            Task.Run(() => _real.RestoreToolModels(toolModel));
+        }
         public void UpdateLocation(LocationDiff locationDiff)
         {
             Task.Run(() => _real.UpdateLocation(locationDiff));

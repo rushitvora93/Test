@@ -20,7 +20,7 @@ namespace FrameworksAndDrivers.RemoteData.GRPC.DataAccess
         ListOfToolModel UpdateToolModels(ListOfToolModelDiff toolModelDiffs);
         ListOfToolModel AddToolModel(ListOfToolModelDiff toolModelDiffs);
         ListOfToolReferenceLink GetReferencedToolLinks(Long toolModelId);
-        ListOfToolModel GetAllDeletedToolModels();
+        ListOfToolModel LoadDeletedToolModels();
     }
 
     public class ToolModelDataAccess: IToolModelData, IToolModelPictureData
@@ -39,6 +39,13 @@ namespace FrameworksAndDrivers.RemoteData.GRPC.DataAccess
         {
             var mapper = new Mapper();
             var result = GetClient().GetAllToolModels();
+            return result.ToolModels.Select(toolModelDto => mapper.DirectPropertyMapping(toolModelDto)).ToList();
+        }
+
+        public List<ToolModel> LoadDeletedToolModels()
+        {
+            var mapper = new Mapper();
+            var result = GetClient().LoadDeletedToolModels();
             return result.ToolModels.Select(toolModelDto => mapper.DirectPropertyMapping(toolModelDto)).ToList();
         }
 
