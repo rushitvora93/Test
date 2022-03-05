@@ -93,15 +93,6 @@ namespace Server.UseCases.Test.UseCases
             Assert.AreSame(expected, environment.Mocks.DataAccess.GetReferencedToolLinksReturn);
         }
 
-        [Test]
-        public void GettingAllDeletedToolModelsReturnsDataFromDataAccess()
-        {
-            var environment = new Environment();
-            var expected = new List<ToolModel>();
-            environment.Mocks.DataAccess.GetAllDeletedToolModelsReturn = expected;
-            Assert.AreSame(expected, environment.UseCase.LoadDeletedToolModels());
-        }
-
         public class ToolModelDataAccessMock: IToolModelDataAccess
         {
             public enum Functions
@@ -111,7 +102,7 @@ namespace Server.UseCases.Test.UseCases
                 UpdateToolModels,
                 GetReferencedToolLinks,
                 Commit,
-                GetAllDeletedToolModelsReturn
+                GetAllDeletedToolModels,
             }
 
             public void Commit()
@@ -146,9 +137,9 @@ namespace Server.UseCases.Test.UseCases
                 return GetReferencedToolLinksReturn;
             }
 
-            public List<ToolModel> LoadDeletedToolModels()
+            public List<ToolModel> GetAllDeletedToolModels()
             {
-                CallHistory.Add(Functions.GetAllDeletedToolModelsReturn);
+                CallHistory.Add(Functions.GetAllDeletedToolModels);
                 return GetAllDeletedToolModelsReturn;
             }
 

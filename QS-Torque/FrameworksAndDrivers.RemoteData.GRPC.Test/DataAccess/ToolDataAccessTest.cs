@@ -44,6 +44,9 @@ namespace FrameworksAndDrivers.RemoteData.GRPC.Test.DataAccess
         public ListOfToolModel LoadModelsWithAtLeasOneToolReturnValue { get; set; } = new ListOfToolModel();
         public bool LoadModelsWithAtLeasOneToolCalled { get; set; }
 
+        public bool LoadDeletedModelsWithAtLeasOneToolCalled { get; set; }
+        public ListOfToolModel LoadDeletedModelsWithAtLeasOneToolReturnValue { get; set; } = new ListOfToolModel();
+
         public ListOfTools LoadTools(LoadToolsRequest request)
         {
             LoadToolsParameter = request;
@@ -108,6 +111,12 @@ namespace FrameworksAndDrivers.RemoteData.GRPC.Test.DataAccess
         {
             LoadModelsWithAtLeasOneToolCalled = true;
             return LoadModelsWithAtLeasOneToolReturnValue;
+        }
+
+        public ListOfToolModel LoadDeletedModelsWithAtLeastOneTool()
+        {
+            LoadDeletedModelsWithAtLeasOneToolCalled = true;
+            return LoadDeletedModelsWithAtLeasOneToolReturnValue;
         }
     }
 

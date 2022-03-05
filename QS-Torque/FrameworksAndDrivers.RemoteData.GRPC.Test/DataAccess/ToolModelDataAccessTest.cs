@@ -61,21 +61,6 @@ namespace FrameworksAndDrivers.RemoteData.GRPC.Test.DataAccess
                     EqualityChecker.CompareToolModelWithToolModelDto(result, expected));
         }
 
-        [TestCaseSource(nameof(_loadToolModelsData))]
-        public void LoadingDeletedToolModelsGetsToolModelsFromClient(ListOfToolModel toolModelDtos)
-        {
-            var environment = new Environment();
-            environment.Mocks.toolModelClient.AllDeletedToolModels = toolModelDtos;
-
-            var result = environment.Data.LoadDeletedToolModels();
-
-            CheckerFunctions.CollectionAssertAreEquivalent(
-                toolModelDtos.ToolModels,
-                result,
-                (expected, result) =>
-                    EqualityChecker.CompareToolModelWithToolModelDto(result, expected));
-        }
-
         public class RemoveToolModelData
         {
             public User User;
@@ -406,19 +391,19 @@ namespace FrameworksAndDrivers.RemoteData.GRPC.Test.DataAccess
                 return NextGetReferencedToolLinksReturn;
             }
 
-            public ListOfToolModel LoadDeletedToolModels()
+            public ListOfToolModel GetAllDeletedToolModels()
             {
-                return AllDeletedToolModels;
+                return NextGetAllDeletedToolModelsReturn;
             }
 
             public DtoTypes.ListOfToolModel NextGetAllToolModelsReturn;
+            public DtoTypes.ListOfToolModel NextGetAllDeletedToolModelsReturn;
             public ListOfToolModelDiff LastUpdateToolModelsParameterToolModelDiffs;
             public ListOfToolModel NextUpdateToolModelsReturn = new ListOfToolModel();
             public ListOfToolModelDiff LastAddToolModelParameterToolModelDiffs;
             public ListOfToolModel NextAddToolModelReturn = new ListOfToolModel();
             public Long LastGetReferencedToolLinksParameterToolModelId;
             public ListOfToolReferenceLink NextGetReferencedToolLinksReturn = new ListOfToolReferenceLink();
-            public DtoTypes.ListOfToolModel AllDeletedToolModels;
         }
 
         private class Environment

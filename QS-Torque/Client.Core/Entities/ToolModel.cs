@@ -24,10 +24,10 @@ namespace Core.Entities
         {
         }
     }
-    
+
     public class ToolModel : IQstEquality<ToolModel>, IUpdate<ToolModel>, ICopy<ToolModel>
     {
-        public ToolModelId Id { get; set; }        
+        public ToolModelId Id { get; set; }
         public ToolModelDescription Description { get; set; }
         public AbstractToolType ModelType { get; set; }
         public ToolModelClass Class { get; set; }

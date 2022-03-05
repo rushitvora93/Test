@@ -68,5 +68,10 @@ namespace FrameworksAndDrivers.RemoteData.GRPC.Wrapper
         {
             return _toolClient.LoadModelsWithAtLeasOneTool(new NoParams());
         }
+
+        public ListOfToolModel LoadDeletedModelsWithAtLeastOneTool()
+        {
+            return _toolClient.LoadDeletedModelsWithAtLeasOneTool(new NoParams());
+        }
     }
 }

@@ -18,6 +18,7 @@ service ToolService {
 	rpc LoadPictureForTool(LoadPictureForToolRequest) returns (LoadPictureForToolResponse);
 	rpc LoadToolsForModel(Long) returns (ListOfTools);
 	rpc LoadModelsWithAtLeasOneTool(NoParams) returns (ListOfToolModel);
+	rpc LoadDeletedModelsWithAtLeasOneTool(NoParams) returns (ListOfToolModel);
 }
 
 message LoadToolsRequest {

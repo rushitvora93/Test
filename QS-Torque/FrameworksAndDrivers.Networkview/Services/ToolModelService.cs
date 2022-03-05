@@ -15,7 +15,6 @@ namespace FrameworksAndDrivers.NetworkView.Services
 {
     public class ToolModelService : global::ToolModelService.ToolModels.ToolModelsBase
     {
-        private readonly Mapper _mapper = new Mapper();
         public ToolModelService(IToolModelUseCase useCase)
         {
             _useCase = useCase;
@@ -26,6 +25,19 @@ namespace FrameworksAndDrivers.NetworkView.Services
         {
             var mapper = new Mapper();
             var toolModels = _useCase.GetAllToolModels();
+            var toolModelDtos = new ListOfToolModel();
+            foreach (var toolModel in toolModels)
+            {
+                toolModelDtos.ToolModels.Add(mapper.DirectPropertyMapping(toolModel));
+            }
+            return Task.FromResult(toolModelDtos);
+        }
+
+        [Authorize(Policy = nameof(GetAllDeletedToolModels))]
+        public override Task<ListOfToolModel> GetAllDeletedToolModels(NoParams request, ServerCallContext context)
+        {
+            var mapper = new Mapper();
+            var toolModels = _useCase.GetAllDeletedToolModels();
             var toolModelDtos = new ListOfToolModel();
             foreach (var toolModel in toolModels)
             {
@@ -94,14 +106,6 @@ namespace FrameworksAndDrivers.NetworkView.Services
             return Task.FromResult(result);
         }
 
-        [Authorize(Policy = nameof(LoadDeletedToolModels))]
-        public override Task<ListOfToolModel> LoadDeletedToolModels(NoParams request, ServerCallContext context)
-        {
-            var toolModels = _useCase.LoadDeletedToolModels();
-            var listOfToolModels = new ListOfToolModel();
-            toolModels.ForEach(s => listOfToolModels.ToolModels.Add(_mapper.DirectPropertyMapping(s)));
-            return Task.FromResult(listOfToolModels);
-        }
         private readonly IToolModelUseCase _useCase;
     }
 }

@@ -478,5 +478,18 @@ namespace FrameworksAndDrivers.DataAccess.DataAccess
             var toolHistory = new ToolHistory() { GLOBALHISTORYID = globalHistoryId };
             _dbContext.ToolHistories.Add(toolHistory);
         }
+
+        public List<ToolModel> LoadDeletedModelsWithAtLeasOneTool()
+        {
+            var entities = _dbContext.ToolModels
+               .Include(x => x.Tools.Where(t => t.ALIVE == false))
+               .Include(x => x.Manufacturer)
+               .Where(x => x.ALIVE == true && x.Tools.Any(t => t.ALIVE == false))
+               .ToList();
+
+            var toolModels = new List<ToolModel>();
+            entities.ForEach(x => toolModels.Add(_mapper.DirectPropertyMapping(x)));
+            return toolModels;
+        }
     }
 }

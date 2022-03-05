@@ -19,6 +19,7 @@ namespace Server.UseCases.UseCases
         Picture LoadPictureForTool(ToolId toolId, int requestFileType);
         List<Tool> LoadToolsForModel(ToolModelId toolModelId);
         List<ToolModel> LoadModelsWithAtLeasOneTool();
+        List<ToolModel> LoadDeletedModelsWithAtLeasOneTool();
     }
 
     public interface IToolDataAccess
@@ -33,6 +34,7 @@ namespace Server.UseCases.UseCases
         bool IsInventoryNumberUnique(string inventoryNumber);
         List<Tool> LoadToolsForModel(ToolModelId toolModelId);
         List<ToolModel> LoadModelsWithAtLeasOneTool();
+        List<ToolModel> LoadDeletedModelsWithAtLeasOneTool();
     }
 
     public class ToolUseCase : IToolUseCase
@@ -139,6 +141,11 @@ namespace Server.UseCases.UseCases
         public List<ToolModel> LoadModelsWithAtLeasOneTool()
         {
             return _toolDataAccess.LoadModelsWithAtLeasOneTool();
+        }
+
+        public List<ToolModel> LoadDeletedModelsWithAtLeasOneTool()
+        {
+            return _toolDataAccess.LoadDeletedModelsWithAtLeasOneTool();
         }
     }
 }

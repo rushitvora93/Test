@@ -22,7 +22,7 @@ namespace InterfaceAdapters.Models
                 RaisePropertyChanged();
             }
         }
-       
+        
         public string Description
         {
             get => Entity.Description?.ToDefaultString();

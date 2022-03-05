@@ -105,6 +105,11 @@ namespace Server.UseCases.Test.UseCases
             UpdateToolsWithHistoryParameter = toolDiff;
             return UpdateToolsWithHistoryReturnValue;
         }
+
+        public List<ToolModel> LoadDeletedModelsWithAtLeasOneTool()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class ToolUseCaseTest

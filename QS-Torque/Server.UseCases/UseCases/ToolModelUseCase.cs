@@ -11,7 +11,7 @@ namespace Server.UseCases.UseCases
         List<ToolModel> InsertToolModels(List<ToolModelDiff> toolModelDiffs);
         List<ToolModel> UpdateToolModels(List<ToolModelDiff> toolModelDiffs);
         List<ToolReferenceLink> GetReferencedToolLinks(ToolModelId toolModelId);
-        List<ToolModel> LoadDeletedToolModels();
+        List<ToolModel> GetAllDeletedToolModels();
     }
 
     public interface IToolModelDataAccess
@@ -21,7 +21,7 @@ namespace Server.UseCases.UseCases
         List<ToolModel> InsertToolModels(List<ToolModelDiff> toolModelDiffs);
         List<ToolModel> UpdateToolModels(List<ToolModelDiff> toolModelDiffs);
         List<ToolReferenceLink> GetReferencedToolLinks(ToolModelId toolModelId);
-        List<ToolModel> LoadDeletedToolModels();
+        List<ToolModel> GetAllDeletedToolModels();
     }
 
     public class ToolModelUseCase: IToolModelUseCase
@@ -54,10 +54,12 @@ namespace Server.UseCases.UseCases
         {
             return _dataAccess.GetReferencedToolLinks(toolModelId);
         }
-        public List<ToolModel> LoadDeletedToolModels()
+
+        public List<ToolModel> GetAllDeletedToolModels()
         {
-            return _dataAccess.LoadDeletedToolModels();
+            return _dataAccess.GetAllDeletedToolModels();
         }
+
         private readonly IToolModelDataAccess _dataAccess;
     }
 }
