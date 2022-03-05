@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:t="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View.Themes;assembly=FrameworksAndDrivers.Gui.Wpf">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/FrameworksAndDrivers.Gui.Wpf;component/View/Themes/QstColors.xaml"/>
+        <t:ThemeDictionary/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <t:ThemeDictionary x:Key="ApplicationThemeDictionaryKey"/>
+</ResourceDictionary>

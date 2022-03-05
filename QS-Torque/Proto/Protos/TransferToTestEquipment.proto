@@ -1,0 +1,64 @@
+﻿syntax = "proto3";
+import "BasicTypes.proto";
+import "DtoTypes.proto";
+
+option csharp_namespace = "TransferToTestEquipmentService";
+
+package TransferToTestEquipmentService;
+
+service TransferToTestEquipmentService {
+	rpc LoadLocationToolAssignmentsForTransfer(Long) returns (ListOfLocationToolAssignmentForTransfer);
+	rpc LoadProcessControlDataForTransfer(NoParams) returns (ListOfProcessControlDataForTransfer);
+	rpc InsertClassicChkTests(ListOfClassicChkTestWithLocalTimestamp) returns (NoParams);
+	rpc InsertClassicMfuTests(ListOfClassicMfuTestWithLocalTimestamp) returns (NoParams);
+}
+
+message LocationToolAssignmentForTransfer
+{
+	string LocationDescription = 1;
+	string LocationFreeFieldCategory = 2;
+	bool LocationFreeFieldDocumentation = 3;
+	int64 LocationId = 4;
+	string LocationNumber = 5;
+	int64 LocationToolAssignmentId = 6;
+	NullableDateTime TestRuleLastCheck = 7;	// Obsolete with QSTV8E-946
+	NullableDateTime TestRuleNextCheck = 8;	// Obsolete with QSTV8E-946
+	double TestRulePeriod = 9;				// Obsolete with QSTV8E-946
+	int64 TestRuleSamples = 10;				// Obsolete with QSTV8E-946
+	int64 ToolId = 11;
+	string ToolInventoryNumber = 12;
+	string ToolSerialNumber = 13;
+	string ToolUsageDescription = 14;
+	int64 ToolUsageId = 15;
+	int32 SampleNumber = 16;
+	Interval TestInterval = 17;
+	NullableDateTime LastTestDate = 18;
+	NullableDateTime NextTestDate = 19;
+	NullableInt NextTestDateShift = 20;
+}
+
+
+message ListOfLocationToolAssignmentForTransfer{
+	repeated LocationToolAssignmentForTransfer values = 1;
+}
+
+message ProcessControlDataForTransfer {
+	int64 locationId = 1;
+	string locationNumber = 2;
+	string locationDescription = 3;
+	int64 processControlConditionId = 4;
+	int64 processControlTechId = 5;
+	int64 testMethod = 6;
+	NullableDateTime lastTestDate = 7;
+	NullableDateTime nextTestDate = 8;
+	Interval testInterval = 9;
+	int32 sampleNumber = 10;
+	NullableDouble setPointTorque = 11;
+	NullableDouble minimumTorque = 12;
+	NullableDouble maximumTorque = 13;
+	NullableInt nextTestDateShift = 14;
+}
+
+message ListOfProcessControlDataForTransfer{
+	repeated ProcessControlDataForTransfer values = 1;
+}

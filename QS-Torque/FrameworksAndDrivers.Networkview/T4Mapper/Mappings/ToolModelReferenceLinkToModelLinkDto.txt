@@ -1,0 +1,9 @@
+﻿(Map Server.Core.Entities.ReferenceLink.ToolModelReferenceLink DtoTypes.ModelLink
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Id Id)
+		(DisplayName Model)		
+	)
+)

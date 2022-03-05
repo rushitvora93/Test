@@ -1,0 +1,6 @@
+﻿(Map DtoTypes.HelperTableEntity DriveType 
+	(Properties
+		(Value Value)
+		(ListId ListId)
+	)
+)

@@ -1,0 +1,214 @@
+﻿<UserControl x:Class="FrameworksAndDrivers.Gui.Wpf.View.RoutView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View"
+             xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+             xmlns:c="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="900" d:DesignWidth="1200">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/ButtonStyles.xaml"/>
+                <ResourceDictionary Source="Styles/TabStyles.xaml"/>
+                <ResourceDictionary Source="Styles/ListStyles.xaml"/>
+                <ResourceDictionary Source="Styles/SfDataGridStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    
+    <DockPanel>
+        <TabControl DockPanel.Dock="Top"
+                    Height="120">
+            <TabItem Header="Start"
+                     Height="30"
+                     Padding="10,0">
+                <StackPanel Orientation="Horizontal">
+                    <Button Width="70"
+                            Height="60"
+                            Margin="10,5"
+                            VerticalContentAlignment="Top"
+                            Style="{DynamicResource TransparentButtonStyle}">
+                        <StackPanel>
+                            <c:ThemeImage Source="pack://application:,,,/Resources;component/Icons/add.png"
+                                          Height="30"
+                                          Margin="0,0,0,2"/>
+                            <TextBlock Text="Route hinzufügen"
+                                       FontSize="10"
+                                       TextAlignment="Center"
+                                       TextWrapping="WrapWithOverflow"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Width="70"
+                            Height="60"
+                            Margin="10,5"
+                            VerticalContentAlignment="Top"
+                            Style="{DynamicResource TransparentButtonStyle}">
+                        <StackPanel>
+                            <c:ThemeImage Source="pack://application:,,,/Resources;component/Icons/delete.png"
+                                          Height="30"
+                                          Margin="0,0,0,2"/>
+                            <TextBlock Text="Route entfernen"
+                                       FontSize="10"
+                                       TextAlignment="Center"
+                                       TextWrapping="WrapWithOverflow"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Width="70"
+                            Height="60"
+                            Margin="10,5"
+                            VerticalContentAlignment="Top"
+                            Style="{DynamicResource TransparentButtonStyle}">
+                        <StackPanel>
+                            <c:ThemeImage Source="pack://application:,,,/Resources;component/Icons/save.png"
+                                          Height="30"
+                                          Margin="0,0,0,2"/>
+                            <TextBlock Text="Route speichern"
+                                       FontSize="10"
+                                       TextAlignment="Center"
+                                       TextWrapping="WrapWithOverflow"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Width="70"
+                            Height="60"
+                            Margin="10,5"
+                            VerticalContentAlignment="Top"
+                            Style="{DynamicResource TransparentButtonStyle}">
+                        <StackPanel>
+                            <c:ThemeImage Source="pack://application:,,,/Resources;component/Icons/copy-document.png"
+                                          Height="30"
+                                          Margin="0,0,0,2"/>
+                            <TextBlock Text="Route kopieren"
+                                       FontSize="10"
+                                       TextAlignment="Center"
+                                       TextWrapping="WrapWithOverflow"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Width="70"
+                            Height="60"
+                            Margin="10,5"
+                            VerticalContentAlignment="Top"
+                            Style="{DynamicResource TransparentButtonStyle}">
+                        <StackPanel>
+                            <c:ThemeImage Source="pack://application:,,,/Resources;component/Icons/allocate-tool.png"
+                                          Height="30"
+                                          Margin="0,0,0,2"/>
+                            <TextBlock Text="Schraubstellen verwalten"
+                                       FontSize="10"
+                                       TextAlignment="Center"
+                                       TextWrapping="WrapWithOverflow"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </TabItem>
+
+            <TabItem Header="Druck"
+                     Height="30"
+                     Padding="10,0">
+                <StackPanel Orientation="Horizontal">
+                    <Button Width="70"
+                            Height="60"
+                            Margin="10,5"
+                            VerticalContentAlignment="Top"
+                            Style="{DynamicResource TransparentButtonStyle}"
+                            Command="{Binding PrintListCommand}">
+                        <StackPanel>
+                            <c:ThemeImage Source="pack://application:,,,/Resources;component/Icons/printer.png"
+                                          Height="30"
+                                          Margin="0,0,0,2"/>
+                            <TextBlock Text="Liste drucken"
+                                       FontSize="10"
+                                       TextAlignment="Center"
+                                       TextWrapping="WrapWithOverflow"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Width="70"
+                            Height="60"
+                            Margin="10,5"
+                            VerticalContentAlignment="Top"
+                            Style="{DynamicResource TransparentButtonStyle}"
+                            Command="{Binding PrintListCommand}">
+                        <StackPanel>
+                            <c:ThemeImage Source="pack://application:,,,/Resources;component/Icons/export.png"
+                                          Height="30"
+                                          Margin="0,0,0,2"/>
+                            <TextBlock Text="Excel Export"
+                                        FontSize="10"
+                                        TextAlignment="Center"
+                                       TextWrapping="WrapWithOverflow"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+
+        <Grid Margin="0,10,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="3*" MinWidth="250"/>
+            </Grid.ColumnDefinitions>
+
+            <ListBox Grid.Column="0">
+                <ListBoxItem Content="Route 1"/>
+                <ListBoxItem Content="Route 2"/>
+                <ListBoxItem Content="Route 3"/>
+                <ListBoxItem Content="Route 4"/>
+                <ListBoxItem Content="Route 5" IsSelected="True"/>
+                <ListBoxItem Content="Route 6"/>
+                <ListBoxItem Content="Route 7"/>
+            </ListBox>
+
+            <GridSplitter Grid.Column="1"
+                          Width="2"
+                          HorizontalAlignment="Stretch"
+                          Margin="10,0"
+                          Background="{DynamicResource GridSplitterBackground}"/>
+
+            <DockPanel Grid.Column="2">
+                <Grid DockPanel.Dock="Top"
+                      Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0"
+                               Text="Name"/>
+                    <TextBox Grid.Column="2"
+                             Width="300"
+                             HorizontalAlignment="Left"
+                             Text="Route 5"/>
+                </Grid>
+                
+                <c:ExtendedSfDataGrid x:Name="DataGrid"
+                                      ColumnSizer="Auto"
+                                      AllowFiltering="True"
+                                      AllowResizingColumns="True"
+                                      FilterPopupStyle="{StaticResource GridFilterStyle}"
+                                      ItemsSource="{Binding List}" 
+                                      HeaderRowHeight="27">
+                    <c:ExtendedSfDataGrid.Columns>
+                        <syncfusion:GridNumericColumn HeaderText="Nr" MappingName="Item1" NumberDecimalDigits="0"/>
+                        <syncfusion:GridTextColumn HeaderText="Beschreibung" MappingName="Item2"/>
+                        <syncfusion:GridNumericColumn HeaderText="Seriennummer" MappingName="Item3" NumberDecimalDigits="0"/>
+                        <syncfusion:GridNumericColumn HeaderText="Inventarnummer" MappingName="Item4"  NumberDecimalDigits="0"/>
+                        <syncfusion:GridTextColumn HeaderText="Kategorie" MappingName="Item5"/>
+                        <syncfusion:GridNumericColumn HeaderText="Sollmoment" MappingName="Item6"/>
+                        <syncfusion:GridTextColumn HeaderText="Untere Toleranzgrenze" MappingName="Item7"/>
+                        <syncfusion:GridTextColumn HeaderText="Obere Toleranzgrenze" MappingName="Item8"/>
+                        <!--<syncfusion:GridTextColumn HeaderText="Einheit" MappingName="Item9"/>
+                        <syncfusion:GridNumericColumn HeaderText="Stichprobenumfang" MappingName="Item10"/>
+                        <syncfusion:GridNumericColumn HeaderText="Intervall" MappingName="Item11"/>-->
+                    </c:ExtendedSfDataGrid.Columns>
+                </c:ExtendedSfDataGrid>
+            </DockPanel>
+        </Grid>
+    </DockPanel>
+</UserControl>

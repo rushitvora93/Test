@@ -1,0 +1,12 @@
+﻿(Map DtoTypes.TestLevel Core.Entities.TestLevel
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Id Id)
+		(TestInterval TestInterval)
+		(SampleNumber SampleNumber)
+		(ConsiderWorkingCalendar ConsiderWorkingCalendar)
+		(IsActive IsActive)
+	)
+)

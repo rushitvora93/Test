@@ -1,0 +1,224 @@
+﻿<UserControl x:Class="FrameworksAndDrivers.Gui.Wpf.View.Controls.GlobalToolBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:local="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View.Controls"
+             xmlns:wpf="clr-namespace:NGettext.Wpf;assembly=NGettext.Wpf"
+             xmlns:view="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             MinWidth="1000"
+             d:DesignHeight="50" d:DesignWidth="1600">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/ButtonStyles.xaml"/>
+                <ResourceDictionary Source="../Styles/TextBoxStyles.xaml"/>
+                <ResourceDictionary Source="../Styles/LanguageSelectorComboBox.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <Grid Height="50"
+          Background="{DynamicResource HighlightBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <local:ThemeImage Grid.Column="0"
+                          Source="pack://application:,,,/Resources;component/Images/QST_Logo_White_WithTagline.png"
+                          Width="150"
+                          Margin="10,0"
+                          SwitchBlackWhiteWithDarkMode="False"/>
+
+        <StackPanel Grid.Column="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <ComboBox x:Name="_languageSelector"  
+                      Width="150"
+                      Height="50"
+                      BorderBrush="White"
+                      BorderThickness="1"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Center"
+                      SelectedIndex="0"
+                      SelectedItem="{Binding Language}"                      
+                      AutomationProperties.AutomationId="AI_GlobalToolbar_Language">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" 
+                                   RenderOptions.BitmapScalingMode="HighQuality" 
+                                   Width="50" 
+                                   Margin="3" 
+                                   AutomationProperties.AutomationId="AI_LoginView_Language">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding}" Value="de-DE">
+                                                <Setter Property="Source" Value="pack://application:,,,/Resources;component/Icons/germany.png"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding}" Value="en-US">
+                                                <Setter Property="Source" Value="pack://application:,,,/Resources;component/Icons/usa.png"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <TextBlock Grid.Column="1" 
+                                       HorizontalAlignment="Left" 
+                                       VerticalAlignment="Center"
+                                       Margin="5">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding}" Value="de-DE">
+                                                <Setter Property="Text" Value="Deutsch"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding}" Value="en-US">
+                                                <Setter Property="Text" Value="English"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+                <system:String>de-DE</system:String>
+                <system:String>en-US</system:String>
+            </ComboBox>
+
+
+            <Button Grid.Column="0"
+                    Width="25"
+                    Margin="8"
+                    Style="{DynamicResource TransparentButtonStyle}"
+                    VerticalAlignment="Center"
+                    Visibility="{Binding Source={x:Static view:HideUnusedPartsUtil.UnusedFunctionVisibility}}">
+                <Button.Content>
+                    <local:ThemeImage Source="pack://application:,,,/Resources;component/Icons/bell_white.png"
+                                      SwitchBlackWhiteWithDarkMode="False"/>
+                </Button.Content>
+            </Button>
+            <Button Grid.Column="0"
+                    Width="25"
+                    Height="25"
+                    Margin="8"
+                    Style="{DynamicResource TransparentButtonStyle}"
+                    Visibility="{Binding Source={x:Static view:HideUnusedPartsUtil.UnusedFunctionVisibility}}">
+                <Button.Content>
+                    <local:ThemeImage Source="pack://application:,,,/Resources;component/Icons/help_white.png"
+                                      SwitchBlackWhiteWithDarkMode="False"/>
+                </Button.Content>
+            </Button>
+            <ToggleButton x:Name="ButtonUser"
+                          Grid.Column="0"
+                          Width="25"
+                          Height="25"
+                          Margin="8"
+                          Style="{DynamicResource TransparentButtonStyle}"
+                          AutomationProperties.AutomationId="AI_GlobalToolbar_Settings">
+                <ToggleButton.Content>
+                    <local:ThemeImage Source="pack://application:,,,/Resources;component/Icons/settings_white.png"
+                                      SwitchBlackWhiteWithDarkMode="False"/>
+                </ToggleButton.Content>
+            </ToggleButton>
+            <Button Grid.Column="0"
+                    Width="25"
+                    Height="25"
+                    Margin="8,5,30,5"
+                    Style="{DynamicResource TransparentButtonStyle}"
+                    Click="ButtonLogout_Click"
+                    AutomationProperties.AutomationId="AI_GlobalToolbar_Logout">
+                <Button.Content>
+                    <local:ThemeImage Source="pack://application:,,,/Resources;component/Icons/power_white.png"
+                                      SwitchBlackWhiteWithDarkMode="False"/>
+                </Button.Content>
+            </Button>
+
+            <Popup PlacementTarget="{Binding ElementName=ButtonUser}"
+                   Placement="Relative"
+                   VerticalOffset="37.5"
+                   HorizontalOffset="-100"
+                   IsOpen="{Binding ElementName=ButtonUser, Path=IsChecked}"
+                   StaysOpen="False">
+                <Border BorderThickness="1" 
+                        BorderBrush="{DynamicResource SeperatedAreaBrush}">
+                    <StackPanel Background="{DynamicResource WindowBackgroundBrush}"
+                                Width="200">
+                        <Button Grid.Column="0"
+                                Content="{wpf:Gettext GlobalToolBar|Change database}"
+                                Style="{DynamicResource TransparentButtonStyle}"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left"
+                                Height="40"
+                                Padding="15,0"
+                                Visibility="{Binding Source={x:Static view:HideUnusedPartsUtil.UnusedFunctionVisibility}}"/>
+
+                        <Button Grid.Column="0"
+                                Content="{wpf:Gettext GlobalToolBar|User settings}"
+                                Style="{DynamicResource TransparentButtonStyle}"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left"
+                                Height="40"
+                                Padding="15,0"
+                                Click="ButtonOpenUserSettings_Click"
+                                Visibility="{Binding Source={x:Static view:HideUnusedPartsUtil.UnusedFunctionVisibility}}"/>
+
+                        <Button Grid.Column="0"
+                                Content="{wpf:Gettext GlobalToolBar|Settings}"
+                                Style="{DynamicResource TransparentButtonStyle}"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left"
+                                Height="40"
+                                Padding="15,0"
+                                Click="ButtonOpenSettings_Click"
+                                Visibility="{Binding Source={x:Static view:HideUnusedPartsUtil.UnusedFunctionVisibility}}"/>
+
+                        <Button Grid.Column="0"
+                                Content="{wpf:Gettext GlobalToolBar|About QS-Torque}"
+                                Style="{DynamicResource TransparentButtonStyle}"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left"
+                                Height="40"
+                                Padding="15,0"
+                                Click="ButtonAboutQst_Click"
+                                AutomationProperties.AutomationId="AI_GlobalToolbar_AboutQST"/>
+                    </StackPanel>
+                </Border>
+            </Popup>
+
+            <TextBox Width="300"
+                     Height="25"
+                     VerticalContentAlignment="Center"
+                     Margin="5,0"
+                     Background="White"
+                     Visibility="{Binding Source={x:Static view:HideUnusedPartsUtil.UnusedFunctionVisibility}}"/>
+            <Button Grid.Column="0"
+                    Width="25"
+                    Height="25"
+                    Margin="5,5,20,5"
+                    Style="{DynamicResource TransparentButtonStyle}"
+                    Visibility="{Binding Source={x:Static view:HideUnusedPartsUtil.UnusedFunctionVisibility}}">
+                <Button.Content>
+                    <local:ThemeImage Source="pack://application:,,,/Resources;component/Icons/loupe_white.png"
+                                      SwitchBlackWhiteWithDarkMode="False"/>
+                </Button.Content>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

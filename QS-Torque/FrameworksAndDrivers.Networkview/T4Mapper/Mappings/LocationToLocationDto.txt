@@ -1,0 +1,26 @@
+﻿(Map Server.Core.Entities.Location DtoTypes.Location
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Id Id)
+		(Number Number)
+		(Description Description)
+		(ParentDirectoryId ParentDirectoryId)
+		(ControlledBy ControlledBy)
+		(SetPoint1 SetPoint1)
+		(ToleranceClass1 ToleranceClass1)
+		(Minimum1 Minimum1)
+		(Maximum1 Maximum1)
+		(Threshold1 Threshold1)
+		(SetPoint2 SetPoint2)
+		(ToleranceClass2 ToleranceClass2)
+		(Minimum2 Minimum2)
+		(Maximum2 Maximum2)
+		(ConfigurableField1 ConfigurableField1)
+		(ConfigurableField2 ConfigurableField2)
+		(ConfigurableField3 ConfigurableField3)
+		(Alive Alive)
+		(Comment Comment)
+	)
+)

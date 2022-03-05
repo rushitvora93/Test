@@ -1,0 +1,20 @@
+﻿(Map DbEntities.CondRot Server.Core.Entities.LocationToolAssignment
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(LOCPOWID Id)
+		(TestLevelNumberMfu TestLevelNumberMfu)
+		(TestLevelNumberChk TestLevelNumberChk)
+		(EndOfLastTestPeriodMfu EndOfLastTestPeriodMfu)
+		(EndOfLastTestPeriodChk EndOfLastTestPeriodChk)
+		(EndOfLastTestPeriodShiftMfu EndOfLastTestPeriodShiftMfu)
+		(EndOfLastTestPeriodShiftChk EndOfLastTestPeriodShiftChk)
+		(NEXT_MFU NextTestDateMfu)
+		(NEXT_CHK NextTestDateChk)
+		(TESTSTART_MFU StartDateMfu)
+		(TESTSTART StartDateChk)
+		(PLANOK_MFU TestOperationActiveMfu)
+		(PLANOK TestOperationActiveChk)
+	)
+)

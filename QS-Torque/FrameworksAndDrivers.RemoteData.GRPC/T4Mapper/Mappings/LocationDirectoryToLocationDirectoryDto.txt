@@ -1,0 +1,10 @@
+﻿(Map LocationDirectory DtoTypes.LocationDirectory
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Id Id)
+		(Name Name)
+		(ParentId ParentId)
+	)
+)

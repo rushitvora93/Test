@@ -1,0 +1,12 @@
+﻿(Map DtoTypes.Picture Core.Entities.Picture
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Id SeqId)
+		(Nodeid NodeId)
+		(Nodeseqid NodeSeqId)
+		(FileName FileName)
+		(FileType FileType)
+	)
+)

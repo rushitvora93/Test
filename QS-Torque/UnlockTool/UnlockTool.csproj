@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <CodeAnalysisRuleSet>..\.sonarlint\qstv8csharp.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="..\.sonarlint\qstv8\CSharp\SonarLint.xml" Link="SonarLint.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\License.FramworksAndDrivers.DataAccess\License.FrameworksAndDrivers.DataAccess.csproj" />
+    <ProjectReference Include="..\License.Entities\License.Entities.csproj" />
+    <ProjectReference Include="..\License.UseCases\License.UseCases.csproj" />
+  </ItemGroup>
+
+</Project>

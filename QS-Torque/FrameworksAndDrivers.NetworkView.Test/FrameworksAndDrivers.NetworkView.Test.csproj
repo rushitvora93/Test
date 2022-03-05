@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0-windows</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+
+    <Platforms>AnyCPU;x86</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FrameworksAndDrivers.Networkview\FrameworksAndDrivers.NetworkView.csproj" />
+    <ProjectReference Include="..\Server.TestHelper\Server.TestHelper.csproj" />
+    <ProjectReference Include="..\Server.UseCases\Server.UseCases.csproj" />
+    <ProjectReference Include="..\TestHelper\TestHelper.csproj" />
+  </ItemGroup>
+
+</Project>

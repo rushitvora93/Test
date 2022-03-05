@@ -1,0 +1,60 @@
+﻿<Window x:Class="FrameworksAndDrivers.Gui.Wpf.View.Dialogs.LocationDirectoryNameRequestDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View.Dialogs"
+        xmlns:wpf="clr-namespace:NGettext.Wpf;assembly=NGettext.Wpf"
+        mc:Ignorable="d"
+        Title="{wpf:Gettext LocationDirectoryDialog|Location directory dialog}"
+        Height="150"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Width="400"
+        AutomationProperties.AutomationId="AI_AddMpFolderDialog">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/ButtonStyles.xaml" />
+                <ResourceDictionary Source="../Styles/TextBoxStyles.xaml" />
+                <ResourceDictionary Source="../Styles/TextBlockStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <DockPanel HorizontalAlignment="Stretch">
+        <StackPanel Orientation="Horizontal"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Right"
+                    DockPanel.Dock="Bottom">
+            <Button Content="{wpf:Gettext LocationDirectoryDialog|ok}" Style="{DynamicResource ButtonStyle}"
+                    Click="ButtonBase_OnClick"
+                    IsDefault="True"
+                    Height="25"
+                    Padding="10 5 10 5"
+                    Margin="5 5 5 5"
+                    AutomationProperties.AutomationId="AI_AddMpFolderDialog_Ok"/>
+            <Button Content="{wpf:Gettext LocationDirectoryDialog|cancel}" Style="{DynamicResource ButtonStyle}"
+                    x:Name="CancelButton"
+                    IsCancel="True"
+                    Click="CancelButton_OnClick"
+                    Height="25"
+                    Padding="10 5 10 5"
+                    Margin="10 5 10 5"
+                    AutomationProperties.AutomationId="AI_AddMpFolderDialog_Cancel"/>
+        </StackPanel>
+        <Grid Margin="5"
+              VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0"
+                       Text="{wpf:Gettext LocationDirectoryDialog|Directory name}"
+                       Margin="0 0 0 5"/>
+            <TextBox x:Name="DirectoryName" 
+                     Grid.Row="1"
+                     MaxLength="50"
+                     AutomationProperties.AutomationId="AI_AddMpFolderDialog_Folder"/>
+        </Grid>
+    </DockPanel>
+</Window>

@@ -1,0 +1,11 @@
+﻿(Map DtoTypes.LocationDirectory Server.Core.Entities.LocationDirectory
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Id Id)
+		(Name Name)
+		(ParentId ParentId)
+		(Alive Alive)
+	)
+)

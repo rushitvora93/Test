@@ -1,0 +1,31 @@
+﻿syntax = "proto3";
+import "BasicTypes.proto";
+import "DtoTypes.proto";
+
+option csharp_namespace = "StatusService";
+
+package StatusService;
+
+service StatusService {
+	rpc LoadStatus(NoParams) returns (ListOfStatus);
+	rpc GetStatusToolLinks(LongRequest) returns (ListOfToolReferenceLink); 
+	rpc InsertStatusWithHistory(InsertStatusWithHistoryRequest) returns (ListOfStatus);
+	rpc UpdateStatusWithHistory(UpdateStatusWithHistoryRequest) returns (ListOfStatus);
+}
+
+message ListOfStatus {
+	repeated Status status = 1;
+} 
+
+message ListOfStatusDiffs {
+	repeated StatusDiff statusDiff = 1;
+} 
+
+message InsertStatusWithHistoryRequest {
+	ListOfStatusDiffs statusDiffs = 1;
+	bool returnList = 2;
+}
+
+message UpdateStatusWithHistoryRequest {
+	ListOfStatusDiffs statusDiffs = 1;
+}

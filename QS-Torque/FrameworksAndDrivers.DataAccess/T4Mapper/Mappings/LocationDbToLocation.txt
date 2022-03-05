@@ -1,0 +1,27 @@
+﻿(Map DbEntities.Location Server.Core.Entities.Location
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(SEQID Id)
+		(USERID Number)
+		(NAME Description)
+		(TREEID ParentDirectoryId)
+		(CONTROL ControlledBy)
+		(TNOM SetPoint1)
+		(CLASSID ToleranceClass1)
+		(ToleranceClass1 ToleranceClass1)
+		(TMIN Minimum1)
+		(TMAX Maximum1)
+		(TSTART Threshold1)
+		(NOM2 SetPoint2)
+		(CLASSID2 ToleranceClass2) 
+		(ToleranceClass2 ToleranceClass2)
+		(MIN2 Minimum2)
+		(MAX2 Maximum2)
+		(KOST ConfigurableField1)
+		(KATEG ConfigurableField2)
+		(DOKU ConfigurableField3)
+		(ALIVE Alive) 
+	)
+)

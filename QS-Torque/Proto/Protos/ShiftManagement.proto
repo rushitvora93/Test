@@ -1,0 +1,12 @@
+﻿syntax = "proto3";
+import "BasicTypes.proto";
+import "DtoTypes.proto";
+
+option csharp_namespace = "ShiftManagementService";
+
+package ShiftManagements;
+
+service ShiftManagements {
+	rpc GetShiftManagement(NoParams) returns (ShiftManagement);
+	rpc SaveShiftManagement(ShiftManagementDiff) returns (NoParams);
+}

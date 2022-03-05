@@ -1,0 +1,11 @@
+﻿(Map Client.Core.Diffs.ShiftManagementDiff DtoTypes.ShiftManagementDiff
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Old Old)
+		(New New)
+		(User UserId)
+		(Comment Comment)
+	)
+)

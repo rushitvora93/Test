@@ -1,0 +1,13 @@
+﻿(Map DtoTypes.Extension Extension
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(Id Id)
+		(Description Description)
+		(Length Length)
+		(FactorTorque FactorTorque)
+		(Bending Bending)
+		(InventoryNumber InventoryNumber)
+	)
+)

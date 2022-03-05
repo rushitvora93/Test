@@ -1,0 +1,11 @@
+﻿(Map DbEntities.LocationDirectory Server.Core.Entities.LocationDirectory
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(LOCTREEID Id)
+		(NAME Name)
+		(PARENTID ParentId)
+		(STATUS Alive)
+	)
+)

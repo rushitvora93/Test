@@ -1,0 +1,11 @@
+﻿(Map DbEntities.WorkingCalendar Server.Core.Entities.WorkingCalendar
+	(Options
+		hasDefaultConstructor
+	)
+	(Properties
+		(SeqId Id)
+		(Name Name)
+		(FdSat AreSaturdaysFree)
+		(FdSun AreSundaysFree)
+	)
+)

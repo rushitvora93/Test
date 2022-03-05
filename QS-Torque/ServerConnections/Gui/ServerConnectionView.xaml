@@ -1,0 +1,351 @@
+﻿<Window x:Class="ServerConnections.Gui.ServerConnectionView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sf="http://schemas.syncfusion.com/wpf"
+        xmlns:sfBusyIndicator="clr-namespace:Syncfusion.Windows.Controls.Notification;assembly=Syncfusion.SfBusyIndicator.WPF"
+        xmlns:gui="clr-namespace:ServerConnections.Gui"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:wpf="clr-namespace:NGettext.Wpf;assembly=NGettext.Wpf"
+        xmlns:behavior="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View.Behaviors;assembly=FrameworksAndDrivers.Gui.Wpf"
+        xmlns:c="clr-namespace:FrameworksAndDrivers.Gui.Wpf.View.Controls;assembly=FrameworksAndDrivers.Gui.Wpf"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance gui:ServerConnectionViewModel, IsDesignTimeCreatable=False}"
+        Title="{wpf:Gettext Configure Server Connections}" Height="450" Width="800"
+        MinWidth="520" MinHeight="300">
+    <Window.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style x:Key="DisbledButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <i:Interaction.Behaviors>
+        <behavior:EventToCommandBehavior Event="Closing"
+                                          Command="{Binding AskForSavingCommand}"
+                                          PassArguments="True"/>
+    </i:Interaction.Behaviors>
+
+    <DockPanel LastChildFill="False">
+        <Border DockPanel.Dock="Top"
+                BorderBrush="Gray"
+                BorderThickness="0,0,0,4"
+                Margin="5">
+            <StackPanel Orientation="Horizontal">
+
+                <Button Grid.Column="0"
+                        Width="70"
+                        Height="60"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Command="{Binding AddConnectionCommand}">
+                    <StackPanel>
+                        <c:ThemeImage Source="pack://application:,,,/Resources;component/Icons/add.png"
+                                      Height="30"
+                                      SwitchBlackWhiteWithDarkMode="False"/>
+                        <TextBlock Text="{wpf:Gettext Add}"
+                                   TextAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Width="70"
+                        Height="60"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Command="{Binding RemoveConnectionCommand}" 
+                        Style="{DynamicResource DisbledButtonStyle}">
+                    <StackPanel>
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsEnabled, RelativeSource={RelativeSource AncestorType=Button}}" Value="False">
+                                        <Setter Property="Opacity" Value="0.3"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsEnabled, RelativeSource={RelativeSource AncestorType=Button}}" Value="True">
+                                        <Setter Property="Opacity" Value="1"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+
+                        <c:ThemeImage Source="pack://application:,,,/Resources;component/Icons/delete.png"
+                                      Height="30"
+                                      SwitchBlackWhiteWithDarkMode="False"/>
+                        <TextBlock Text="{wpf:Gettext Remove}"
+                                   TextAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Rectangle Width="1"
+                           Fill="LightGray"
+                           Margin="0,5"/>
+                <Button Width="70"
+                        Height="60"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Command="{Binding TestConnectionCommand}"
+                        Style="{DynamicResource DisbledButtonStyle}">
+                    <StackPanel>
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsEnabled, RelativeSource={RelativeSource AncestorType=Button}}" Value="False">
+                                        <Setter Property="Opacity" Value="0.3"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsEnabled, RelativeSource={RelativeSource AncestorType=Button}}" Value="True">
+                                        <Setter Property="Opacity" Value="1"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+
+                        <c:ThemeImage Source="pack://application:,,,/Resources;component/Icons/test-connection.png"
+                                      Height="30"
+                                      SwitchBlackWhiteWithDarkMode="False"/>
+                        <TextBlock Text="{wpf:Gettext Server Connections|Check}"
+                                   TextAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Rectangle Width="1"
+                                       Fill="LightGray"
+                                       Margin="0,5"/>
+                <Button Width="70"
+                        Height="60"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Command="{Binding SaveConnectionsCommand}">
+                    <StackPanel>
+                        <c:ThemeImage Source="pack://application:,,,/Resources;component/Icons/save.png"
+                                      Height="30"
+                                      SwitchBlackWhiteWithDarkMode="False"/>
+                        <TextBlock Text="{wpf:Gettext Save}"
+                                   TextAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Border>
+
+        <Grid DockPanel.Dock="Left">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <ListBox Grid.Row="0"
+                     Width="200"
+                     Margin="5"
+                     AlternationCount="2"
+                     ItemsSource="{Binding ConnectionListView}"
+                     SelectedItem="{Binding Path=SelectedConnection}">
+                <ListBox.Resources>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Style.Triggers>
+                            <Trigger Property="ItemsControl.AlternationIndex"  Value="0">
+                                <Setter Property="Background" Value="Transparent" />
+                            </Trigger>
+                            <Trigger Property="ItemsControl.AlternationIndex"  Value="1">
+                                <Setter Property="Background" Value="WhiteSmoke" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.Resources>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding ServerName}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=IsActive}" Value="True">
+                                            <Setter Property="FontWeight" Value="Bold"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=IsActive}" Value="False">
+                                            <Setter Property="FontWeight" Value="Normal"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Grid Grid.Row="1" 
+                  Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="50*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Command="{Binding MoveConnectionUpCommand}"
+                        Style="{DynamicResource DisbledButtonStyle}">
+                    <StackPanel>
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsEnabled, RelativeSource={RelativeSource AncestorType=Button}}" Value="False">
+                                        <Setter Property="Opacity" Value="0.3"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsEnabled, RelativeSource={RelativeSource AncestorType=Button}}" Value="True">
+                                        <Setter Property="Opacity" Value="1"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+
+                        <c:ThemeImage Source="pack://application:,,,/Resources;component/Icons/up-arrow.png"
+                                      Height="30"
+                                      SwitchBlackWhiteWithDarkMode="False"/>
+                        <TextBlock Text="Nach oben"
+                                   TextAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Grid.Column="1"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Command="{Binding MoveConnectionDownCommand}"
+                        Style="{DynamicResource DisbledButtonStyle}">
+                    <StackPanel>
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsEnabled, RelativeSource={RelativeSource AncestorType=Button}}" Value="False">
+                                        <Setter Property="Opacity" Value="0.3"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsEnabled, RelativeSource={RelativeSource AncestorType=Button}}" Value="True">
+                                        <Setter Property="Opacity" Value="1"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+
+                        <c:ThemeImage Source="pack://application:,,,/Resources;component/Icons/down-arrow.png"
+                                      Height="30"
+                                      SwitchBlackWhiteWithDarkMode="False"/>
+                        <TextBlock Text="Nach unten"
+                                   TextAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </Grid>
+
+
+        <sfBusyIndicator:SfBusyIndicator DockPanel.Dock="Bottom"
+                                         HorizontalAlignment="Right"
+                                         Width="50"
+                                         Height="50"
+                                         Margin="10"
+                                         AnimationType="Gear"
+                                         Foreground="Black"
+                                         IsBusy="{Binding IsBusy}"/>
+
+        <Grid DockPanel.Dock="Top" 
+              Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="419*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedConnection}" Value="{x:Null}">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+
+            <TextBlock Grid.Column="0"
+                       Grid.Row="0" 
+                       Text="{wpf:Gettext Server Name}"
+                       VerticalAlignment="Center" Margin="0,4"/>
+            <TextBlock Grid.Column="0"
+                       Grid.Row="1" 
+                       Text="{wpf:Gettext Host Name}"
+                       VerticalAlignment="Center" Margin="0,4"/>
+            <TextBlock Grid.Column="0"
+                       Grid.Row="2" 
+                       Text="{wpf:Gettext Technical term see TCP|Port}"
+                       VerticalAlignment="Center" Margin="0,5,0,4.6"/>
+            <TextBlock Grid.Column="0"
+                       Grid.Row="3" 
+                       Text="{wpf:Gettext Server Principal Name}"
+                       VerticalAlignment="Center" Margin="0,4.4,0,3.6"/>
+
+            <TextBox Grid.Column="2"
+                     Grid.Row="0"
+                     Margin="0.4,3,19.4,3"
+                     Text="{Binding Path=SelectedConnection.ServerName, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
+            <TextBox Grid.Column="2"
+                     Grid.Row="1"
+                     Margin="0.4,3,19.4,3"
+                     Text="{Binding Path=SelectedConnection.HostName, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
+            <!--NumberGroupSize means in which distances the points are in a number 12.345.678 
+                Width the NumberGroupSize=6 the point will not be visible, because the highest permited number is 65535-->
+            <sf:IntegerTextBox Grid.Column="2"
+                               Grid.Row="2"
+                               Margin="0.4,3,19.4,2.6"
+                               Value="{Binding Path=SelectedConnection.Port, UpdateSourceTrigger=PropertyChanged}"
+                               MaxValue="65535"
+                               NumberGroupSizes="6"
+                               Style="{StaticResource {x:Type TextBox}}" Grid.ColumnSpan="2"/>
+            <!--Max value of a uint16 = 2^16-->
+            <TextBox Grid.Column="2"
+                     Grid.Row="3"
+                     Margin="0.4,3.4,19.4,2.6"
+                     Text="{Binding Path=SelectedConnection.PrincipalName, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
+        </Grid>
+    </DockPanel>
+</Window>
