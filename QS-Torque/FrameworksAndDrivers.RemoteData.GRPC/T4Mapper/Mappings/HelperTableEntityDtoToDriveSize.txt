@@ -1,6 +1,0 @@
-﻿(Map DtoTypes.HelperTableEntity DriveSize 
-	(Properties
-		(Value Value)
-		(ListId ListId)
-	)
-)

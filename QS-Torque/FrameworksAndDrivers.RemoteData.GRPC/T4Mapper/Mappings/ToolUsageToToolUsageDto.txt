@@ -1,9 +1,0 @@
-﻿(Map ToolUsage DtoTypes.ToolUsage
-	(Options
-		hasDefaultConstructor
-	)
-	(Properties
-		(ListId Id)
-		(Value Description)
-	)
-)

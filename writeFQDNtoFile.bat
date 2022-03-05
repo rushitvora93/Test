@@ -1,1 +1,0 @@
-powershell [System.Net.Dns]::GetHostEntry([string]$env:computername).HostName > %1

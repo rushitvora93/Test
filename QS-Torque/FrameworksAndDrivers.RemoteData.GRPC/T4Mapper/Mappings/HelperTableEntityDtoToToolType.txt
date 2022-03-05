@@ -1,6 +1,0 @@
-﻿(Map DtoTypes.HelperTableEntity ToolType 
-	(Properties
-		(Value Value)
-		(ListId ListId)
-	)
-)

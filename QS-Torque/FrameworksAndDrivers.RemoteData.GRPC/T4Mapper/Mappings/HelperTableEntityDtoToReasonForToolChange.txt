@@ -1,6 +1,0 @@
-﻿(Map DtoTypes.HelperTableEntity ReasonForToolChange 
-	(Properties
-		(Value Value)
-		(ListId ListId)
-	)
-)

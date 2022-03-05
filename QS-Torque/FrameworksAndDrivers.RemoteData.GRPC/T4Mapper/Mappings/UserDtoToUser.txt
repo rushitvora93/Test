@@ -1,9 +1,0 @@
-﻿(Map DtoTypes.User User
-	(Options
-		hasDefaultConstructor
-	)
-	(Properties
-		(UserId UserId)
-		(UserName UserName)
-	)
-)

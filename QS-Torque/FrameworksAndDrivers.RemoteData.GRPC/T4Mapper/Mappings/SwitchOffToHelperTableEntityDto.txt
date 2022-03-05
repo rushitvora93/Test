@@ -1,9 +1,0 @@
-﻿(Map SwitchOff DtoTypes.HelperTableEntity 
-	(Options
-		hasDefaultConstructor
-	)
-	(Properties
-		(Value Value)
-		(ListId ListId)
-	)
-)
