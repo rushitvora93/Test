@@ -95,6 +95,7 @@ namespace InterfaceAdapters
         public void RestoreLocation(Location location)
         {
             InvokeActionOnGuiInterfaces(gui => gui.RestoreLocation(location));
+
         }
 
         public void ShowRestoreLocationError()
